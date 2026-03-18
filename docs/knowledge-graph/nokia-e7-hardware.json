@@ -1,0 +1,327 @@
+{
+  "_meta": {
+    "title": "Nokia E7-00 (RM-626) Hardware Knowledge Graph",
+    "version": "1.1.0",
+    "date": "2026-03-01",
+    "description": "Complete structured hardware knowledge graph extracted from service schematics, firmware RE, and NLoader analysis",
+    "changelog": [
+      {
+        "version": "1.1.0",
+        "date": "2026-03-01",
+        "changes": [
+          "Fix I2C bus mapping to Option A (N950 pattern)",
+          "Identify keyboard as LM8323 (was TCA8418)",
+          "Fix battery model BP-4L → BL-4D",
+          "Add TPA6130A2, LP5521, hall GPIO 26",
+          "Fix AK8974 GPIO 40/41 (was genio 13)",
+          "Add 10 confirmed GPIOs from cross-validation",
+          "Fix UART3 console ttyS2 → ttyS0",
+          "Update/close keyboard_controller open question"
+        ]
+      }
+    ],
+    "sources": [
+      "docs/hardware-lore.md",
+      "docs/i2c-bus-map.md",
+      "docs/gpio-map.md",
+      "docs/power-rails.md",
+      "docs/test-points.md",
+      "docs/firmware-strings-index.md",
+      "docs/nloader-analysis.md",
+      "docs/schematics/block-diagrams.md"
+    ],
+    "sub_files": {
+      "components": "components.json",
+      "buses": "buses.json",
+      "power_tree": "power-tree.json",
+      "gpio_map": "gpio-map.json",
+      "signals": "signals.json",
+      "flash_partitions": "flash-partitions.json",
+      "variants": "variants.json",
+      "connectors": "connectors.json"
+    },
+    "diagrams": {
+      "system_block": "diagrams/system-block.mmd",
+      "power_tree": "diagrams/power-tree.mmd",
+      "i2c_topology": "diagrams/i2c-topology.mmd",
+      "boot_sequence": "diagrams/boot-sequence.mmd"
+    },
+    "statistics": {
+      "total_components": 51,
+      "total_buses": 22,
+      "total_signals": 226,
+      "total_power_rails": 17,
+      "total_gpio_pins": 45,
+      "total_flash_partitions": 32,
+      "total_variant_positions": 9,
+      "total_connectors": 15,
+      "total_test_points": 10,
+      "total_antenna_connectors": 10
+    }
+  },
+
+  "device": {
+    "name": "Nokia E7-00",
+    "model": "RM-626",
+    "board_rev": "3EQ_08",
+    "board_photo_rev": "3EQ_07",
+    "schematic_version": "v1.0",
+    "schematic_date": "2010-11-18",
+    "form_factor": "Slide-out QWERTY, touchscreen",
+    "display": "4.0 inch AMOLED 640x360 capacitive touch",
+    "battery": "BL-4D 1200mAh 3.7V",
+    "original_os": "Symbian^3 (Anna/Belle upgrades)",
+    "nloader_build_date": "2012-07-27"
+  },
+
+  "soc": {
+    "name": "OMAP3630",
+    "manufacturer": "Texas Instruments",
+    "nokia_codename": "Gazoo",
+    "cores": [
+      {
+        "name": "Cortex-A8",
+        "type": "cpu",
+        "arch": "ARMv7-A",
+        "extensions": ["NEON SIMD 128-bit"],
+        "frequency_mhz": 1000,
+        "notes": "680MHz rated, OC to ~1GHz possible"
+      },
+      {
+        "name": "C64x+ DSP (IVA2.2)",
+        "type": "dsp",
+        "arch": "TMS320C64x+ VLIW 8-way",
+        "frequency_mhz": 520,
+        "sram": {"l1": "80KB", "l2": "64KB"}
+      },
+      {
+        "name": "PowerVR SGX530",
+        "type": "gpu",
+        "api": "OpenGL ES 2.0",
+        "frequency_mhz": 200
+      },
+      {
+        "name": "OMAP3 ISP",
+        "type": "isp",
+        "pipeline": ["CCDC", "Preview", "Resizer"]
+      },
+      {
+        "name": "Display Subsystem (DSS/DISPC)",
+        "type": "display",
+        "notes": "May relay to BCM2727 for AMOLED drive"
+      },
+      {
+        "name": "SDMA",
+        "type": "dma",
+        "channels": 32
+      }
+    ],
+    "memory": {
+      "type": "LPDDR (PoP)",
+      "size_mb": 256,
+      "chip": "Samsung K5W8G1GACK-AL56",
+      "notes": "Stacked on SoC package"
+    },
+    "on_chip_sram": {
+      "size_kb": 64,
+      "base_address": "0x40200000",
+      "access_cycles": 3
+    },
+    "base_crystal_mhz": 38.4,
+    "base_addresses": {
+      "l4_core": "0x48000000",
+      "l4_per": "0x49000000",
+      "l4_wkup": "0x48300000",
+      "l3": "0x68000000",
+      "sdrc": "0x6D000000",
+      "gpmc": "0x6E000000",
+      "sram": "0x40200000"
+    }
+  },
+
+  "component_summary": {
+    "socs": ["omap3630", "bcm2727", "rapuyama"],
+    "pmic": ["twl5031"],
+    "sensors": ["lis302dl_1", "lis302dl_2", "adxl340", "ak8974", "ami305", "atmel_mxt", "apds99xx", "hall_sensor"],
+    "io": ["lm8323"],
+    "nfc": ["pn544"],
+    "wireless": ["wl1273", "gps_module", "aura", "ukko", "qubbe"],
+    "chargers": ["bq2415x", "smb338", "smb138", "usb_charger_smps"],
+    "display": ["messi16", "led_driver_3ch", "lp5521", "privacy_led"],
+    "cameras": ["tcm8590md", "acmemini", "cmnk8en00f"],
+    "audio": ["headphone_amp_generic", "tpa6130a2", "ihf_amplifier", "analog_switch", "digital_mic_1", "digital_mic_2"],
+    "regulators": ["vcam_1v8_reg", "vcam_2v8_reg", "vmem2_reg", "vio_emmc_switch", "vhdmi_reg"],
+    "storage": ["emmc", "combo_memory"],
+    "clocks": ["clk_buffer_32k", "tcxo_38m4", "crystal_19m2", "crystal_32k"],
+    "connectors_ics": ["usb_ulpi", "sim_connector", "camera_flash", "hw_reset_delay"]
+  },
+
+  "bus_summary": {
+    "i2c": {
+      "i2c0": {
+        "omap_name": "I2C3",
+        "base": "0x48060000",
+        "function": "Sensors + touch + NFC",
+        "device_count": 7,
+        "frequency_hz": 400000
+      },
+      "i2c1": {
+        "omap_name": "I2C2",
+        "base": "0x48072000",
+        "function": "GPS module",
+        "device_count": 1,
+        "frequency_hz": 100000
+      },
+      "i2c2": {
+        "omap_name": "I2C1",
+        "base": "0x48070000",
+        "function": "PMIC + charger + LED driver",
+        "device_count": 10,
+        "frequency_hz": 400000
+      },
+      "i2c_cam_pri": {"function": "Primary camera + flash", "master": "BCM2727"},
+      "i2c_cam_sec": {"function": "Secondary camera", "master": "BCM2727"},
+      "hdmi_ddc": {"function": "HDMI DDC/CEC", "master": "MESSI-16"}
+    },
+    "spi": {"spi_a": {"function": "WL1273 WLAN", "confirmed": true}},
+    "uart": {
+      "uart_bt": {"function": "WL1273 Bluetooth", "baud": 115200, "protocol": "H4+"},
+      "uart3": {"function": "Kernel console (ttyS0)", "baud": 115200}
+    },
+    "high_speed": {
+      "ccp2_mphi": {"function": "BCM2727 ↔ RAPUYAMA", "bandwidth": "650 Mbps"},
+      "dsi1": {"function": "BCM2727 → AMOLED display", "mode": "command"},
+      "csi2": {"function": "Main camera → BCM2727", "lanes": 2},
+      "ccp_sec": {"function": "BCM2727 → secondary camera", "lanes": 1}
+    },
+    "memory": {
+      "mmc1": {"function": "Combo memory D3000"},
+      "mmc2": {"function": "eMMC D2800 16GB"}
+    },
+    "usb": {"ulpi": {"function": "USB OTG via N3300 transceiver"}},
+    "nokia_proprietary": ["cbus", "rfconv", "rfctrl", "messi_ssi", "pusl"]
+  },
+
+  "power_summary": {
+    "battery": {"voltage": 3.7, "capacity_mah": 1200, "connector": "X2070"},
+    "smps_rails": {
+      "vcore": {"voltage": 1.2, "consumers": "RAPUYAMA core, BCM2727 core", "smartreflex": true},
+      "vio": {"voltage": 1.8, "consumers": "All digital IO, sensors, wireless"}
+    },
+    "ldo_rails": {
+      "vaux1": {"voltage": 2.78, "consumers": "Touch, ALS/prox, cameras, LEDs"},
+      "vaux2": {"voltage": 2.5, "consumers": "Accelerometer, combo memory"},
+      "vout": {"voltage": 2.5, "consumers": "BCM2727 DAC/IO, display"},
+      "vrfc": {"voltage": 1.8, "consumers": "RAPUYAMA RF analog"},
+      "vr1": {"voltage": 2.5, "consumers": "Headphone amp, audio, AURA ref"},
+      "vdigimic": {"voltage": 1.8, "consumers": "Digital mics, magnetometer AVDD"},
+      "vsim": {"voltage_options": [1.8, 3.0], "consumers": "SIM card"}
+    },
+    "external_regulators": {
+      "vcam_1v8": {"voltage": 1.8, "type": "boost", "enable": "GPIO18"},
+      "vcam_2v8": {"voltage": 2.8, "type": "ldo", "enable": "GPIO19"},
+      "vmem2": {"voltage": 1.8, "type": "boost", "consumers": "eMMC core"},
+      "vio_emmc": {"voltage": 1.8, "type": "switch", "enable": "genio17/23"},
+      "vhdmi_5v0": {"voltage": 5.0, "type": "boost", "enable": "genio Y13"}
+    }
+  },
+
+  "nokia_terminology": {
+    "PEARL": "TWL5031/TPS65950 PMIC (N2200)",
+    "Pearl-J": "TWL5031 silicon variant (ASIC name from NLoader)",
+    "Gazoo": "OMAP3630 VCore regulator domain",
+    "BOB": "WL1273 WiFi/BT/FM/GPS combo chip (N6300)",
+    "AURA": "Nokia custom RF transceiver (N7509)",
+    "UKKO": "High-band power amplifier (N7510)",
+    "QuBBE": "Low-band power amplifier (N7512)",
+    "ALLI": "RF routing/antenna switch module",
+    "RAPU": "Rapuyama silicon revision / SmartReflex domain",
+    "YAMA": "Rapuyama later silicon / VCore domain 2",
+    "Messi": "High-speed interconnect bus (SSI-based)",
+    "CBUS": "Nokia proprietary serial bus for PMIC control",
+    "GENIO": "General I/O — GPIO/pad mux configuration (encrypted)",
+    "FOP": "Frequency Operating Point",
+    "BSI": "Battery Size Indicator (resistor ID)",
+    "PURX": "Power-Up Reset (active-low signal)",
+    "SWD": "Software Download/Debug mode",
+    "ADL": "Application Download (service mode)",
+    "XTI": "External Trace Interface",
+    "SENNA_TORCH_ENABLE": "Camera torch LED enable from CMT modem",
+    "IVE": "Imaging/Video Engine (BCM2727 subsystem)",
+    "DVC": "Digital Video Core (BCM2727 host-side driver)"
+  },
+
+  "open_questions": [
+    {
+      "id": "modem_bus",
+      "question": "Rapuyama modem interface protocol — HSI vs USB",
+      "status": "open",
+      "notes": "Rapuyama confirmed, bus type TBD. Messi/SSI likely."
+    },
+    {
+      "id": "amoled_panel_ic",
+      "question": "AMOLED panel controller IC (DSI command mode)",
+      "status": "open",
+      "notes": "Likely Renesas R61505 or similar. BCM2727 IVE drives DSI."
+    },
+    {
+      "id": "keyboard_controller",
+      "question": "IO expander exact model — TCA8418 (0x34) or TCA6416 (0x20)?",
+      "status": "resolved",
+      "notes": "Drives 12x8 QWERTY matrix. Firmware has egpio.dll driver.",
+      "answer": "LM8323 confirmed by Symbian driver audit (Task 021)"
+    },
+    {
+      "id": "i2c_bus_mapping",
+      "question": "Exact OMAP-to-schematic I2C bus mapping",
+      "status": "partially_resolved",
+      "notes": "Option A (N950 pattern) used as working hypothesis. I2C_0→I2C3, I2C_1→I2C2, I2C_2→I2C1. Needs real hardware i2cdetect to confirm."
+    },
+    {
+      "id": "bcm2727_firmware",
+      "question": "BCM2727 firmware blob decryption/loading",
+      "status": "partial",
+      "notes": "VLL files at /Z:/vlls/bcm2727b1/ are ARC ELF. Transport is CCP2/MPHI."
+    },
+    {
+      "id": "genio_init",
+      "question": "GENIO_INIT pad mux table contents",
+      "status": "blocked",
+      "notes": "BB5 encrypted. Must capture UART boot log on real hardware."
+    },
+    {
+      "id": "gpmc_addresses",
+      "question": "OMAP3630 GPMC addresses (0x50xxxxxx) — BCM2727 or OneNAND?",
+      "status": "open"
+    },
+    {
+      "id": "lm8323_i2c_address",
+      "question": "LM8323 I2C address — 0x34 (DTS) vs 0x3B (LM8320 datasheet ADDR float) vs 0x45",
+      "status": "open",
+      "notes": "0x34 is used in DTS and QEMU model. Real hardware scan needed."
+    }
+  ],
+
+  "resolved_questions": [
+    {"question": "Camera sensor model", "answer": "Toshiba TCM8590MD (8MP main)", "source": "firmware_strings"},
+    {"question": "Battery management IC", "answer": "BQ2415x + SMB338 + SMB138 (only 1 populated)", "source": "nloader_re"},
+    {"question": "Touch controller IC", "answer": "Atmel mXT (mainline: atmel_mxt_ts)", "source": "firmware_strings"},
+    {"question": "OneNAND vs eMMC layout", "answer": "Full TOC extracted (34 partitions)", "source": "nloader_re"},
+    {"question": "WLAN bus type", "answer": "SPI-A (MCSPI), NOT SDIO", "source": "firmware_strings"},
+    {"question": "Bluetooth transport", "answer": "UART port 0, 115200 bps, H4+ protocol", "source": "firmware_strings"},
+    {"question": "BCM2727 firmware location", "answer": "/Z:/vlls/bcm2727b1/ (35 VLL ARC ELF files)", "source": "firmware_strings"},
+    {"question": "BCM2727 transport", "answer": "CCP2/MPHI SubLVDS 650 Mbps", "source": "firmware_strings"},
+    {"question": "Camera GPIO control", "answer": "BCM2727 firmware controls camera GPIO, not OMAP", "source": "firmware_strings"},
+    {"question": "Accelerometer count", "answer": "Dual LIS302DL at 0x1C and 0x1D", "source": "firmware_strings"},
+    {"question": "Keyboard controller IC", "answer": "LM8323 (National Semiconductor) — confirmed by Symbian driver audit (Task 021)", "source": "symbian_driver_audit"}
+  ],
+
+  "confidence_scale": {
+    "1.0": "Confirmed from multiple independent sources (schematic + firmware + NLoader)",
+    "0.9": "Confirmed from firmware or schematic, minor ambiguity",
+    "0.8": "High confidence from single strong source",
+    "0.7": "Likely correct but needs verification (e.g. I2C scan)",
+    "0.6": "Alternative BOM part — may not be on actual unit",
+    "0.5": "Inferred from datasheet defaults or cross-reference"
+  }
+}

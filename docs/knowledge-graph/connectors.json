@@ -1,0 +1,597 @@
+{
+  "metadata": {
+    "source": "schematics/block-diagrams.md, test-points.md",
+    "board_designator": "3EQ_07",
+    "schematic_reference": "3EQ_08 v1.0 (18.11.2010)",
+    "flex_boards": ["3ET_06a (QWERTY flex)", "3ES_06a (UI flex)"],
+    "generated": "2026-02-28"
+  },
+  "connectors": [
+    {
+      "id": "x1000",
+      "ref": "X1000",
+      "name": "QWERTY flex connector (main board side)",
+      "type": "flex_fpc",
+      "pin_count": 30,
+      "schematic_page": 8,
+      "mating_connector": "X2400",
+      "signals": [
+        "VIO",
+        "VAUX1",
+        "VDigiMic",
+        "VAUX2",
+        "I2C0SCL",
+        "I2C0SDA",
+        "KEYB_15_0",
+        "IVE3_10_0",
+        "SENSORS_15_0",
+        "DIG_AUDIO_20_0",
+        "LED_10_0",
+        "H_BRIDGE_5_0",
+        "IHF_SPKR_1_0",
+        "CAPTURE_KEY",
+        "Lock_key",
+        "Camera_SW_1",
+        "Hall_sensor_DET",
+        "mm_drdy",
+        "mm_int",
+        "Digi_mic_clk",
+        "Digi_mic_data",
+        "VIBRAP",
+        "VIBRAN",
+        "IHFP",
+        "IHFN",
+        "SetCurrKB",
+        "OVVLed",
+        "SetCurrD"
+      ],
+      "notes": "Carries power rails, I2C bus 0, keyboard matrix, sensors, audio, LED controls to QWERTY flex board"
+    },
+    {
+      "id": "x2400",
+      "ref": "X2400",
+      "name": "QWERTY flex connector (QWERTY board side)",
+      "type": "flex_fpc",
+      "pin_count": 30,
+      "schematic_page": 8,
+      "mating_connector": "X1000",
+      "signals": [
+        "VIO",
+        "VAUX1",
+        "VDigiMic",
+        "I2C0SCL",
+        "I2C0SDA",
+        "KEYB_15_0",
+        "DIG_AUDIO_20_0",
+        "LED_10_0",
+        "H_BRIDGE_5_0",
+        "IHF_SPKR_1_0"
+      ],
+      "notes": "QWERTY flex board side of the main board flex cable"
+    },
+    {
+      "id": "x8002",
+      "ref": "X8002",
+      "name": "UI flex connector (main board side)",
+      "type": "flex_fpc",
+      "pin_count": 50,
+      "schematic_page": 9,
+      "mating_connector": "X2500",
+      "signals": [
+        "VIO",
+        "VAUX1",
+        "VCAM_1V8",
+        "VCAM_2V8",
+        "VBAT",
+        "SEC_CAM_I2C_1_0",
+        "SEC_CAM_CCP_3_0",
+        "SEC_CAM_CLK",
+        "SEC_CAM_SHUTDOWN",
+        "DSI1_CLKP",
+        "DSI1_CLKN",
+        "DSI1_DP0",
+        "DSI1_DN0",
+        "TE0",
+        "DISP_RESET_N",
+        "LCD_99_0",
+        "SENSORS_15_0",
+        "PROX_INT",
+        "TOUCH_INT",
+        "TOUCH_RST",
+        "LED_10_0",
+        "KEYB_15_0",
+        "I2C0SCL",
+        "I2C0SDA",
+        "I2C2SCL",
+        "I2C2SDA",
+        "SleepClkBuf"
+      ],
+      "notes": "Main board to UI flex connector (50 pins). Carries DSI display, secondary camera CCP, touch, ALS, LED driver signals."
+    },
+    {
+      "id": "x2500",
+      "ref": "X2500",
+      "name": "UI flex connector (RAPUYAMA side / UI board side)",
+      "type": "flex_fpc",
+      "pin_count": 50,
+      "schematic_page": 9,
+      "mating_connector": "X8002",
+      "signals": [
+        "VIO",
+        "VAUX1",
+        "VCAM_1V8",
+        "VCAM_2V8",
+        "DSI1_CLKP",
+        "DSI1_CLKN",
+        "DSI1_DP0",
+        "DSI1_DN0",
+        "I2C0SCL",
+        "I2C0SDA",
+        "TOUCH_INT",
+        "TOUCH_RST",
+        "PROX_INT",
+        "LED1",
+        "LED2",
+        "LED3",
+        "I2C2SCL",
+        "I2C2SDA"
+      ],
+      "notes": "UI flex board receives all signals from main board, distributes to touch/ALS/display/camera/LEDs"
+    },
+    {
+      "id": "x8000",
+      "ref": "X8000",
+      "name": "Touch controller connector",
+      "type": "flex_fpc",
+      "pin_count": 10,
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "signals": [
+        "I2C0SCL",
+        "I2C0SDA",
+        "TOUCH_INT",
+        "TOUCH_RST",
+        "VIO"
+      ],
+      "connected_device": "Atmel mXT touch controller",
+      "notes": "10-pin connector to capacitive touch controller on UI flex"
+    },
+    {
+      "id": "x8001",
+      "ref": "X8001",
+      "name": "Display connector (AMOLED)",
+      "type": "flex_fpc",
+      "pin_count": 50,
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "signals": [
+        "DSI1_CLKP",
+        "DSI1_CLKN",
+        "DSI1_DP0",
+        "DSI1_DN0",
+        "TE",
+        "RES",
+        "VCAM_1V8",
+        "VCAM_2V8",
+        "VBAT",
+        "VIO",
+        "VAUX1"
+      ],
+      "display_specs": {
+        "type": "AMOLED",
+        "size_inches": 4.0,
+        "resolution": "640x360",
+        "interface": "MIPI DSI",
+        "mode": "command mode with TE sync"
+      },
+      "notes": "50-pin MIPI DSI display connector. DSI driven by BCM2727 IVE. Command mode with tearing effect (TE0) sync."
+    },
+    {
+      "id": "x1476",
+      "ref": "X1476",
+      "name": "Primary camera connector (8MP rear camera)",
+      "type": "board_to_board",
+      "schematic_page": 2,
+      "signals": [
+        "PRI_CAM_SDA",
+        "PRI_CAM_SCL",
+        "EXTCLK",
+        "CSI_DN0",
+        "CSI_DP0",
+        "CSI_CLKN",
+        "CSI_CLKP",
+        "CSI_DN1",
+        "CSI_DP1",
+        "VCAM_1V8",
+        "VCAM_2V8",
+        "DAC_2V5",
+        "GND"
+      ],
+      "pin_assignments": {
+        "4": "PRI_CAM_SDA",
+        "5": "PRI_CAM_SCL",
+        "6": "EXTCLK (33R series)",
+        "7": "VCAM_1V8"
+      },
+      "csi2_lanes": 2,
+      "connected_device": "Toshiba TCM8590MD (primary) / Capone Sharp or ST (alt)",
+      "notes": "CSI-2 2-lane + I2C interface. 4k7 pull-ups to VCAM_1V8 on SDA/SCL."
+    },
+    {
+      "id": "h8000",
+      "ref": "H8000",
+      "name": "Secondary camera connector (front-facing EDoF)",
+      "type": "board_to_board",
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "signals": [
+        "SEC_CAM_I2C_SDA",
+        "SEC_CAM_I2C_SCL",
+        "SEC_CAM_CLK",
+        "SEC_CAM_SHUTDOWN",
+        "CCP_CLKP",
+        "CCP_CLKN",
+        "CCP_DP",
+        "CCP_DN",
+        "VCAP",
+        "VDIG",
+        "VANA",
+        "VCAM_2V8",
+        "GND"
+      ],
+      "pin_assignments": {
+        "1": "GND",
+        "4": "GND",
+        "13": "GND",
+        "14": "GND",
+        "16": "GND"
+      },
+      "interface": "CCP (1-lane) + I2C",
+      "connected_device": "ACMEmini (primary) / Samsung CMNK8EN00F (alt)",
+      "power": {
+        "VCAP": "VCAM_1V8 (1.8V logic)",
+        "VDIG": "VIO (1.8V)",
+        "VANA": "VAUX1 (2.78V)"
+      },
+      "notes": "Front-facing secondary camera. CCP = Camera Connection Protocol (1 differential clock + 1 data lane). I2C routed via BCM2727 through R1487/R1488 (3k3 resistors)."
+    },
+    {
+      "id": "x1650",
+      "ref": "X1650",
+      "name": "HDMI connector",
+      "type": "hdmi_type_a",
+      "pin_count": 19,
+      "schematic_page": 3,
+      "signals": [
+        "TMDS_DATA0_P",
+        "TMDS_DATA0_N",
+        "TMDS_DATA1_P",
+        "TMDS_DATA1_N",
+        "TMDS_DATA2_P",
+        "TMDS_DATA2_N",
+        "TMDS_CLOCK_P",
+        "TMDS_CLOCK_N",
+        "CEC",
+        "SCL",
+        "SDA",
+        "5V_POWER",
+        "HPD",
+        "HDMI_CABLE_DET"
+      ],
+      "controller": "MESSI-16 (N1653) HDMI link controller",
+      "regulator": "N1654 boost (VBAT->5V), EN=RAPUYAMA genio Y13",
+      "notes": "Full HDMI Type A. HPD -> RAPUYAMA genio43 AA10. CABLE_DET -> RAPUYAMA genio24."
+    },
+    {
+      "id": "x3300",
+      "ref": "X3300",
+      "name": "Micro-USB connector",
+      "type": "micro_usb",
+      "schematic_page": 5,
+      "signals": [
+        "DP",
+        "DM",
+        "VBUS",
+        "ID"
+      ],
+      "esd_protection": ["D3300 ESD filter", "Z3301 TVS"],
+      "ulpi_transceiver": "N3300 USB module",
+      "notes": "Micro-USB 2.0 OTG. VBUS = 5V when cable connected. ULPI interface to RAPUYAMA."
+    },
+    {
+      "id": "z9700",
+      "ref": "Z9700",
+      "name": "SIM card connector",
+      "type": "sim_push_push",
+      "pin_count": 6,
+      "schematic_page": 6,
+      "signals": [
+        "IO",
+        "CLK",
+        "RST",
+        "VSIM",
+        "SIMDaC",
+        "SIMClkC",
+        "SIMRstC",
+        "SimDetX"
+      ],
+      "voltage": "1.8V or 3.0V (switched by SIM detect)",
+      "connected_device": "PEARL TWL5031 SIM interface",
+      "esd_filter": true,
+      "notes": "6-contact push-push SIM slot. SimDetX -> PEARL F9. VSIM = 1.8V or 3.0V selected by SIM type."
+    },
+    {
+      "id": "x2070",
+      "ref": "X2070",
+      "name": "Battery connector",
+      "type": "battery_4pin",
+      "schematic_page": 5,
+      "signals": [
+        "VBAT_plus",
+        "GND",
+        "BSI",
+        "ID"
+      ],
+      "alt_refs": ["J2070", "J2071"],
+      "nominal_voltage": "3.7V",
+      "connected_device": "PEARL TWL5031 (SenseP/SenseM via R2200 1-ohm)",
+      "notes": "BSI = Battery Size Indicator. Temp sense also routed to PEARL BTemp pin."
+    },
+    {
+      "id": "x2700",
+      "ref": "X2700",
+      "name": "3.5mm AV connector",
+      "type": "trrs_4pole",
+      "schematic_page": 6,
+      "signals": [
+        "XEarL",
+        "XEarR",
+        "HS_MIC",
+        "HS_GND",
+        "PLUG_DET",
+        "FMANT"
+      ],
+      "ring_assignment": "TRRS: Tip=Left, Ring1=Right, Ring2=GND, Sleeve=Mic",
+      "fm_antenna": true,
+      "notes": "4-pole TRRS. XEarL via L2000(3u3H). FM antenna uses headset cable. PLUG_DET -> PEARL. HS_EAR_L/R audio from N2000 headphone amp."
+    },
+    {
+      "id": "j1443",
+      "ref": "J1443",
+      "name": "BCM2727 GPIO40 connector",
+      "type": "test_pad_or_strap",
+      "schematic_page": 2,
+      "signals": ["GPIO40"],
+      "notes": "BCM2727 M2 GPIO40 termination/connector. Function unconfirmed."
+    },
+    {
+      "id": "j1445",
+      "ref": "J1445",
+      "name": "BCM2727 GPIO43 connector",
+      "type": "test_pad_or_strap",
+      "schematic_page": 2,
+      "signals": ["GPIO43"],
+      "notes": "BCM2727 M1 GPIO43 termination/connector. Function unconfirmed."
+    }
+  ],
+  "test_points": [
+    {
+      "ref": "VBUS_TP",
+      "label": "VBUS",
+      "voltage": "5.0V",
+      "location": "Top left, near USB micro connector",
+      "schematic_page": 11,
+      "notes": "USB bus power when cable connected"
+    },
+    {
+      "ref": "VBAT_TP",
+      "label": "VBAT",
+      "voltage": "3.7V",
+      "location": "Bottom left, near battery connector",
+      "schematic_page": 11,
+      "notes": "Main battery voltage rail"
+    },
+    {
+      "ref": "VIO_TP",
+      "label": "VIO",
+      "voltage": "1.8V",
+      "location": "Bottom left, adjacent to VBAT",
+      "schematic_page": 11,
+      "notes": "Main 1.8V digital IO rail from PEARL SMPS"
+    },
+    {
+      "ref": "VRFC_TP",
+      "label": "VRFC",
+      "voltage": "1.8V",
+      "location": "Top right, near RF section",
+      "schematic_page": 11,
+      "notes": "RAPUYAMA RF analog supply from PEARL LDO"
+    },
+    {
+      "ref": "VAUX1_TP",
+      "label": "VAUX1",
+      "voltage": "2.78V",
+      "location": "Center-bottom",
+      "schematic_page": 11,
+      "notes": "PEARL LDO, powers cameras/QWERTY LEDs/sensors"
+    },
+    {
+      "ref": "VAUX2_TP",
+      "label": "VAUX2",
+      "voltage": "2.5V",
+      "location": "Center",
+      "schematic_page": 11,
+      "notes": "PEARL LDO, powers accelerometer and combo memory reference"
+    },
+    {
+      "ref": "VCORE_TP",
+      "label": "VCORE",
+      "voltage": "1.2V",
+      "location": "Right side",
+      "schematic_page": 11,
+      "notes": "RAPUYAMA core supply from PEARL SMPS via L2340"
+    },
+    {
+      "ref": "VOUT_TP",
+      "label": "VOUT",
+      "voltage": "2.5V",
+      "location": "Center-bottom",
+      "schematic_page": 11,
+      "notes": "PEARL LDO for BCM2727 DAC and IO banks"
+    },
+    {
+      "ref": "VSIM_TP",
+      "label": "VSIM",
+      "voltage": "1.8V or 3.0V",
+      "location": "Center, near SIM slot",
+      "schematic_page": 11,
+      "notes": "SIM card supply, switched by SIM detect"
+    },
+    {
+      "ref": "J2832",
+      "label": "J2832",
+      "signal": "SleepClkBuf",
+      "voltage_pp": "200mV",
+      "frequency": "19.2MHz",
+      "oscilloscope_settings": "10us/div, 200mV/div",
+      "schematic_page": 11,
+      "notes": "Sleep clock test point. Note: documented as 19.2 MHz but SleepClk is 32.768 kHz — the 19.2 MHz measurement may be the TCXO output at this pad."
+    }
+  ],
+  "antenna_connectors": [
+    {
+      "ref": "X7401",
+      "type": "coax",
+      "function": "GSM Tx 850 MHz test connector",
+      "schematic_page": 10,
+      "reference_measurement": {
+        "center_mhz": 836.6,
+        "span_khz": 750,
+        "attenuation_db": 35
+      },
+      "notes": "Low-band GSM transmit test port"
+    },
+    {
+      "ref": "X7400",
+      "type": "coax",
+      "function": "WCDMA Tx BAND II test connector",
+      "schematic_page": 10,
+      "reference_measurement": {
+        "center_ghz": 1.880,
+        "span_mhz": 8,
+        "attenuation_db": 50
+      },
+      "notes": "High-band WCDMA transmit test port, Band II (1880 MHz)"
+    },
+    {
+      "ref": "X7402",
+      "type": "spring_contact",
+      "function": "High-band antenna spring",
+      "schematic_page": 10,
+      "bands": ["GSM 1800", "GSM 1900", "WCDMA Band I", "WCDMA Band II", "WCDMA Band IV"],
+      "connected_to": "HBAnt path from UKKO PA (N7510) via SAW Z7513",
+      "notes": "High-band RF spring contact to main PCB antenna"
+    },
+    {
+      "ref": "X7403",
+      "type": "spring_contact",
+      "function": "Low-band antenna spring",
+      "schematic_page": 10,
+      "bands": ["GSM 850", "GSM 900", "WCDMA Band V", "WCDMA Band VIII"],
+      "connected_to": "LBAnt path from QuBBE PA (N7512) via RFC1/RFC2/RFC3",
+      "notes": "Low-band RF spring contact to main PCB antenna"
+    },
+    {
+      "ref": "B6701",
+      "type": "spring_contact",
+      "function": "BT/WLAN antenna",
+      "schematic_page": 7,
+      "frequency_ghz": 2.4,
+      "connected_to": "Z6300 bandpass filter COM output",
+      "notes": "2.4 GHz Bluetooth and WLAN antenna spring contact"
+    },
+    {
+      "ref": "B6703",
+      "type": "spring_contact",
+      "function": "BT/WLAN antenna (diversity)",
+      "schematic_page": 7,
+      "frequency_ghz": 2.4,
+      "connected_to": "Z6300 bandpass filter ANT",
+      "notes": "BT/WLAN diversity antenna spring contact"
+    },
+    {
+      "ref": "N6700",
+      "type": "spring_contact",
+      "function": "GPS antenna",
+      "schematic_page": 7,
+      "frequency_mhz": 1575.42,
+      "connected_to": "Z6200 SAW filter -> GPS module N6200 LNA_IN",
+      "notes": "GPS L1 band antenna spring contact"
+    },
+    {
+      "ref": "N6701",
+      "type": "spring_contact",
+      "function": "GPS antenna",
+      "schematic_page": 7,
+      "frequency_mhz": 1575.42,
+      "connected_to": "Z6200 SAW filter",
+      "notes": "GPS L1 band antenna spring contact (secondary)"
+    },
+    {
+      "ref": "B6762",
+      "type": "spring_contact",
+      "function": "GPS antenna spring",
+      "schematic_page": 7,
+      "frequency_mhz": 1575.42,
+      "notes": "GPS passive spring contact"
+    },
+    {
+      "ref": "B6763",
+      "type": "spring_contact",
+      "function": "GPS antenna spring",
+      "schematic_page": 7,
+      "frequency_mhz": 1575.42,
+      "notes": "GPS passive spring contact"
+    }
+  ],
+  "rf_filters": [
+    {
+      "ref": "Z6200",
+      "type": "saw_filter",
+      "function": "GPS L1 band SAW filter",
+      "frequency_mhz": 1575.42,
+      "schematic_page": 7,
+      "notes": "GPS receive SAW filter between antenna springs and N6200 LNA_IN"
+    },
+    {
+      "ref": "Z6300",
+      "type": "bandpass_filter",
+      "function": "BT/WLAN 2.4 GHz bandpass",
+      "frequency_ghz": 2.4,
+      "schematic_page": 7,
+      "notes": "WL1273 BOB RF_PORT to BT/WLAN antenna springs"
+    },
+    {
+      "ref": "Z7513",
+      "type": "tx_saw_filter",
+      "function": "High-band TX filter",
+      "frequency_mhz": 1842.5,
+      "schematic_page": 10,
+      "notes": "TXHB -> R7544 -> Z7513 -> HBAnt spring"
+    },
+    {
+      "ref": "Z7518",
+      "type": "rx_saw_filter",
+      "function": "High-band RX SAW (multi-band)",
+      "schematic_page": 10,
+      "bands": [
+        "RX_HB_1800",
+        "BAND_II_1900_RX (x2)",
+        "BAND_I_IV_2100_RX (x2)",
+        "BAND_V_850_RX (x2)",
+        "BAND_VIII_900_RX (x2)"
+      ],
+      "notes": "Multi-band RX SAW filter for high-band receive"
+    }
+  ]
+}

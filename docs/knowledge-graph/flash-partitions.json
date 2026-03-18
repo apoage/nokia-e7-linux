@@ -1,0 +1,458 @@
+{
+  "metadata": {
+    "source": "nloader-analysis.md, firmware-strings-index.md Section 9",
+    "nloader_binary": "firmware-re/analysis/nloader.bin",
+    "nloader_offset_in_rofs": "0x144000",
+    "nloader_size_bytes": 188416,
+    "toc_location": "0x140000",
+    "generated": "2026-02-28"
+  },
+  "flash_type": "MuxOneNAND",
+  "flash_interface": "OneNAND (CS0), configured by NLoader at boot",
+  "bml_layer": "Block Management Layer (BML) for wear leveling",
+  "stl_layer": "Sector Translation Layer (STL) for PMM data",
+  "security": {
+    "chain": "BB5",
+    "description": "Every loaded image is authenticated via BB5 public key chain before execution",
+    "public_keys_partition": "PAPUBKEYS",
+    "encrypted_partitions": ["GENIO_INIT", "SOS+IVE3A", "SOS+IVE3B"],
+    "factory_only_partitions": ["SOS+IVE3B"],
+    "note_2026_03_01": "TOC offsets corrected from full 32-bit decode. SOS+IVE3A/B confirmed BB5-encrypted (entropy 7.99/8.0). SOS+IVE3B not in firmware update FPSXs.",
+    "auth_string": "Authentication OK : %s",
+    "fail_string": "Authentication fail : %s (reason: %d)"
+  },
+  "emmc": {
+    "chip": "Samsung KLAGE8HM-B001",
+    "size_gb": 16,
+    "filesystem": "FAT32",
+    "oem_name": "fsim5.74",
+    "contents": [
+      "Nokia Suite webinstaller (Nokia_Suite_webinstaller_ALL.exe)",
+      "Map/POI database (central European navigation data)",
+      "Sample media files (MKV, MP4)"
+    ],
+    "notes": "Separate from OneNAND. Acts as mass storage USB device."
+  },
+  "lpddr": {
+    "chip": "Samsung K5W8G1GACK-AL56",
+    "size_mb": 256,
+    "interface": "LPDDR",
+    "notes": "Configured by ROM bootloader. NLoader does NOT re-configure SDRC."
+  },
+  "combo_memory": {
+    "chip": "D3000",
+    "description": "Stacked on top of RAPUYAMA physically",
+    "lpddr_mb": 256,
+    "nand_mb": 1024,
+    "interface": "MMC1 (RAPUYAMA internal)"
+  },
+  "nand_toc": [
+    {
+      "name": "SWBL",
+      "alt_name": "SWBL31",
+      "flash_offset": "0x0800",
+      "size": "0x2200",
+      "size_bytes": 8704,
+      "description": "Secondary Boot Loader stage 31",
+      "type": "bootloader",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Loaded by ROM bootloader from NAND. Minimal init, loads PRIMAPP."
+    },
+    {
+      "name": "ADA",
+      "flash_offset": "0x2A00",
+      "size": "0x0600",
+      "size_bytes": 1536,
+      "description": "ADA configuration block",
+      "type": "config",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Purpose not fully documented"
+    },
+    {
+      "name": "KEYS",
+      "flash_offset": "negative_large_offset",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "Security keys",
+      "type": "security",
+      "authenticated": true,
+      "encrypted": true,
+      "notes": "Negative offset indicates end-of-flash placement in Nokia TOC format"
+    },
+    {
+      "name": "R&D",
+      "flash_offset": "0x3000",
+      "size": "0x0C00",
+      "size_bytes": 3072,
+      "description": "R&D flags and configuration",
+      "type": "config",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "R&D mode flag: 'R&D : ROFS check disabled' — disables image auth in R&D mode"
+    },
+    {
+      "name": "PRIMAPP",
+      "flash_offset": "0x4000",
+      "size": "0x20000",
+      "size_bytes": 131072,
+      "description": "Primary application — NLoader itself",
+      "type": "bootloader",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "128KB ARM Thumb code. Performs hardware detection, PMIC init, clock config, image load."
+    },
+    {
+      "name": "RAP3NAND",
+      "flash_offset": "0x24000",
+      "size": "0x2C000",
+      "size_bytes": 180224,
+      "description": "Rapuyama NAND access driver",
+      "type": "driver",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "NAND flash block management layer for RAPUYAMA modem"
+    },
+    {
+      "name": "SOS+PMML",
+      "flash_offset": "0x50000",
+      "size": "0xC000",
+      "size_bytes": 49152,
+      "description": "Symbian OS Platform MobileLayer (PMM Loader)",
+      "type": "os_component",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Nokia codename: SOS = Symbian OS. PMM = Post Mortem Memory layer."
+    },
+    {
+      "name": "SOS+DECOMP",
+      "flash_offset": "0x64000",
+      "size": "0x1F000",
+      "size_bytes": 126976,
+      "description": "OS decompressor engine",
+      "type": "os_component",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "zlib-based decompressor for compressed ROFS images. zlib 1.2.1.f-Nokia-mods-v2."
+    },
+    {
+      "name": "PASUBTOC",
+      "flash_offset": "0x83000",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "Platform Authentication Sub-TOC",
+      "type": "security",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Sub-table of contents for platform authentication"
+    },
+    {
+      "name": "PAPUBKEYS",
+      "flash_offset": "0x84000",
+      "size": "0x43A0",
+      "size_bytes": 17312,
+      "description": "BB5 public keys for image authentication",
+      "type": "security",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Public key store used to verify BB5 signatures on all other partitions"
+    },
+    {
+      "name": "GENIO_INIT",
+      "flash_offset": "0x01200000",
+      "size": "0x19CDC",
+      "size_bytes": 105692,
+      "description": "GPIO and pad mux initialization table",
+      "type": "hardware_config",
+      "authenticated": true,
+      "encrypted": true,
+      "notes": "ENCRYPTED (BB5 signed). Contains (address, value) pairs applied to OMAP3630 pad mux registers at boot. NLoader decrypts at runtime. entropy=7.99/8.0 (fully encrypted). Not recoverable without BB5 private keys."
+    },
+    {
+      "name": "SOS+IVE3A",
+      "flash_offset": "0x01238000",
+      "size": "0x28000",
+      "size_bytes": 163840,
+      "description": "BCM2727 IVE firmware stage 1 boot loader",
+      "type": "firmware",
+      "authenticated": true,
+      "encrypted": true,
+      "notes": "BB5-ENCRYPTED (entropy 7.99/8.0). Extracted to firmware-re/bcm2727/sos-ive3a.bin. Cannot be decrypted without hardware security keys."
+    },
+    {
+      "name": "SOS+IVE3B",
+      "flash_offset": "0x000C0000",
+      "size": "0x1FFD51",
+      "size_bytes": 2096465,
+      "description": "BCM2727 IVE main firmware (~2MB)",
+      "type": "firmware",
+      "authenticated": true,
+      "encrypted": true,
+      "notes": "Main BCM2727 VideoCore III firmware (Nucleus PLUS RTOS). NOT included in firmware update FPSX files — factory-programmed only. Empty in rofs.img extraction."
+    },
+    {
+      "name": "SOS*UPDAPP",
+      "flash_offset": "negative_offset",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "Updater application",
+      "type": "application",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Firmware update handler. '*' prefix = optional/conditional partition."
+    },
+    {
+      "name": "NPC",
+      "flash_offset": "negative_offset",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "NPC configuration",
+      "type": "config",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Nokia Product Configuration"
+    },
+    {
+      "name": "CCC",
+      "flash_offset": "negative_offset",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "CCC configuration",
+      "type": "config",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Customer Care Center configuration"
+    },
+    {
+      "name": "HWC",
+      "flash_offset": "negative_offset",
+      "size": "0x1000",
+      "size_bytes": 4096,
+      "description": "Hardware configuration",
+      "type": "config",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Hardware variant configuration block"
+    },
+    {
+      "name": "PARTNERC",
+      "flash_offset": "negative_offset",
+      "size": "0x40000",
+      "size_bytes": 262144,
+      "description": "Partner certificate",
+      "type": "security",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Operator/partner certificate (256KB)"
+    },
+    {
+      "name": "SUSD1",
+      "flash_offset": "negative_offset",
+      "size": "0x40000",
+      "size_bytes": 262144,
+      "description": "SUSD data block 1",
+      "type": "data",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Nokia SUSD (Software Update Slot Data) 1"
+    },
+    {
+      "name": "SUSD2",
+      "flash_offset": "negative_offset",
+      "size": "0x40000",
+      "size_bytes": 262144,
+      "description": "SUSD data block 2",
+      "type": "data",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Nokia SUSD (Software Update Slot Data) 2"
+    },
+    {
+      "name": "SOS*ENO",
+      "flash_offset": "0x7800",
+      "size": "0x5000",
+      "size_bytes": 20480,
+      "description": "Emergency Normal OS",
+      "type": "os_component",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Minimal emergency OS stored in NOR flash area. '*' = optional."
+    },
+    {
+      "name": "SOS*DSP0",
+      "flash_offset": "0xC800",
+      "size": "0x2800",
+      "size_bytes": 10240,
+      "description": "Rapuyama DSP firmware (baseband)",
+      "type": "firmware",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Rapuyama modem baseband DSP firmware image 0"
+    },
+    {
+      "name": "LDSP",
+      "flash_offset": "0xF000",
+      "size": "0x3000",
+      "size_bytes": 12288,
+      "description": "Loaded DSP firmware",
+      "type": "firmware",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "DSP firmware loaded by NLoader: 'LDSP loaded by Nloader' / 'DSP code started'"
+    },
+    {
+      "name": "SOS*ISASW",
+      "flash_offset": "0x12600",
+      "size": "0x17BD000",
+      "size_bytes": 249036800,
+      "description": "ISA (modem) software",
+      "type": "firmware",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Rapuyama modem ISA software stack (~237MB). Huge partition. '*' = optional."
+    },
+    {
+      "name": "SOS+CORE",
+      "flash_offset": "0x2A400",
+      "size": "0x5C98F0C",
+      "size_bytes": 97095436,
+      "description": "Symbian kernel + ROFS (core OS)",
+      "type": "os_kernel",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Main Symbian kernel image including core ROFS filesystem. '+' = mandatory."
+    },
+    {
+      "name": "SOS+ROFS1",
+      "flash_offset": "0xA4400",
+      "size": "0x43800",
+      "size_bytes": 276480,
+      "description": "Core ROFS filesystem image 1",
+      "type": "filesystem",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "137 MB content total (per firmware-strings-index). Read-Only FileSystem."
+    },
+    {
+      "name": "SOS+ROFS2",
+      "flash_offset": "0xE7C00",
+      "size": "0x13800",
+      "size_bytes": 79872,
+      "description": "ROFS filesystem image 2",
+      "type": "filesystem",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "217 MB content: UI localisation (30+ languages), help HTML/XML, widget configs."
+    },
+    {
+      "name": "SOS+ROFS3",
+      "flash_offset": "0xFB400",
+      "size": "0x1E4800",
+      "size_bytes": 1984512,
+      "description": "ROFS filesystem image 3 (locale data)",
+      "type": "filesystem",
+      "authenticated": true,
+      "encrypted": false,
+      "notes": "Locale-specific data, fonts, regional settings"
+    },
+    {
+      "name": "SOS-USER",
+      "flash_offset": "0x2DFC00",
+      "size": "0x105000",
+      "size_bytes": 1069056,
+      "description": "User data area",
+      "type": "userdata",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Writable user data partition. '-' = data/writable partition."
+    },
+    {
+      "name": "SOS-SWAP",
+      "flash_offset": "0x3E4C00",
+      "size": "0x4000",
+      "size_bytes": 16384,
+      "description": "Swap partition",
+      "type": "swap",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "System swap space (16KB)"
+    },
+    {
+      "name": "SOS-PMM",
+      "flash_offset": "0x3E8C00",
+      "size": "0x800",
+      "size_bytes": 2048,
+      "description": "Post-Mortem Memory data",
+      "type": "crash_data",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Persists across reboot. Stores last-crash diagnostic data via STL layer."
+    },
+    {
+      "name": "SOS-CRASH",
+      "flash_offset": null,
+      "size": null,
+      "size_bytes": null,
+      "description": "Crash dump partition",
+      "type": "crash_data",
+      "authenticated": false,
+      "encrypted": false,
+      "notes": "Full crash dump area. Offset and size not documented in available sources."
+    }
+  ],
+  "toc_naming_convention": {
+    "plus_prefix": "SOS+ = mandatory OS partition",
+    "star_prefix": "SOS* = optional/conditional partition",
+    "minus_prefix": "SOS- = writable data partition",
+    "no_prefix": "standalone bootloader or driver"
+  },
+  "boot_sequence": [
+    {
+      "stage": 1,
+      "name": "ROM bootloader",
+      "source": "OMAP3630 internal ROM",
+      "actions": ["Configures SDRC/SDRAM", "Loads SWBL from NAND at 0x0800"]
+    },
+    {
+      "stage": 2,
+      "name": "SWBL (Secondary Bootloader)",
+      "source": "NAND 0x0800, 0x2200 bytes",
+      "actions": ["Minimal hardware init", "Loads PRIMAPP (NLoader) from 0x4000"]
+    },
+    {
+      "stage": 3,
+      "name": "NLoader (PRIMAPP)",
+      "source": "NAND 0x4000, 128KB ARM Thumb",
+      "actions": [
+        "ASIC identification (HW : RAP%sv%d.%d%d %cA)",
+        "PMIC init via CBUS (Pearl-J / TWL5031)",
+        "Clock/PLL configuration (bypass 38.4MHz -> full speed)",
+        "I2C controller init (all 3 controllers)",
+        "Charger detection at I2C addr 0x6B (BQ2415x / SMB338 / SMB138)",
+        "GENIO_INIT authentication and GPIO pad mux application",
+        "SmartReflex VCore calibration (RAPU and YAMA domains)",
+        "Frequency Operating Point (FOP) configuration",
+        "Battery/charging management",
+        "USB enumeration (NLoader mode: 'Nokia Mobile Device')",
+        "DSP/LDSP loading",
+        "BB5 image authentication for all images",
+        "Hardware config report (SDRAM, speeds, TOC location)",
+        "Symbian kernel launch at SOS+CORE"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Symbian kernel (SOS+CORE)",
+      "source": "NAND 0x2A400",
+      "actions": ["Full Symbian OS boot", "ROFS mount", "Application launch"]
+    }
+  ],
+  "clock_config": {
+    "bypass_clock_mhz": 38.4,
+    "bypass_string": "MCU PLL is in ByPass Mode (38.4MHz)",
+    "smartreflex_domains": ["RAPU (MPU domain)", "YAMA (CORE domain)"],
+    "sr_failure_limit_mhz": 450,
+    "sr_failure_string": "SR calibration failed -> OPs are limited to 450MHz"
+  }
+}

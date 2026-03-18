@@ -1,0 +1,301 @@
+{
+  "metadata": {
+    "source": "firmware-strings-index.md Section 13, i2c-bus-map.md, schematics/block-diagrams.md",
+    "generated": "2026-02-28",
+    "notes": "All variants confirmed by firmware string mining of rofs.img (514k strings) and rofs2.img (616k strings). Only one variant per position is populated per physical unit."
+  },
+  "variants": [
+    {
+      "position": "N1103",
+      "schematic_page": 4,
+      "function": "3D Accelerometer (primary)",
+      "bus": "I2C0 (OMAP I2C1 @ 0x48070000)",
+      "primary": {
+        "chip": "ST LIS302DL",
+        "i2c_addr_hex": "0x1D",
+        "i2c_addr_decimal": 29,
+        "evidence": "CenRep string: '# LIS302DL in address 1D' + sensor UID 0x03023B1D in rofs-core:498905-6",
+        "pins": {
+          "SDA": "13 (I2C0SDA via J1100)",
+          "SCL": "14 (I2C0SCL via J1106)",
+          "INT1": "8 -> RAPUYAMA genio44 AA11 (AccInt1)",
+          "INT2": "9 -> RAPUYAMA genio12 T23 (AccInt2)",
+          "VDD": "VIO (1.8V)",
+          "VDD_IO": "VIO (1.8V)",
+          "CS_SDO": "pin 12, sets I2C address"
+        },
+        "voltage_supply": "VIO 1.8V"
+      },
+      "alternatives": [
+        {
+          "chip": "ADI ADXL340",
+          "i2c_addr_hex": "0x1D",
+          "i2c_addr_decimal": 29,
+          "evidence": "Firmware class '20DAccPddSensorADXL340' linked in rofs-core:15275. Alternative BOM part.",
+          "notes": "Different sensitivity range from LIS302DL. Same I2C address. DTS should probe LIS302DL first."
+        }
+      ],
+      "additional_facts": {
+        "dual_instance": true,
+        "secondary_address": "0x1C",
+        "secondary_evidence": "CenRep: '# LIS302DL in address 1C' + sensor UID 0x03023B1C in rofs-core:499277-8",
+        "total_sensors_configured": 3,
+        "description": "Two LIS302DL chips at 0x1C and 0x1D confirmed in production. CenRep key 10 = 0x1D (primary), key 4010 = 0x1C (secondary). SA0 pin determines address: HIGH=0x1D, LOW=0x1C."
+      }
+    },
+    {
+      "position": "N1001",
+      "schematic_page": 8,
+      "board": "QWERTY flex (3ET_06a)",
+      "function": "3D Magnetometer",
+      "bus": "I2C0 (OMAP I2C1 @ 0x48070000)",
+      "primary": {
+        "chip": "AKM AK8974",
+        "i2c_addr_hex": "0x0F",
+        "i2c_addr_decimal": 15,
+        "evidence": "Firmware class '28DMagnetometerPddSensorAK8974' in rofs-core:15338",
+        "pins": {
+          "SCL": "16 (I2C0SCL)",
+          "SDA": "15 (I2C0SDA)",
+          "DRDY": "13 -> RAPUYAMA genio13 (mm_DRDY)",
+          "INT": "14 -> RAPUYAMA (mm_INT)",
+          "DVDD": "VIO (1.8V)",
+          "AVDD": "VIO (1.8V)",
+          "GND": "1, 4, 10, 11"
+        },
+        "voltage_supply": "VIO 1.8V"
+      },
+      "alternatives": [
+        {
+          "chip": "AMI AMI305",
+          "i2c_addr_hex": "0x0C",
+          "i2c_addr_hex_alt": "0x0E",
+          "i2c_addr_decimal": 12,
+          "evidence": "Firmware class '28DMagnetometerPddSensorAMI305' in rofs-core:15339. Confirmed alternative.",
+          "notes": "Different WHOAMI register value from AK8974. Addresses 0x0C (default) or 0x0E via CAD0 pin — both different from AK8974 0x0F. DTS must probe both. Same software interface (DiPro LDD/PDD driver)."
+        }
+      ]
+    },
+    {
+      "position": "B8000",
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "function": "Ambient Light Sensor / Proximity Sensor",
+      "bus": "I2C0 (OMAP I2C1 @ 0x48070000)",
+      "primary": {
+        "chip": "Avago APDS-9900 or APDS-9930 (proxima_osram)",
+        "i2c_addr_hex": "0x39",
+        "i2c_addr_decimal": 57,
+        "evidence": "Nokia project codename 'proxima_osram' in rofs-core:16338. ADDR_SEL0: R2505(0R) to GND -> addr 0x39 fixed. 3x IR LED drive pins match APDS-99xx pinout.",
+        "pins": {
+          "I2C0_SCL": "I2C bus 0 clock",
+          "I2C0_SDA": "I2C bus 0 data",
+          "PROX_INT": "-> RAPUYAMA Y10 (genio3)",
+          "ADDR_SEL0": "R2505 0R to GND",
+          "IR_LED": "V8004 IR LED, R2506 27R series, VBAT drive"
+        },
+        "voltage_supply": "VIO 1.8V"
+      },
+      "alternatives": [
+        {
+          "chip": "Citizen variant (proxima_citizen)",
+          "i2c_addr_hex": null,
+          "evidence": "Nokia project codename 'proxima_citizen' in rofs-core:16343. Same DiPro LDD/PDD driver. I2C address TBD.",
+          "notes": "Citizen Finetech Miyota ALS/prox sensor. Different supplier, same SW interface."
+        },
+        {
+          "chip": "Everlight variant (proxima_everlight)",
+          "i2c_addr_hex": null,
+          "evidence": "Nokia project codename 'proxima_everlight' in rofs-core:16347. Same DiPro LDD/PDD driver.",
+          "notes": "Everlight Electronics ALS/prox sensor. Three suppliers confirmed, all interchangeable."
+        }
+      ]
+    },
+    {
+      "position": "charger_slot",
+      "schematic_page": 5,
+      "function": "Li-Ion USB Charger IC",
+      "bus": "I2C2 (OMAP I2C3 @ 0x48060000)",
+      "primary": {
+        "chip": "TI BQ2415x",
+        "i2c_addr_hex": "0x6B",
+        "i2c_addr_8bit": "0xD6",
+        "i2c_addr_decimal": 107,
+        "evidence": "NLoader disassembly: probes 0xD6 (8-bit), reads revision reg, revision>>5==2 -> BQ2415x. Format string: 'bq2415%d found, rev:%x, (I2C_%d)'",
+        "identification": "revision register offset 3, (value >> 5) == 2"
+      },
+      "alternatives": [
+        {
+          "chip": "Summit SMB338",
+          "i2c_addr_hex": "0x6B",
+          "i2c_addr_decimal": 107,
+          "evidence": "NLoader format string: 'SMB338%c found, rev:%x, (I2C_%d)'. Same address as BQ2415x.",
+          "identification": "revision register bit 4 set"
+        },
+        {
+          "chip": "Summit SMB138",
+          "i2c_addr_hex": "0x6B",
+          "i2c_addr_decimal": 107,
+          "evidence": "NLoader format string: 'SMB138%c found, rev:%x, (I2C_%d)'. Same address as BQ2415x.",
+          "identification": "revision register bit 4 clear (and not BQ2415x)"
+        },
+        {
+          "chip": "Fairchild charger",
+          "i2c_addr_hex": "0x6B",
+          "evidence": "NLoader string: 'Fairchild id check NOT implemented'. Listed but detection not implemented.",
+          "notes": "Not used in production"
+        }
+      ],
+      "notes": "All three charger ICs share address 0x6B on I2C2. Only ONE is populated per board. NLoader identifies installed variant at boot via revision register. I2C2 pull-ups: R2045/R2044 = 3.3 kOhm."
+    },
+    {
+      "position": "X1476",
+      "schematic_page": 2,
+      "function": "Primary Camera Sensor (8MP main camera)",
+      "bus": "CSI-2 (2 lanes) + I2C via BCM2727",
+      "primary": {
+        "chip": "Toshiba TCM8590MD",
+        "resolution": "8 MP",
+        "interface": "CSI-2",
+        "evidence": "VLL file 'tcm8590md_camera.vll' in firmware-re/core-rofs0/vlls/bcm2727b1/. String analysis rofs-core:15338.",
+        "aspect_ratios": ["4:3", "16:9"],
+        "i2c_via": "BCM2727 PRI_CAM_SDA/SCL",
+        "vll_path": "/Z:/vlls/bcm2727b1/tcm8590md_camera.vll"
+      },
+      "alternatives": [
+        {
+          "chip": "Capone Sharp",
+          "interface": "CSI-2",
+          "evidence": "Referenced in firmware strings as alternative BOM part. Nokia codename 'Capone'.",
+          "notes": "Alternative main camera, Sharp sensor module"
+        },
+        {
+          "chip": "Capone ST",
+          "interface": "CSI-2",
+          "evidence": "Referenced in firmware strings as alternative BOM part. Nokia codename 'Capone'.",
+          "notes": "Alternative main camera, ST Microelectronics sensor module"
+        },
+        {
+          "chip": "Toshiba TCM8580MD",
+          "interface": "CSI-2",
+          "evidence": "Referenced as previous revision in firmware strings.",
+          "notes": "Earlier silicon revision, superseded by TCM8590MD"
+        }
+      ]
+    },
+    {
+      "position": "H8000",
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "function": "Secondary Camera Sensor (front-facing EDoF)",
+      "bus": "CCP (1-lane) + I2C via BCM2727",
+      "primary": {
+        "chip": "ACMEmini",
+        "type": "EDoF (Extended Depth of Field, no autofocus)",
+        "interface": "CCP",
+        "evidence": "VLL file 'acmemini_camera.vll'. Calls 'platform_gpio_control' directly from VLL. Nokia project codename 'ACMEmini'.",
+        "vll_path": "/Z:/vlls/bcm2727b1/acmemini_camera.vll",
+        "notes": "Camera GPIO (flash, power, reset) controlled by BCM2727 VLL firmware, not OMAP3 GPIO"
+      },
+      "alternatives": [
+        {
+          "chip": "Samsung CMNK8EN00F",
+          "interface": "CCP",
+          "evidence": "VLL file 'cmnk8en00f_camera.vll' in vlls/bcm2727b1/. Has sensitivity calibration strings.",
+          "vll_path": "/Z:/vlls/bcm2727b1/cmnk8en00f_camera.vll",
+          "notes": "Samsung secondary camera module alternative"
+        }
+      ]
+    },
+    {
+      "position": "D1400",
+      "schematic_page": 2,
+      "function": "BCM2727 Imaging and Video Processor",
+      "type": "silicon_variant",
+      "primary": {
+        "chip": "BCM2727 variant 07A",
+        "evidence": "DCC certificate 'IV00BCB07A' in firmware-re/dcc/. IVL2/IVL4 certificates for level 2/4.",
+        "notes": "One of two production silicon steppings"
+      },
+      "alternatives": [
+        {
+          "chip": "BCM2727 variant 179",
+          "evidence": "DCC certificate 'IV00BCB179' in firmware-re/dcc/. Separate certificate set.",
+          "notes": "Second production silicon stepping. Both variants run same VLL firmware set."
+        }
+      ],
+      "shared_properties": {
+        "architecture": "VideoCore III (ARC processor)",
+        "toolchain": "MetaWare Linker v5.6.19",
+        "package": "BGA",
+        "ref_designator": "D1400",
+        "vll_firmware_dir": "/Z:/vlls/bcm2727b1/",
+        "vll_count": 35,
+        "transport_to_rapuyama": "CCP2/MPHI (30-bit CCP bus)",
+        "display_output": "MIPI DSI (command mode, TE sync)",
+        "primary_camera_input": "CSI-2 (2 lanes)",
+        "secondary_camera_input": "CCP (1 lane)"
+      }
+    },
+    {
+      "position": "N1002",
+      "schematic_page": 8,
+      "board": "QWERTY flex (3ET_06a)",
+      "function": "IO Expander (keyboard matrix + misc GPIO)",
+      "bus": "I2C0 (OMAP I2C1 @ 0x48070000)",
+      "primary": {
+        "chip": "TI TCA8418",
+        "i2c_addr_hex": "0x34",
+        "i2c_addr_decimal": 52,
+        "evidence": "Keyboard scan IC with ROW/COLUMN matrix support. IRQN -> IOexp_IRQ (genio44). IOexp_RESETN <- genio42. egpio.dll + TCA8418 match for keyboard scan application.",
+        "pins": {
+          "SDA": "F2 (I2C0SDA)",
+          "SCL": "F1 (I2C0SCL)",
+          "IRQN": "-> RAPUYAMA genio44",
+          "RESETN": "<- RAPUYAMA genio42",
+          "VCC": "VIO 1.8V",
+          "IN1": "IOexp_RESETN",
+          "IN2": "Digi_mic_data",
+          "IN7": "IOexp_IRQ",
+          "IN8": "Digi_mic_clk",
+          "IN9": "Hall_sensor_DET",
+          "OUT1+": "KPY0..KPY10 (keyboard rows)"
+        }
+      },
+      "alternatives": [
+        {
+          "chip": "TI TCA6416",
+          "i2c_addr_hex": "0x20",
+          "i2c_addr_hex_alt": "0x21",
+          "i2c_addr_decimal": 32,
+          "evidence": "Listed as alternative in i2c-bus-map.md. Same general GPIO expander function.",
+          "notes": "Simpler GPIO expander without built-in keyboard scan. Would require software scanning."
+        }
+      ],
+      "notes": "Drives 11 keyboard row lines (KPY0-10). 8 column lines (KPX0-7) go to RAPUYAMA KEYB bus. Also carries Digi_mic signals and Hall sensor passthrough."
+    },
+    {
+      "position": "X8000_touch",
+      "schematic_page": 9,
+      "board": "UI flex (3ES_06a)",
+      "function": "Capacitive Touch Controller",
+      "bus": "I2C0 (OMAP I2C1 @ 0x48070000)",
+      "primary": {
+        "chip": "Atmel mXT (maxtouch)",
+        "i2c_addr_hex": "0x4C",
+        "i2c_addr_decimal": 76,
+        "evidence": "Firmware: 'DAtmelSensor', 'TouchIcAtmel', 'atmel_qt.dll' in rofs-core. Addr 0x4C assumed (0x4A/0x4B conflict with TWL5031 at 0x48-0x4B).",
+        "pins": {
+          "I2C0SCL": "clock",
+          "I2C0SDA": "data",
+          "TOUCH_INT": "-> RAPUYAMA V3",
+          "TOUCH_RST": "<- RAPUYAMA W4",
+          "VIO": "1.8V logic supply"
+        },
+        "confidence": "medium",
+        "notes": "Exact addr needs I2C scan verification. Could be 0x4D. Kernel supports 0x4A-0x4D."
+      },
+      "alternatives": []
+    }
+  ]
+}

@@ -1,0 +1,355 @@
+{
+  "buses": [
+    {
+      "id": "i2c0",
+      "type": "i2c",
+      "nokia_name": "I2C_0",
+      "omap_name": "I2C3",
+      "base_address": "0x48060000",
+      "irq": 61,
+      "clock_frequency": 400000,
+      "pull_up_rail": "VIO",
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "lis302dl_1", "address": "0x1D", "confirmed": true},
+        {"component_id": "lis302dl_2", "address": "0x1C", "confirmed": true},
+        {"component_id": "ak8974", "address": "0x0F", "confirmed": true},
+        {"component_id": "atmel_mxt", "address": "0x4C", "confirmed": false},
+        {"component_id": "apds99xx", "address": "0x39", "confirmed": true},
+        {"component_id": "lm8323", "address": "0x34", "confirmed": true},
+        {"component_id": "pn544", "address": "0x28", "confirmed": true}
+      ],
+      "schematic_pages": [4, 8, 9],
+      "notes": "Sensor bus. Shared on QWERTY flex + UI flex via connectors X1000/X8002. Option A mapping (N950 pattern): Nokia I2C_0 → OMAP I2C3. Mapping unconfirmed on real hardware, awaiting i2cdetect (Task 025)."
+    },
+    {
+      "id": "i2c1",
+      "type": "i2c",
+      "nokia_name": "I2C_1",
+      "omap_name": "I2C2",
+      "base_address": "0x48072000",
+      "irq": 57,
+      "clock_frequency": 100000,
+      "pull_up_rail": "VIO",
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "gps_module", "address": null, "confirmed": true}
+      ],
+      "schematic_pages": [7],
+      "notes": "GPS module N6200. Also supports UART mode for GPS data. Lower clock speed (100kHz)."
+    },
+    {
+      "id": "i2c2",
+      "type": "i2c",
+      "nokia_name": "I2C_2",
+      "omap_name": "I2C1",
+      "base_address": "0x48070000",
+      "irq": 56,
+      "clock_frequency": 400000,
+      "pull_up_rail": "VIO",
+      "pull_up_resistors": "R2045/R2044 3.3k ohm",
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "twl5031", "address": "0x48", "confirmed": true},
+        {"component_id": "twl5031", "address": "0x49", "confirmed": true},
+        {"component_id": "twl5031", "address": "0x4A", "confirmed": true},
+        {"component_id": "twl5031", "address": "0x4B", "confirmed": true},
+        {"component_id": "bq2415x", "address": "0x6B", "confirmed": true},
+        {"component_id": "smb338", "address": "0x6B", "confirmed": false},
+        {"component_id": "smb138", "address": "0x6B", "confirmed": false},
+        {"component_id": "led_driver_3ch", "address": null, "confirmed": true},
+        {"component_id": "wl1273", "address": null, "confirmed": true},
+        {"component_id": "usb_charger_smps", "address": null, "confirmed": true}
+      ],
+      "schematic_pages": [5, 6, 9],
+      "notes": "PEARL (TWL5031) bus. Also carries charger ICs (only 1 of 3 variants populated), LED driver, WL1273 FM, and USB charger SMPS. Block diagrams confirm PEARL on I2C2, not I2C0 as initially assumed. Pull-ups R2045/R2044 are 3.3k ohm."
+    },
+    {
+      "id": "i2c_cam_pri",
+      "type": "i2c",
+      "nokia_name": "I2C-CAM-PRI",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "clock_frequency": null,
+      "pull_up_rail": "VCAM_1V8",
+      "pull_up_resistors": "4k7 to VCAM_1V8",
+      "master": "bcm2727",
+      "devices": [
+        {"component_id": "tcm8590md", "address": null, "confirmed": true},
+        {"component_id": "camera_flash", "address": null, "confirmed": true}
+      ],
+      "schematic_pages": [2],
+      "notes": "BCM2727 is master. Primary camera X1476 and flash controller N1500. Pull-ups 4k7 to VCAM_1V8."
+    },
+    {
+      "id": "i2c_cam_sec",
+      "type": "i2c",
+      "nokia_name": "I2C-CAM-SEC",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "clock_frequency": null,
+      "pull_up_rail": "VCAM_1V8",
+      "pull_up_resistors": "R1487/R1488 3k3",
+      "master": "bcm2727",
+      "devices": [
+        {"component_id": "acmemini", "address": null, "confirmed": true},
+        {"component_id": "cmnk8en00f", "address": null, "confirmed": false}
+      ],
+      "schematic_pages": [2],
+      "notes": "BCM2727 is master. Secondary camera H8000. Via R1487/R1488 (3k3). Through UI flex connector."
+    },
+    {
+      "id": "hdmi_ddc",
+      "type": "i2c",
+      "nokia_name": "HDMI DDC/CEC",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "clock_frequency": null,
+      "pull_up_rail": "VHDMI_5V0",
+      "master": "messi16",
+      "devices": [],
+      "schematic_pages": [3],
+      "notes": "MESSI-16 is master. HDMI display sink. DDC for EDID, CEC for control."
+    },
+    {
+      "id": "spi_a",
+      "type": "spi",
+      "nokia_name": "SPI-A (MCSPI)",
+      "omap_name": "MCSPI1",
+      "base_address": null,
+      "irq": null,
+      "clock_frequency": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "wl1273", "function": "WLAN", "confirmed": true}
+      ],
+      "signals": ["SPI_CLK", "SPI_MOSI", "SPI_MISO", "SPI_CSX"],
+      "schematic_pages": [7],
+      "notes": "RAPUYAMA master. WL1273 WLAN data interface. Confirmed from am_spia.cpp firmware source."
+    },
+    {
+      "id": "uart_bt",
+      "type": "uart",
+      "nokia_name": "UART-BT",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "baud_rate": 115200,
+      "protocol": "H4+",
+      "port": 0,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "wl1273", "function": "Bluetooth", "confirmed": true}
+      ],
+      "signals": ["UART_TX", "UART_RX", "UART_CTS", "UART_RTS", "UART_WAKE"],
+      "schematic_pages": [7],
+      "notes": "RAPUYAMA to WL1273 Bluetooth. 115200 bps, H4+ protocol, port 0."
+    },
+    {
+      "id": "uart3",
+      "type": "uart",
+      "nokia_name": "UART3",
+      "omap_name": "UART3",
+      "base_address": "0x49020000",
+      "irq": 74,
+      "baud_rate": 115200,
+      "master": "omap3630",
+      "devices": [],
+      "schematic_pages": [],
+      "notes": "OMAP3630 kernel console (ttyS0). Only one UART enabled so kernel assigns ttyS0."
+    },
+    {
+      "id": "ccp2_mphi",
+      "type": "ccp2",
+      "nokia_name": "CCP2/MPHI",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "bandwidth": "650 Mbps",
+      "encoding": "SubLVDS",
+      "master": "bcm2727",
+      "devices": [
+        {"component_id": "bcm2727", "confirmed": true},
+        {"component_id": "rapuyama", "confirmed": true}
+      ],
+      "signals": "CCP(30:0)",
+      "schematic_pages": [2, 3],
+      "notes": "BCM2727 to RAPUYAMA high-speed link. SubLVDS encoding, 650 Mbps. 31-signal bus CCP(30:0)."
+    },
+    {
+      "id": "dsi1",
+      "type": "dsi",
+      "nokia_name": "DSI1",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "bcm2727",
+      "devices": [],
+      "schematic_pages": [2],
+      "notes": "BCM2727 to display panel. MIPI DSI command mode with TE (tearing effect) signal."
+    },
+    {
+      "id": "csi2",
+      "type": "csi2",
+      "nokia_name": "CSI-2",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "lanes": "2 data + 1 clock",
+      "master": "tcm8590md",
+      "devices": [
+        {"component_id": "tcm8590md", "confirmed": true}
+      ],
+      "schematic_pages": [2],
+      "notes": "Primary camera (TCM8590MD) to BCM2727. 2 data lanes plus clock lane."
+    },
+    {
+      "id": "ccp_sec",
+      "type": "ccp",
+      "nokia_name": "CCP (secondary cam)",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "lanes": "1 data",
+      "master": "bcm2727",
+      "devices": [
+        {"component_id": "acmemini", "confirmed": true}
+      ],
+      "schematic_pages": [2],
+      "notes": "BCM2727 to secondary camera H8000. 1 data lane. Through UI flex."
+    },
+    {
+      "id": "mmc1",
+      "type": "mmc",
+      "nokia_name": "MMC1",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "combo_memory", "confirmed": true}
+      ],
+      "schematic_pages": [4],
+      "notes": "RAPUYAMA to combo memory D3000 (256MB LPDDR + 1024MB NAND)."
+    },
+    {
+      "id": "mmc2",
+      "type": "mmc",
+      "nokia_name": "MMC2",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "emmc", "confirmed": true}
+      ],
+      "series_resistors": "R3222(15R), R3223-R3225(33R)",
+      "schematic_pages": [4],
+      "notes": "RAPUYAMA to eMMC D2800. Series resistors for signal integrity."
+    },
+    {
+      "id": "ulpi",
+      "type": "ulpi",
+      "nokia_name": "USB ULPI",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "usb_ulpi", "confirmed": true}
+      ],
+      "schematic_pages": [5],
+      "notes": "RAPUYAMA to USB transceiver N3300. DP/DM/VBUS to USB connector."
+    },
+    {
+      "id": "cbus",
+      "type": "cbus",
+      "nokia_name": "CBUS",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "twl5031", "confirmed": true}
+      ],
+      "signals": ["CBusClk(N7)", "CBusDa(N8)", "CBusSelX"],
+      "schematic_pages": [5, 6],
+      "notes": "RAPUYAMA to PEARL. Nokia proprietary serial bus. Used for audio/RF clock configuration."
+    },
+    {
+      "id": "rfconv",
+      "type": "rfconv",
+      "nokia_name": "RFCONV",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "aura", "confirmed": true}
+      ],
+      "signals": "RFCONV IQ data (20:0)",
+      "schematic_pages": [10],
+      "notes": "RAPUYAMA to AURA. IQ data bus, 21 signals."
+    },
+    {
+      "id": "rfctrl",
+      "type": "rfctrl",
+      "nokia_name": "RFCTRL",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "aura", "confirmed": true}
+      ],
+      "signals": "RFCTRL serial control (11:0)",
+      "schematic_pages": [10],
+      "notes": "RAPUYAMA to AURA. Serial control bus, 12 signals."
+    },
+    {
+      "id": "messi_ssi",
+      "type": "ssi",
+      "nokia_name": "Messi/SSI",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [],
+      "schematic_pages": [],
+      "notes": "RAPUYAMA internal modem bus. 'MessI bus speed = %d MHz' from firmware strings."
+    },
+    {
+      "id": "pusl",
+      "type": "pusl",
+      "nokia_name": "PUSL",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "rapuyama",
+      "devices": [
+        {"component_id": "twl5031", "confirmed": true},
+        {"component_id": "aura", "confirmed": true}
+      ],
+      "signals": "PUSL(15:0), SMPSClk, SysClk192, PURX, SleepX",
+      "schematic_pages": [5, 10],
+      "notes": "RAPUYAMA to PEARL and AURA. Power-up sequencing bus, 16 signals plus control lines."
+    },
+    {
+      "id": "sim",
+      "type": "sim",
+      "nokia_name": "SIM",
+      "omap_name": null,
+      "base_address": null,
+      "irq": null,
+      "master": "twl5031",
+      "devices": [
+        {"component_id": "sim_connector", "confirmed": true}
+      ],
+      "schematic_pages": [5],
+      "notes": "SIM card interface through PEARL (TWL5031). VSIM provides 1.8V or 3.0V."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+%%{ init: { 'theme': 'base' } }%%
+graph TD
+    BAT["BP-4L Battery<br/>VBAT 3.7V nominal<br/>1200mAh"]
+
+    subgraph PEARL["PEARL TWL5031 (N2200) — PMIC"]
+        VCORE["VCORE 1.2V<br/>SMPS (L2340)<br/>SmartReflex"]
+        VIO["VIO 1.8V<br/>SMPS (L2202/L2206/L2207)"]
+        VOUT["VOUT 2.5V<br/>LDO"]
+        VAUX1["VAUX1 2.78V<br/>LDO"]
+        VAUX2["VAUX2 2.5V<br/>LDO"]
+        VRFC["VRFC 1.8V<br/>LDO"]
+        VR1["VR1 2.5V<br/>LDO"]
+        VDIGIMIC["VDigiMic 1.8V<br/>derived"]
+        VSIM["VSIM 1.8/3.0V<br/>LDO (switched)"]
+    end
+
+    subgraph External_Regs["External Regulators"]
+        N1515["N1515 VCAM_1V8<br/>1.8V Boost<br/>EN=GPIO18"]
+        N1517["N1517 VCAM_2V8<br/>2.8V LDO<br/>STBY=GPIO19"]
+        N3201["N3201 VMEM2<br/>~1.8V Boost"]
+        N3252["N3252 VIO_eMMC<br/>1.8V Switch<br/>ON=genio17/23"]
+        N1654["N1654 VHDMI<br/>5.0V Boost<br/>EN=genio Y13"]
+    end
+
+    subgraph Consumers_Core["Core Logic"]
+        RAPU_CORE["RAPUYAMA Core"]
+        BCM_CORE["BCM2727 VDD_CORE x17"]
+    end
+
+    subgraph Consumers_IO["Digital IO"]
+        RAPU_IO["RAPUYAMA IO"]
+        BCM_IO["BCM2727 VDD_1V8"]
+        BOB_IO["WL1273 (BOB) VIO"]
+        AURA_IO["AURA VIO"]
+        IOEXP_IO["IO Expander N1002"]
+        HALL_IO["Hall Sensor N1000"]
+        TCXO_IO["38.4MHz TCXO B7500"]
+    end
+
+    subgraph Consumers_Sensors["Sensors"]
+        TOUCH_S["Touch Controller<br/>(Atmel mXT)"]
+        ALS_S["ALS/Prox<br/>(APDS-99xx)"]
+        ACCEL_S["Accelerometer<br/>(LIS302DL x2)"]
+        MAG_S["Magnetometer<br/>(AK8974)"]
+    end
+
+    subgraph Consumers_Camera["Camera Subsystem"]
+        BCM_CAM["BCM2727 CDP/CCPTX"]
+        PRI_CAM["Primary Camera<br/>(TCM8590MD)"]
+        SEC_CAM["Secondary Camera<br/>(ACMEmini)"]
+        DISPLAY["AMOLED Display"]
+    end
+
+    subgraph Consumers_Storage["Storage"]
+        EMMC_IO["eMMC IO pads"]
+        EMMC_CORE["eMMC Core<br/>+ Combo Memory"]
+    end
+
+    subgraph Consumers_Audio["Audio"]
+        HP["Headphone Amp N2000"]
+        IHF["IHF Amp N2150"]
+        DMIC["Digital Mics<br/>B1001/B2101"]
+    end
+
+    subgraph Consumers_RF["RF / Connectivity"]
+        RAPU_RF["RAPUYAMA RF"]
+        SIM_C["SIM Card Z9700"]
+        GPS_C["GPS Module N6200"]
+        BOB_RF["WL1273 RF"]
+    end
+
+    subgraph Consumers_HDMI["HDMI"]
+        HDMI_5V["HDMI 5V Rail"]
+    end
+
+    %% Battery to PMIC
+    BAT --> PEARL
+
+    %% Battery to external regulators
+    BAT --> N1515
+    BAT --> N1517
+    BAT --> N3201
+    BAT --> N1654
+    BAT -->|direct| HP
+    BAT -->|direct| IHF
+    BAT -->|direct| BOB_RF
+    BAT -->|direct| GPS_C
+
+    %% SMPS outputs
+    VCORE --> RAPU_CORE
+    VCORE --> BCM_CORE
+
+    VIO --> RAPU_IO
+    VIO --> BCM_IO
+    VIO --> BOB_IO
+    VIO --> AURA_IO
+    VIO --> IOEXP_IO
+    VIO --> HALL_IO
+    VIO --> TCXO_IO
+    VIO --> N3252
+
+    %% LDO outputs
+    VOUT --> BCM_IO
+    VAUX1 --> TOUCH_S
+    VAUX1 --> ALS_S
+    VAUX1 --> PRI_CAM
+    VAUX1 --> DISPLAY
+    VAUX2 --> ACCEL_S
+    VRFC --> RAPU_RF
+    VR1 --> HP
+    VDIGIMIC --> DMIC
+    VDIGIMIC --> MAG_S
+    VSIM --> SIM_C
+
+    %% External regulators
+    N1515 --> BCM_CAM
+    N1515 --> PRI_CAM
+    N1515 --> SEC_CAM
+    N1515 --> DISPLAY
+
+    N1517 --> PRI_CAM
+    N1517 --> SEC_CAM
+    N1517 --> DISPLAY
+
+    N3201 --> EMMC_CORE
+    N3252 --> EMMC_IO
+    N1654 --> HDMI_5V
+
+    classDef battery fill:#e6a23c,stroke:#333,color:#fff
+    classDef smps fill:#409eff,stroke:#333,color:#fff
+    classDef ldo fill:#67c23a,stroke:#333,color:#fff
+    classDef ext_reg fill:#f56c6c,stroke:#333,color:#fff
+    classDef consumer fill:#ddd,stroke:#333,color:#333
+
+    class BAT battery
+    class VCORE,VIO smps
+    class VOUT,VAUX1,VAUX2,VRFC,VR1,VDIGIMIC,VSIM ldo
+    class N1515,N1517,N3201,N3252,N1654 ext_reg

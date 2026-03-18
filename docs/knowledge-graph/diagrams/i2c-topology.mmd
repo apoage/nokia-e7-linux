@@ -1,0 +1,62 @@
+%%{ init: { 'theme': 'base' } }%%
+graph LR
+    subgraph I2C0["I2C Bus 0 (Nokia I2C_0 / OMAP I2C1)<br/>0x48070000 · IRQ 56 · 400kHz<br/>Pull-up: VIO 1.8V"]
+        direction TB
+        I2C0_M["Master: RAPUYAMA"]
+        TWL48["TWL5031 0x48<br/>(USB)"]
+        TWL49["TWL5031 0x49<br/>(Audio)"]
+        TWL4A["TWL5031 0x4A<br/>(Power)"]
+        TWL4B["TWL5031 0x4B<br/>(MADC)"]
+        LIS1D["LIS302DL 0x1D<br/>(Accel #1, SA0=H)"]
+        LIS1C["LIS302DL 0x1C<br/>(Accel #2, SA0=L)"]
+        AK8974["AK8974 0x0F<br/>(Magnetometer)"]
+        MXT["Atmel mXT 0x4C<br/>(Touch)"]
+        APDS["APDS-99xx 0x39<br/>(ALS/Prox)"]
+        IOEXP["IO Expander<br/>0x34 or 0x20"]
+        PN544["PN544 0x28<br/>(NFC)"]
+    end
+
+    subgraph I2C1["I2C Bus 1 (Nokia I2C_1 / OMAP I2C2)<br/>0x48072000 · IRQ 57 · 100kHz"]
+        direction TB
+        I2C1_M["Master: RAPUYAMA"]
+        GPS["GPS N6200<br/>(I2C/UART mode)"]
+    end
+
+    subgraph I2C2["I2C Bus 2 (Nokia I2C_2 / OMAP I2C3)<br/>0x48060000 · IRQ 61 · 100kHz<br/>Pull-up: R2045/R2044 3.3kΩ"]
+        direction TB
+        I2C2_M["Master: RAPUYAMA"]
+        PEARL["PEARL TWL5031<br/>0x48-0x4B"]
+        CHG["Charger 0x6B<br/>(BQ2415x/SMB338/SMB138)"]
+        LED_DRV["LED Driver N2500<br/>(UI flex)"]
+        BOB_FM["BOB WL1273<br/>(FM control)"]
+    end
+
+    subgraph I2C_CAM_PRI["Camera I2C (Primary)<br/>Pull-up: 4k7 to VCAM_1V8"]
+        direction TB
+        CAM_PRI_M["Master: BCM2727"]
+        CAM_SENSOR["Camera X1476<br/>(TCM8590MD)"]
+        CAM_FLASH["Flash N1500"]
+    end
+
+    subgraph I2C_CAM_SEC["Camera I2C (Secondary)<br/>Series R: 3k3 (R1487/R1488)"]
+        direction TB
+        CAM_SEC_M["Master: BCM2727"]
+        SEC_SENSOR["Camera H8000<br/>(ACMEmini)"]
+    end
+
+    subgraph HDMI_DDC["HDMI DDC/CEC<br/>5V pull-up"]
+        direction TB
+        HDMI_M["Master: MESSI-16 N1653"]
+        HDMI_SINK["HDMI Display Sink"]
+    end
+
+    NOTE["⚠ Bus mapping discrepancy:<br/>Block diagrams show PEARL on I2C2,<br/>not I2C0 as initially assumed.<br/>Needs HW verification."]
+
+    classDef master fill:#4a90d9,stroke:#333,color:#fff
+    classDef device fill:#e8e8e8,stroke:#333,color:#333
+    classDef pmic fill:#e6a23c,stroke:#333,color:#fff
+    classDef note fill:#fff3cd,stroke:#856404,color:#856404
+
+    class I2C0_M,I2C1_M,I2C2_M,CAM_PRI_M,CAM_SEC_M,HDMI_M master
+    class TWL48,TWL49,TWL4A,TWL4B,PEARL pmic
+    class NOTE note

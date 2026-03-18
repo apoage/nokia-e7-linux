@@ -1,0 +1,306 @@
+{
+  "power_tree": {
+    "primary_source": {
+      "id": "vbat",
+      "type": "battery",
+      "voltage_nom": 3.7,
+      "connector": "X2070",
+      "current_sense": "R2200 (1 ohm)"
+    },
+    "regulators": [
+      {
+        "id": "vcore_smps",
+        "type": "smps",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vcore",
+        "output_voltage": 1.2,
+        "inductor": "L2340",
+        "consumers": ["rapuyama_core", "bcm2727_vdd_core"],
+        "schematic_page": 5,
+        "smartreflex": true,
+        "notes": "SmartReflex calibrated at boot. BCM2727 VDD_CORE connects to 17 pins."
+      },
+      {
+        "id": "vio_smps",
+        "type": "smps",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vio",
+        "output_voltage": 1.8,
+        "inductors": ["L2202", "L2206", "L2207"],
+        "consumers": ["all_digital_io", "i2c_pull_ups", "io_expander", "ak8974_dvdd", "sensors", "bcm2727_vdd_1v8", "wl1273_vio", "aura_vio", "tcxo_b7500", "flex_boards"],
+        "schematic_page": 5,
+        "smartreflex": false,
+        "notes": "Main digital IO rail. Powers nearly everything at 1.8V. Three inductors for current capacity."
+      },
+      {
+        "id": "vout_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vout",
+        "output_voltage": 2.5,
+        "consumers": ["bcm2727_dac_2v5", "bcm2727_vdd_io0", "bcm2727_vdd_io2", "bcm2727_vdd_io3", "bcm2727_vdd_io4", "display", "audio_ref"],
+        "schematic_page": 5,
+        "notes": "BCM2727 DAC and IO voltage."
+      },
+      {
+        "id": "vaux1_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vaux1",
+        "output_voltage": 2.78,
+        "consumers": ["apds99xx", "atmel_mxt", "tcm8590md_vana", "qwerty_leds", "ui_flex_display", "ui_flex_leds", "acmemini_vana"],
+        "schematic_page": 5,
+        "notes": "Sensor and camera analog supply. 2.78V is an unusual voltage, optimized for sensor performance."
+      },
+      {
+        "id": "vaux2_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vaux2",
+        "output_voltage": 2.5,
+        "consumers": ["lis302dl_1", "combo_memory_ref"],
+        "schematic_page": 5,
+        "notes": "Accelerometer and combo memory reference voltage."
+      },
+      {
+        "id": "vrfc_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vrfc",
+        "output_voltage": 1.8,
+        "consumers": ["rapuyama_rf_analog"],
+        "schematic_page": 5,
+        "notes": "RAPUYAMA RF analog supply. Clean/filtered for RF."
+      },
+      {
+        "id": "vr1_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vr1",
+        "output_voltage": 2.5,
+        "consumers": ["headphone_amp_hpvdd", "audio_analog", "aura_reference"],
+        "schematic_page": 5,
+        "notes": "Audio and RF reference supply."
+      },
+      {
+        "id": "vdigimic_derived",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vdigimic",
+        "output_voltage": 1.8,
+        "consumers": ["digital_mic_1", "digital_mic_2", "ak8974_avdd"],
+        "schematic_page": 5,
+        "notes": "PEARL-derived supply for digital microphones and magnetometer AVDD."
+      },
+      {
+        "id": "vsim_ldo",
+        "type": "ldo",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vsim",
+        "output_voltage_options": [1.8, 3.0],
+        "consumers": ["sim_connector"],
+        "schematic_page": 5,
+        "notes": "Selectable 1.8V or 3.0V for SIM card."
+      },
+      {
+        "id": "vrtc_backup",
+        "type": "backup",
+        "source_id": "twl5031",
+        "input_rail": "vbat",
+        "output_rail": "vrtc",
+        "output_voltage": 1.5,
+        "consumers": ["twl5031_rtc"],
+        "schematic_page": 5,
+        "notes": "Backup battery/capacitor for RTC."
+      },
+      {
+        "id": "vcam_1v8_boost",
+        "type": "boost_ldo",
+        "source_id": "vcam_1v8_reg",
+        "input_rail": "vbat",
+        "output_rail": "vcam_1v8",
+        "output_voltage": 1.8,
+        "enable_gpio": "bcm2727_gpio18",
+        "consumers": ["bcm2727_cdp_1v8", "bcm2727_ccptx_1v8", "tcm8590md", "acmemini_vcap", "display"],
+        "schematic_page": 2,
+        "notes": "Separate regulator N1515 outside PEARL. Enabled by BCM2727 GPIO18. Camera ISP and display."
+      },
+      {
+        "id": "vcam_2v8_ldo",
+        "type": "ldo",
+        "source_id": "vcam_2v8_reg",
+        "input_rail": "vbat",
+        "output_rail": "vcam_2v8",
+        "output_voltage": 2.8,
+        "enable_gpio": "bcm2727_gpio19",
+        "consumers": ["tcm8590md_vana", "acmemini", "display"],
+        "schematic_page": 2,
+        "notes": "Separate regulator N1517 outside PEARL. Enabled by BCM2727 GPIO19 (STBY pin)."
+      },
+      {
+        "id": "vio_emmc_switch",
+        "type": "switch",
+        "source_id": "vio_emmc_switch",
+        "input_rail": "vio",
+        "output_rail": "vio_emmc",
+        "output_voltage": 1.8,
+        "enable_gpio": ["genio17", "genio23"],
+        "consumers": ["emmc_io_pads"],
+        "schematic_page": 4,
+        "notes": "Level switch N3252. Enables VIO to eMMC IO pads. Controlled by genio17 and genio23."
+      },
+      {
+        "id": "vmem2_boost",
+        "type": "boost",
+        "source_id": "vmem2_reg",
+        "input_rail": "vbat",
+        "output_rail": "vmem2",
+        "output_voltage": 1.8,
+        "consumers": ["emmc_core", "combo_memory"],
+        "schematic_page": 4,
+        "notes": "Boost regulator N3201 for memory subsystem."
+      },
+      {
+        "id": "vhdmi_5v0_boost",
+        "type": "boost",
+        "source_id": "vhdmi_reg",
+        "input_rail": "vbat",
+        "output_rail": "vhdmi_5v0",
+        "output_voltage": 5.0,
+        "enable_gpio": "genio_Y13",
+        "consumers": ["hdmi_connector_5v"],
+        "schematic_page": 3,
+        "notes": "Boost regulator N1654 for HDMI 5V output. Enabled by genio Y13."
+      }
+    ],
+    "rails": [
+      {
+        "id": "vbat",
+        "voltage": 3.7,
+        "type": "battery",
+        "consumers": ["twl5031", "bcm2727_vdd_bat", "rapuyama", "wl1273", "gps_module", "aura", "vcam_1v8_reg", "vcam_2v8_reg", "vmem2_reg", "vhdmi_reg", "headphone_amp", "ihf_amplifier", "ukko", "qubbe", "camera_flash", "usb_charger_smps", "hw_reset_delay"]
+      },
+      {
+        "id": "vcore",
+        "voltage": 1.2,
+        "type": "smps",
+        "regulator_id": "vcore_smps",
+        "consumers": ["rapuyama_core", "bcm2727_vdd_core"]
+      },
+      {
+        "id": "vio",
+        "voltage": 1.8,
+        "type": "smps",
+        "regulator_id": "vio_smps",
+        "consumers": ["all_digital_io", "i2c_pull_ups", "io_expander", "ak8974_dvdd", "lis302dl_1", "bcm2727_vdd_1v8", "wl1273_vio", "aura_vio", "tcxo_b7500", "hall_sensor", "vio_emmc_switch", "clk_buffer_32k", "usb_ulpi", "led_driver_3ch"]
+      },
+      {
+        "id": "vout",
+        "voltage": 2.5,
+        "type": "ldo",
+        "regulator_id": "vout_ldo",
+        "consumers": ["bcm2727_dac_2v5", "bcm2727_vdd_io0", "bcm2727_vdd_io2", "bcm2727_vdd_io3", "bcm2727_vdd_io4", "display", "audio_ref"]
+      },
+      {
+        "id": "vaux1",
+        "voltage": 2.78,
+        "type": "ldo",
+        "regulator_id": "vaux1_ldo",
+        "consumers": ["apds99xx", "atmel_mxt", "tcm8590md_vana", "qwerty_leds", "ui_flex_display", "ui_flex_leds", "acmemini_vana"]
+      },
+      {
+        "id": "vaux2",
+        "voltage": 2.5,
+        "type": "ldo",
+        "regulator_id": "vaux2_ldo",
+        "consumers": ["lis302dl_1", "combo_memory_ref"]
+      },
+      {
+        "id": "vrfc",
+        "voltage": 1.8,
+        "type": "ldo",
+        "regulator_id": "vrfc_ldo",
+        "consumers": ["rapuyama_rf_analog"]
+      },
+      {
+        "id": "vr1",
+        "voltage": 2.5,
+        "type": "ldo",
+        "regulator_id": "vr1_ldo",
+        "consumers": ["headphone_amp_hpvdd", "audio_analog", "aura_reference"]
+      },
+      {
+        "id": "vdigimic",
+        "voltage": 1.8,
+        "type": "ldo",
+        "regulator_id": "vdigimic_derived",
+        "consumers": ["digital_mic_1", "digital_mic_2", "ak8974_avdd"]
+      },
+      {
+        "id": "vsim",
+        "voltage_options": [1.8, 3.0],
+        "type": "ldo",
+        "regulator_id": "vsim_ldo",
+        "consumers": ["sim_connector"]
+      },
+      {
+        "id": "vrtc",
+        "voltage": 1.5,
+        "type": "backup",
+        "regulator_id": "vrtc_backup",
+        "consumers": ["twl5031_rtc"]
+      },
+      {
+        "id": "vcam_1v8",
+        "voltage": 1.8,
+        "type": "boost_ldo",
+        "regulator_id": "vcam_1v8_boost",
+        "consumers": ["bcm2727_cdp_1v8", "bcm2727_ccptx_1v8", "tcm8590md", "acmemini_vcap", "display", "i2c_cam_pri_pullups"]
+      },
+      {
+        "id": "vcam_2v8",
+        "voltage": 2.8,
+        "type": "ldo",
+        "regulator_id": "vcam_2v8_ldo",
+        "consumers": ["tcm8590md_vana", "acmemini", "display"]
+      },
+      {
+        "id": "vio_emmc",
+        "voltage": 1.8,
+        "type": "switch",
+        "regulator_id": "vio_emmc_switch",
+        "consumers": ["emmc_io_pads"]
+      },
+      {
+        "id": "vmem2",
+        "voltage": 1.8,
+        "type": "boost",
+        "regulator_id": "vmem2_boost",
+        "consumers": ["emmc_core", "combo_memory"]
+      },
+      {
+        "id": "vhdmi_5v0",
+        "voltage": 5.0,
+        "type": "boost",
+        "regulator_id": "vhdmi_5v0_boost",
+        "consumers": ["hdmi_connector_5v"]
+      },
+      {
+        "id": "vbus",
+        "voltage": 5.0,
+        "type": "external",
+        "source": "usb_connector",
+        "consumers": ["usb_ulpi", "charging_circuit"]
+      }
+    ]
+  }
+}

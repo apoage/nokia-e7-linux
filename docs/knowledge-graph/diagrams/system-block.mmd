@@ -1,0 +1,155 @@
+%%{ init: { 'theme': 'base', 'themeVariables': { 'fontSize': '14px' } } }%%
+graph TB
+    subgraph Battery
+        BAT[BP-4L 1200mAh<br/>3.7V]
+    end
+
+    subgraph PMIC["PEARL TWL5031 (N2200)"]
+        direction TB
+        SMPS[SMPS: VCORE 1.2V, VIO 1.8V]
+        LDO[LDOs: VAUX1 2.78V, VAUX2 2.5V,<br/>VOUT 2.5V, VRFC 1.8V, VR1 2.5V,<br/>VDigiMic 1.8V, VSIM 1.8/3.0V]
+        AUDIO_CODEC[Built-in Audio Codec]
+        HBRIDGE[H-Bridge Vibra]
+        LED_CTRL[LED Controller]
+        SIM_IF[SIM Interface]
+    end
+
+    subgraph Modem["RAPUYAMA CMT Modem (B2800)"]
+        direction TB
+        RAPU_CORE[Broadcom CMT SoC]
+        GENIO[Genio GPIO Bank 0-99]
+        COMBO_MEM[D3000: 256MB LPDDR<br/>+ 1024MB NAND]
+    end
+
+    subgraph ISP["BCM2727 VideoCore III (D1400)"]
+        direction TB
+        VC3_DSP[Dual Vec16 DSP]
+        VC3_SDRAM[32MB Stacked SDRAM]
+        VC3_ISP[12MP ISP + JPEG HW]
+        VC3_DSI[DSI Output]
+        VC3_CSI[CSI-2 Input]
+    end
+
+    subgraph Wireless["WL1273 BOB (N6300)"]
+        direction TB
+        WIFI[WiFi 802.11 b/g/n]
+        BT[Bluetooth 3.0+HS]
+        FM[FM TX/RX]
+    end
+
+    subgraph GPS_Module["GPS (N6200)"]
+        GPS_RF[GPS RF Module]
+        GPS_TCXO[16.368MHz TCXO]
+    end
+
+    subgraph NFC_Module["NFC"]
+        NFC[NXP PN544]
+    end
+
+    subgraph RF["RF Section"]
+        AURA[AURA N7509<br/>RF Transceiver]
+        UKKO[UKKO N7510<br/>HB PA]
+        QUBBE[QuBBE N7512<br/>LB PA]
+    end
+
+    subgraph Cameras
+        PRI_CAM[Toshiba TCM8590MD<br/>8MP Main Camera]
+        SEC_CAM[ACMEmini<br/>Front EDoF]
+        FLASH[Camera Flash N1500]
+    end
+
+    subgraph Display
+        AMOLED["4.0&quot; AMOLED 640x360<br/>DSI Command Mode"]
+    end
+
+    subgraph Storage
+        EMMC[Samsung eMMC<br/>16GB D2800]
+    end
+
+    subgraph Sensors["Sensors (I2C0)"]
+        ACCEL["LIS302DL x2<br/>Accel 0x1C/0x1D"]
+        MAG[AK8974 Mag 0x0F]
+        TOUCH[Atmel mXT Touch 0x4C]
+        ALS["APDS-99xx ALS/Prox 0x39"]
+        HALL[Hall Sensor N1000]
+    end
+
+    subgraph IO["IO / Keyboard"]
+        IOEXP[IO Expander N1002]
+        KEYB["QWERTY 12x8 Matrix"]
+    end
+
+    subgraph Charger
+        CHG["BQ2415x / SMB338<br/>Charger 0x6B"]
+    end
+
+    subgraph External["External Connectors"]
+        USB_CONN[micro-USB OTG]
+        HDMI_CONN[mini-HDMI 720p]
+        AV_JACK[3.5mm AV TRRS]
+        SIM_SLOT[SIM Card]
+    end
+
+    subgraph Audio
+        HP_AMP[Headphone Amp N2000]
+        IHF_AMP[IHF Class-D N2150]
+        DMIC1[Digital Mic B1001]
+        DMIC2[Digital Mic B2101]
+    end
+
+    %% Power connections
+    BAT -->|VBAT 3.7V| PMIC
+    PMIC -->|VCORE 1.2V| Modem
+    PMIC -->|VIO 1.8V| Modem
+    PMIC -->|VIO 1.8V| ISP
+    PMIC -->|VCORE 1.2V| ISP
+    PMIC -->|VAUX1 2.78V| Sensors
+    PMIC -->|VAUX2 2.5V| ACCEL
+
+    %% Bus connections
+    Modem <-->|"CCP2/MPHI 650Mbps"| ISP
+    Modem <-->|"I2C2"| PMIC
+    Modem <-->|"SPI-A"| WIFI
+    Modem <-->|"UART 115200 H4+"| BT
+    Modem <-->|"CBUS"| FM
+    Modem <-->|"GPS(15:0)"| GPS_Module
+    Modem <-->|"RFCONV/RFCTRL"| AURA
+    Modem -->|"MMC2"| EMMC
+    Modem <-->|"I2C0"| Sensors
+    Modem <-->|"I2C0"| IO
+    Modem <-->|"ULPI"| USB_CONN
+    Modem <-->|"KEYB(15:0)"| KEYB
+
+    ISP -->|"DSI1 Cmd Mode"| AMOLED
+    ISP <--|"CSI-2 2-lane"| PRI_CAM
+    ISP <--|"CCP 1-lane"| SEC_CAM
+    ISP -->|"GPIO49/52"| FLASH
+
+    AURA -->|TX| UKKO
+    AURA -->|TX| QUBBE
+
+    PMIC -->|Audio| HP_AMP
+    PMIC -->|Audio| IHF_AMP
+    HP_AMP --> AV_JACK
+    PMIC --> SIM_IF
+    SIM_IF --> SIM_SLOT
+
+    Modem -->|"HDMI bus"| HDMI_CONN
+    Modem <-->|"I2C2"| CHG
+    Modem <-->|"I2C0"| NFC
+
+    IOEXP --> KEYB
+
+    classDef soc fill:#4a90d9,stroke:#333,color:#fff
+    classDef pmic fill:#e6a23c,stroke:#333,color:#fff
+    classDef wireless fill:#67c23a,stroke:#333,color:#fff
+    classDef sensor fill:#909399,stroke:#333,color:#fff
+    classDef storage fill:#f56c6c,stroke:#333,color:#fff
+    classDef camera fill:#b37feb,stroke:#333,color:#fff
+
+    class RAPU_CORE,GENIO,COMBO_MEM soc
+    class SMPS,LDO,AUDIO_CODEC,HBRIDGE,LED_CTRL,SIM_IF pmic
+    class WIFI,BT,FM,GPS_RF,NFC wireless
+    class ACCEL,MAG,TOUCH,ALS,HALL,IOEXP sensor
+    class EMMC storage
+    class PRI_CAM,SEC_CAM,FLASH,VC3_DSP,VC3_ISP camera

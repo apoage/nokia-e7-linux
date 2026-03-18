@@ -1,0 +1,103 @@
+%%{ init: { 'theme': 'base' } }%%
+sequenceDiagram
+    participant ROM as OMAP3630<br/>Mask ROM
+    participant SWBL as SWBL<br/>(0x0800)
+    participant NL as NLoader<br/>(PRIMAPP 0x4000)
+    participant PEARL as PEARL<br/>TWL5031
+    participant RAPU as RAPUYAMA
+    participant DSP as C64x+ DSP
+    participant SOS as Symbian OS
+
+    Note over ROM: Power On / Reset
+    ROM->>ROM: Configure SDRC/SDRAM
+    ROM->>ROM: Load SWBL from NAND
+    ROM->>SWBL: Jump to SWBL
+
+    SWBL->>SWBL: Minimal init
+    SWBL->>NL: Load PRIMAPP, jump
+
+    Note over NL: NLoader ("RAMSET SW")<br/>Build: Jul 27 2012
+
+    rect rgb(230, 245, 255)
+        Note over NL: 1. Hardware Detection
+        NL->>NL: HW: RAP%sv%d.%d%d
+        NL->>NL: Pearl-J detected
+        NL->>NL: Boot source: %d
+    end
+
+    rect rgb(255, 243, 224)
+        Note over NL,PEARL: 2. Power Management
+        NL->>PEARL: Set Gazoo VCore (%d uV)
+        NL->>PEARL: CBUS: %d kHz
+        NL->>NL: MCU PLL in ByPass (38.4MHz)
+        NL->>NL: Set MCU speed: %d kHz
+        NL->>NL: Set DSP speed: %d kHz
+        NL->>NL: MCU PLL at full frequency
+    end
+
+    rect rgb(232, 245, 233)
+        Note over NL,PEARL: 3. I2C Init + Charger
+        NL->>NL: init IC2_0 controller done
+        NL->>NL: init IC2_1 controller done
+        NL->>NL: init IC2_2 controller done
+        NL->>PEARL: Probe 0xD6 (7-bit 0x6B)
+        PEARL-->>NL: Revision register
+        NL->>NL: bq2415%d / SMB338 / SMB138
+    end
+
+    rect rgb(243, 229, 245)
+        Note over NL: 4. GENIO_INIT (Pad Mux)
+        NL->>NL: Locate GENIO_INIT in TOC
+        NL->>NL: BB5 Authentication
+        NL->>NL: Genio authentication OK
+        NL->>NL: Decrypt to RAM
+        loop For each (addr, value) pair
+            NL->>RAPU: Write %08X = %08X
+        end
+    end
+
+    rect rgb(255, 235, 238)
+        Note over NL,RAPU: 5. SmartReflex Calibration
+        NL->>RAPU: Start RapuYama VCore calibration
+        NL->>RAPU: sr_vcore_status_set(0x%x)
+        alt Calibration OK
+            RAPU-->>NL: RapuYama VCore calibration done
+        else Calibration Failed
+            RAPU-->>NL: SR calibration failed
+            NL->>NL: OPs limited to 450MHz
+        end
+    end
+
+    rect rgb(232, 245, 233)
+        Note over NL: 6. FOP Configuration
+        NL->>NL: fop N mcu: mul M, div D, freq F
+        NL->>NL: fop N dsp: mul M, div D, freq F
+        NL->>NL: fop N vcore final: V
+    end
+
+    rect rgb(230, 245, 255)
+        Note over NL,DSP: 7. DSP + Security
+        NL->>DSP: LDSP loaded by Nloader
+        NL->>DSP: DSP code started
+        NL->>NL: Authentication OK: <image>
+        NL->>NL: R&D: ROFS check disabled
+    end
+
+    rect rgb(255, 243, 224)
+        Note over NL: 8. HW Config Report
+        NL->>NL: hw_conf: SDRAM %d MB @ %08X
+        NL->>NL: hw_conf: MCU speed %d kHz
+        NL->>NL: hw_conf: DSP speed %d kHz
+        NL->>NL: hw_conf: Massmemory %d MB
+        NL->>NL: hw_conf: BSI value %d
+    end
+
+    rect rgb(243, 229, 245)
+        Note over NL,SOS: 9. OS Launch
+        NL->>NL: Decompress SOS+CORE (LZO/ZLIB)
+        NL->>SOS: Start SOS at %08X (->%08X)
+        NL->>NL: Total bootup time %d msec
+    end
+
+    Note over SOS: Symbian Kernel Running
+    Note over SOS: (Target: Replace with Linux)

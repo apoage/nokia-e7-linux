@@ -1,0 +1,558 @@
+{
+  "gpio_map": {
+    "bcm2727_gpios": [
+      {
+        "gpio": 18,
+        "direction": "out",
+        "signal": "VCAM_1V8_EN",
+        "connected_to": "N1515 EN",
+        "function": "Camera ISP 1.8V regulator enable",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 19,
+        "direction": "out",
+        "signal": "VCAM_2V8_STBY",
+        "connected_to": "N1517 STBY",
+        "function": "Camera 2.8V regulator standby/enable",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 28,
+        "direction": "bidir",
+        "signal": "PRI_CAM_SDA",
+        "connected_to": "Primary camera I2C data",
+        "function": "I2C-CAM-PRI data line (4k7 pull-up to VCAM_1V8)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 29,
+        "direction": "bidir",
+        "signal": "PRI_CAM_SCL",
+        "connected_to": "Primary camera I2C clock",
+        "function": "I2C-CAM-PRI clock line (4k7 pull-up to VCAM_1V8)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 32,
+        "direction": "out",
+        "signal": "SEC_CAM_CLK",
+        "connected_to": "UI flex secondary camera",
+        "function": "Secondary camera clock output (33R series resistor)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 33,
+        "direction": "bidir",
+        "signal": "TE0",
+        "connected_to": "UI flex display",
+        "function": "Display tearing effect synchronization signal",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 36,
+        "direction": "out",
+        "signal": "SEC_CAM_SHUTDOWN",
+        "connected_to": "UI flex secondary camera",
+        "function": "Secondary camera shutdown/power-down control",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 37,
+        "direction": "out",
+        "signal": "DISP_RESET_N",
+        "connected_to": "UI flex display panel",
+        "function": "Display panel active-low reset",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 38,
+        "direction": "out",
+        "signal": "PRI_CAM_EXTCLK",
+        "connected_to": "Primary camera sensor",
+        "function": "Primary camera external clock (33R series resistor)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 40,
+        "direction": "out",
+        "signal": "J1443_CONNECTOR",
+        "connected_to": "J1443",
+        "function": "Test/debug connector signal",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 43,
+        "direction": "out",
+        "signal": "J1445_CONNECTOR",
+        "connected_to": "J1445",
+        "function": "Test/debug connector signal",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 46,
+        "direction": "bidir",
+        "signal": "SEC_CAM_I2C_0",
+        "connected_to": "UI flex secondary camera I2C",
+        "function": "I2C-CAM-SEC data line (3k3 series resistor R1487)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 47,
+        "direction": "bidir",
+        "signal": "SEC_CAM_I2C_1",
+        "connected_to": "UI flex secondary camera I2C",
+        "function": "I2C-CAM-SEC clock line (3k3 series resistor R1488)",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 49,
+        "direction": "out",
+        "signal": "FLASH_TRIGGER",
+        "connected_to": "N1500 STROBE",
+        "function": "Camera flash strobe trigger",
+        "schematic_page": 2
+      },
+      {
+        "gpio": 52,
+        "direction": "out",
+        "signal": "FLASH_ENABLE",
+        "connected_to": "N1500 I2C/EN",
+        "function": "Camera flash enable / I2C mode select",
+        "schematic_page": 2
+      }
+    ],
+    "rapuyama_genios": [
+      {
+        "genio": 2,
+        "direction": "in",
+        "signal": "VOLUME_UP",
+        "connected_to": "S2402 volume key",
+        "function": "Volume up button",
+        "pin": "U10",
+        "schematic_page": 4
+      },
+      {
+        "genio": 3,
+        "direction": "in",
+        "signal": "PROX_INT",
+        "connected_to": "APDS-99xx interrupt",
+        "function": "Proximity/ALS sensor interrupt",
+        "pin": null,
+        "schematic_page": 9
+      },
+      {
+        "genio": 12,
+        "direction": "in",
+        "signal": "ACCEL_INT2",
+        "connected_to": "N1103 LIS302DL INT2",
+        "function": "Accelerometer interrupt 2",
+        "pin": null,
+        "schematic_page": 4
+      },
+      {
+        "genio": 39,
+        "direction": "out",
+        "signal": "DIGIMIC_DATA",
+        "connected_to": "Digital microphone PDM data",
+        "function": "Digital microphone data line",
+        "pin": null,
+        "schematic_page": 8
+      },
+      {
+        "genio": 40,
+        "direction": "in",
+        "signal": "MAG_DRDY",
+        "connected_to": "N1001 AK8974 DRDY",
+        "function": "Magnetometer data ready interrupt",
+        "pin": null,
+        "schematic_page": 8,
+        "notes": "Confirmed from service manual and DTS. Was incorrectly listed as genio 13."
+      },
+      {
+        "genio": 41,
+        "direction": "in",
+        "signal": "MAG_INT",
+        "connected_to": "N1001 AK8974 INT",
+        "function": "Magnetometer interrupt",
+        "pin": null,
+        "schematic_page": 8
+      },
+      {
+        "genio": 17,
+        "direction": "out",
+        "signal": "VIO_EMMC_ON1",
+        "connected_to": "N3252 ON input",
+        "function": "eMMC IO level switch enable 1",
+        "pin": null,
+        "schematic_page": 4
+      },
+      {
+        "genio": 23,
+        "direction": "out",
+        "signal": "VIO_EMMC_ON2",
+        "connected_to": "N3252 ON input",
+        "function": "eMMC IO level switch enable 2",
+        "pin": null,
+        "schematic_page": 4
+      },
+      {
+        "genio": 26,
+        "direction": "in",
+        "signal": "HALL_SENSOR_DET",
+        "connected_to": "N1000 hall sensor output",
+        "function": "Keypad slide/lid detect",
+        "pin": null,
+        "schematic_page": 8
+      },
+      {
+        "genio": 24,
+        "direction": "in",
+        "signal": "HDMI_CABLE_DET",
+        "connected_to": "N1653 MESSI-16",
+        "function": "HDMI cable detection",
+        "pin": null,
+        "schematic_page": 3
+      },
+      {
+        "genio": 35,
+        "direction": "out",
+        "signal": "WLAN_EN",
+        "connected_to": "N6300 WL1273",
+        "function": "WLAN module enable (probable)",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 36,
+        "direction": "in",
+        "signal": "CAPTURE_KEY",
+        "connected_to": "S25 capture button",
+        "function": "Camera capture key (half/full press)",
+        "pin": "G15",
+        "schematic_page": 4
+      },
+      {
+        "genio": 42,
+        "direction": "out",
+        "signal": "IOEXP_RESETN",
+        "connected_to": "N1002 RESETN",
+        "function": "IO expander active-low reset",
+        "pin": null,
+        "schematic_page": 8
+      },
+      {
+        "genio": 43,
+        "direction": "in",
+        "signal": "HDMI_HPD",
+        "connected_to": "N1653 MESSI-16",
+        "function": "HDMI hot-plug detect",
+        "pin": null,
+        "schematic_page": 3
+      },
+      {
+        "genio": 44,
+        "direction": "in",
+        "signal": "ACCEL_INT1",
+        "connected_to": "N1103 LIS302DL INT1",
+        "function": "Accelerometer interrupt 1 (shared with IO expander IRQN on some mappings)",
+        "pin": null,
+        "schematic_page": 4
+      },
+      {
+        "genio": 46,
+        "direction": "out",
+        "signal": "GPS_CLK_REQ",
+        "connected_to": "N6200 GPS clock request",
+        "function": "GPS clock enable request",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 48,
+        "direction": "out",
+        "signal": "BT_RESETX",
+        "connected_to": "N6300 WL1273 BT reset",
+        "function": "Bluetooth module active-low reset",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 50,
+        "direction": "out",
+        "signal": "BT_WAKEUP",
+        "connected_to": "N6300 WL1273 BT wakeup",
+        "function": "Bluetooth module host wakeup",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 53,
+        "direction": "out",
+        "signal": "GPS_EN_RESET",
+        "connected_to": "N6200 GPS module",
+        "function": "GPS module enable/reset",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 59,
+        "direction": "out",
+        "signal": "VMEM2_EN",
+        "connected_to": "N3201 boost regulator",
+        "function": "VMEM2 memory boost enable",
+        "pin": null,
+        "schematic_page": 4
+      },
+      {
+        "genio": 65,
+        "direction": "in",
+        "signal": "VOLUME_DOWN",
+        "connected_to": "S30 volume key",
+        "function": "Volume down button",
+        "pin": "U20",
+        "schematic_page": 4
+      },
+      {
+        "genio": 72,
+        "direction": "out",
+        "signal": "DIGIMIC_CLK",
+        "connected_to": "Digital microphone PDM clock",
+        "function": "Digital microphone clock",
+        "pin": null,
+        "schematic_page": 8
+      },
+      {
+        "genio": 77,
+        "direction": "in",
+        "signal": "WLAN_IRQ",
+        "connected_to": "N6300 WL1273 WLAN IRQ",
+        "function": "WLAN interrupt request",
+        "pin": null,
+        "schematic_page": 7
+      },
+      {
+        "genio": 105,
+        "direction": "out",
+        "signal": "IHF_AMP_EN",
+        "connected_to": "N2150 IHF amplifier",
+        "function": "Internal hands-free speaker amplifier enable",
+        "pin": null,
+        "schematic_page": 6
+      },
+      {
+        "genio": 122,
+        "direction": "out",
+        "signal": "TOUCH_RESET",
+        "connected_to": "Atmel mXT RESETN",
+        "function": "Touchscreen controller reset",
+        "pin": null,
+        "schematic_page": 9
+      },
+      {
+        "genio": 123,
+        "direction": "in",
+        "signal": "TOUCH_INT",
+        "connected_to": "Atmel mXT interrupt",
+        "function": "Touchscreen interrupt (active low)",
+        "pin": null,
+        "schematic_page": 9
+      },
+      {
+        "genio": "N22",
+        "direction": "out",
+        "signal": "WLANENABLE",
+        "connected_to": "N6300 WL1273 WLAN enable",
+        "function": "WLAN module power enable",
+        "pin": "N22",
+        "schematic_page": 7
+      },
+      {
+        "genio": "Y13",
+        "direction": "out",
+        "signal": "VHDMI_EN",
+        "connected_to": "N1654 EN",
+        "function": "HDMI 5V boost regulator enable",
+        "pin": "Y13",
+        "schematic_page": 3
+      },
+      {
+        "genio": "V3",
+        "direction": "in",
+        "signal": "TOUCH_INT",
+        "connected_to": "Atmel mXT interrupt",
+        "function": "Touchscreen interrupt (active low)",
+        "pin": "V3",
+        "schematic_page": 9
+      },
+      {
+        "genio": "W4",
+        "direction": "out",
+        "signal": "TOUCH_RST",
+        "connected_to": "Atmel mXT reset",
+        "function": "Touchscreen controller reset",
+        "pin": "W4",
+        "schematic_page": 9
+      },
+      {
+        "genio": "Y10",
+        "direction": "in",
+        "signal": "PROX_INT",
+        "connected_to": "N8001 APDS-99xx interrupt",
+        "function": "Proximity/ALS sensor interrupt",
+        "pin": "Y10",
+        "schematic_page": 9
+      }
+    ],
+    "sensor_flex_signals": [
+      {
+        "pin": 0,
+        "signal": "Hall_sensor_DET",
+        "connected_to": "N1000 hall sensor output",
+        "function": "Slider/lid open-close detection",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 6,
+        "signal": "IOexp_RESETN",
+        "connected_to": "N1002 RESETN",
+        "function": "IO expander reset (active low)",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 8,
+        "signal": "Prox_int",
+        "connected_to": "N8001 APDS-99xx interrupt (routed from UI flex)",
+        "function": "Proximity sensor interrupt",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 9,
+        "signal": "mm_drdy",
+        "connected_to": "N1001 AK8974 DRDY",
+        "function": "Magnetometer data ready",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 10,
+        "signal": "mm_int",
+        "connected_to": "N1001 AK8974 INT",
+        "function": "Magnetometer interrupt",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 13,
+        "signal": "Exp_int / ExpanderInt",
+        "connected_to": "N1002 IO expander IRQN",
+        "function": "IO expander interrupt (active low)",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 14,
+        "signal": "I2C0SDA",
+        "connected_to": "I2C0 data bus",
+        "function": "Sensor I2C data line on QWERTY flex",
+        "schematic_page": 8,
+        "connector": "X1000"
+      },
+      {
+        "pin": 15,
+        "signal": "I2C0SCL",
+        "connected_to": "I2C0 clock bus",
+        "function": "Sensor I2C clock line on QWERTY flex",
+        "schematic_page": 8,
+        "connector": "X1000"
+      }
+    ],
+    "ui_flex_signals": [
+      {
+        "pin": 94,
+        "signal": "Touch_RSTX",
+        "connected_to": "Atmel mXT RESETN",
+        "function": "Touch controller active-low reset",
+        "schematic_page": 9,
+        "connector": "X8002"
+      },
+      {
+        "pin": 95,
+        "signal": "Touch_Int",
+        "connected_to": "Atmel mXT INT output",
+        "function": "Touch controller interrupt to RAPUYAMA",
+        "schematic_page": 9,
+        "connector": "X8002"
+      },
+      {
+        "pin": 96,
+        "signal": "I2C0SDA",
+        "connected_to": "I2C0 data bus",
+        "function": "Sensor I2C data line on UI flex",
+        "schematic_page": 9,
+        "connector": "X8002"
+      },
+      {
+        "pin": 97,
+        "signal": "I2C0SCL",
+        "connected_to": "I2C0 clock bus",
+        "function": "Sensor I2C clock line on UI flex",
+        "schematic_page": 9,
+        "connector": "X8002"
+      }
+    ],
+    "buttons": [
+      {
+        "name": "Volume Down",
+        "genio": 65,
+        "ref": "S30",
+        "pin": "U20",
+        "schematic_page": 4,
+        "notes": "Directly connected to RAPUYAMA genio65"
+      },
+      {
+        "name": "Volume Up",
+        "genio": 2,
+        "ref": "S2402",
+        "pin": "U10",
+        "schematic_page": 4,
+        "notes": "Directly connected to RAPUYAMA genio2"
+      },
+      {
+        "name": "Capture Key",
+        "genio": 36,
+        "ref": "S25",
+        "pin": "G15",
+        "schematic_page": 4,
+        "notes": "Camera capture button. May support half-press (focus) and full-press (shutter)."
+      },
+      {
+        "name": "Power Key",
+        "genio": null,
+        "ref": null,
+        "pin": "B10",
+        "schematic_page": 5,
+        "notes": "PwrOnX signal directly to TWL5031 pin B10. Not a genio, handled by PMIC."
+      },
+      {
+        "name": "Home Key",
+        "genio": null,
+        "ref": null,
+        "pin": null,
+        "schematic_page": 9,
+        "notes": "Via UI flex connector to RAPUYAMA keyboard matrix (KEYB). Exact genio unknown."
+      },
+      {
+        "name": "Lock Key",
+        "genio": null,
+        "ref": null,
+        "pin": null,
+        "schematic_page": 8,
+        "notes": "Via SENSORS connector to QWERTY flex. Exact genio unknown."
+      }
+    ]
+  }
+}

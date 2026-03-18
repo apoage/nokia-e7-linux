@@ -1,0 +1,2105 @@
+{
+  "metadata": {
+    "source": "schematics_decrypted.pdf, board 3EQ_08 v1.0 (18.11.2010)",
+    "boards": ["3EQ_08 main", "3ET_06a QWERTY flex", "3ES_06a UI flex"],
+    "note": "GPIO numbers without prefix are BCM2727 (OMAP3630 imaging processor). RAPUYAMA genio numbers are CMT modem GPIO namespace.",
+    "generated": "2026-02-28"
+  },
+  "signals": [
+    {
+      "name": "VDD_BAT",
+      "type": "power",
+      "source": {"component": "VBAT_rail", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "B1"},
+        {"component": "bcm2727_d1400", "pin": "C1"},
+        {"component": "bcm2727_d1400", "pin": "B2"},
+        {"component": "bcm2727_d1400", "pin": "C2"}
+      ],
+      "schematic_page": 2,
+      "notes": "Battery supply to BCM2727 VDD_BAT (4 pins)"
+    },
+    {
+      "name": "VDD_1V8",
+      "type": "power",
+      "source": {"component": "VIO_rail", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "multiple"}
+      ],
+      "schematic_page": 2,
+      "notes": "Digital IO supply to BCM2727 VDD_1V8 (8 pins), via L1401/L1402/L1403/L1404 ferrites"
+    },
+    {
+      "name": "VDD_CORE",
+      "type": "power",
+      "source": {"component": "VCORE_rail", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "17_pins"}
+      ],
+      "schematic_page": 2,
+      "notes": "Core logic supply, 17 pins on BCM2727"
+    },
+    {
+      "name": "GPIO18",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "GPIO18"},
+      "destinations": [
+        {"component": "vcam_1v8_regulator_n1515", "pin": "EN"}
+      ],
+      "schematic_page": 2,
+      "notes": "VCAM_1V8 regulator enable"
+    },
+    {
+      "name": "GPIO19",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "GPIO19"},
+      "destinations": [
+        {"component": "vcam_2v8_regulator_n1517", "pin": "STBY"}
+      ],
+      "schematic_page": 2,
+      "notes": "VCAM_2V8 regulator standby/enable"
+    },
+    {
+      "name": "PRI_CAM_SDA",
+      "type": "i2c_data",
+      "source": {"component": "bcm2727_d1400", "pin": "K1"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "4"},
+        {"component": "flash_regulator_n1500", "pin": "SDA_EN2"}
+      ],
+      "bus": "i2c_cam_pri",
+      "pull_up": {"value": "4k7", "rail": "VCAM_1V8"},
+      "schematic_page": 2,
+      "notes": "Primary camera I2C data. BCM2727 GPIO28 in schematics block diagram text."
+    },
+    {
+      "name": "PRI_CAM_SCL",
+      "type": "i2c_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "K9"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "5"},
+        {"component": "flash_regulator_n1500", "pin": "SCL_EN1"}
+      ],
+      "bus": "i2c_cam_pri",
+      "pull_up": {"value": "4k7", "rail": "VCAM_1V8"},
+      "schematic_page": 2,
+      "notes": "Primary camera I2C clock. BCM2727 GPIO29 in schematics block diagram text."
+    },
+    {
+      "name": "EXTCLK",
+      "type": "clock",
+      "source": {"component": "bcm2727_d1400", "pin": "L4"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "6"}
+      ],
+      "series_resistor": "33R",
+      "schematic_page": 2,
+      "notes": "Primary camera master clock. BCM2727 GPIO38 in block diagram."
+    },
+    {
+      "name": "CSI_DN0",
+      "type": "csi2_data",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1453"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 data lane 0, negative"
+    },
+    {
+      "name": "CSI_DP0",
+      "type": "csi2_data",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1452"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 data lane 0, positive"
+    },
+    {
+      "name": "CSI_CLKN",
+      "type": "csi2_clock",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1451"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 clock, negative"
+    },
+    {
+      "name": "CSI_CLKP",
+      "type": "csi2_clock",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1450"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 clock, positive"
+    },
+    {
+      "name": "CSI_DN1",
+      "type": "csi2_data",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1455"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 data lane 1, negative"
+    },
+    {
+      "name": "CSI_DP1",
+      "type": "csi2_data",
+      "source": {"component": "primary_camera_x1476", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "J1454"}
+      ],
+      "bus": "csi2_primary",
+      "schematic_page": 2,
+      "notes": "CSI-2 data lane 1, positive"
+    },
+    {
+      "name": "VCAM_1V8",
+      "type": "power",
+      "source": {"component": "vcam_1v8_regulator_n1515", "pin": "VOUT"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "7"},
+        {"component": "bcm2727_d1400", "pin": "CDP_1V8"},
+        {"component": "bcm2727_d1400", "pin": "CCPTX_1V8"}
+      ],
+      "schematic_page": 2,
+      "notes": "1.8V camera supply, N1515 boost LDO, VIN=VBAT"
+    },
+    {
+      "name": "VCAM_2V8",
+      "type": "power",
+      "source": {"component": "vcam_2v8_regulator_n1517", "pin": "VOUT"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "VANA"}
+      ],
+      "schematic_page": 2,
+      "notes": "2.8V camera analog supply, N1517 LDO, VIN=VBAT"
+    },
+    {
+      "name": "GPIO40",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "M2"},
+      "destinations": [
+        {"component": "connector_j1443", "pin": null}
+      ],
+      "schematic_page": 2,
+      "notes": "BCM2727 GPIO to J1443 connector (function TBD)"
+    },
+    {
+      "name": "GPIO43",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "M1"},
+      "destinations": [
+        {"component": "connector_j1445", "pin": null}
+      ],
+      "schematic_page": 2,
+      "notes": "BCM2727 GPIO to J1445 connector (function TBD)"
+    },
+    {
+      "name": "GPIO47",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "N6"},
+      "destinations": [
+        {"component": "ui_flex_sec_cam_i2c_1", "pin": null}
+      ],
+      "series_resistor": "R1487_3k3",
+      "schematic_page": 2,
+      "notes": "Secondary camera I2C SDA (bus 1) via 3k3 to UI flex page 9"
+    },
+    {
+      "name": "GPIO46",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "N1"},
+      "destinations": [
+        {"component": "ui_flex_sec_cam_i2c_0", "pin": null}
+      ],
+      "series_resistor": "R1488_3k3",
+      "schematic_page": 2,
+      "notes": "Secondary camera I2C SCL (bus 0) via 3k3 to UI flex page 9"
+    },
+    {
+      "name": "CCP_CLKP",
+      "type": "ccp_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "J23"},
+      "destinations": [
+        {"component": "ui_flex_sec_cam_ccp", "pin": "3"}
+      ],
+      "bus": "sec_cam_ccp",
+      "schematic_page": 2,
+      "notes": "Secondary camera CCP clock positive to UI flex"
+    },
+    {
+      "name": "CCP_CLKN",
+      "type": "ccp_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "J22"},
+      "destinations": [
+        {"component": "ui_flex_sec_cam_ccp", "pin": "2"}
+      ],
+      "bus": "sec_cam_ccp",
+      "schematic_page": 2,
+      "notes": "Secondary camera CCP clock negative to UI flex"
+    },
+    {
+      "name": "CCP_DP",
+      "type": "ccp_data",
+      "source": {"component": "bcm2727_d1400", "pin": "K23"},
+      "destinations": [
+        {"component": "ui_flex_sec_cam_ccp", "pin": "1"}
+      ],
+      "bus": "sec_cam_ccp",
+      "schematic_page": 2,
+      "notes": "Secondary camera CCP data positive to UI flex"
+    },
+    {
+      "name": "GPIO33",
+      "type": "gpio_bidir",
+      "source": {"component": "bcm2727_d1400", "pin": "L5"},
+      "destinations": [
+        {"component": "ui_flex_te0", "pin": null},
+        {"component": "rapuyama_b2800", "pin": "via_flex"}
+      ],
+      "schematic_page": 2,
+      "notes": "Display tearing effect signal TE0 to UI flex (page 9)"
+    },
+    {
+      "name": "GPIO37",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "L6"},
+      "destinations": [
+        {"component": "display_x8001", "pin": "RES"}
+      ],
+      "schematic_page": 2,
+      "notes": "Display reset DISP_RESET_N to UI flex (page 9)"
+    },
+    {
+      "name": "GPIO36",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "L3"},
+      "destinations": [
+        {"component": "secondary_camera_h8000", "pin": "XSHUTDOWN"}
+      ],
+      "schematic_page": 2,
+      "notes": "SEC_CAM_SHUTDOWN to UI flex (page 9)"
+    },
+    {
+      "name": "GPIO32",
+      "type": "clock",
+      "source": {"component": "bcm2727_d1400", "pin": "M10"},
+      "destinations": [
+        {"component": "secondary_camera_h8000", "pin": "EXTCLK"}
+      ],
+      "series_resistor": "R1429_33R",
+      "schematic_page": 2,
+      "notes": "SEC_CAM_CLK to UI flex (page 9)"
+    },
+    {
+      "name": "DSI1_CLKP",
+      "type": "mipi_dsi_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "V21"},
+      "destinations": [
+        {"component": "display_x8001", "pin": "CLK+"}
+      ],
+      "bus": "dsi1",
+      "schematic_page": 2,
+      "notes": "MIPI DSI clock+ to UI flex (page 9)"
+    },
+    {
+      "name": "DSI1_CLKN",
+      "type": "mipi_dsi_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "U21"},
+      "destinations": [
+        {"component": "display_x8001", "pin": "CLK-"}
+      ],
+      "bus": "dsi1",
+      "schematic_page": 2,
+      "notes": "MIPI DSI clock- to UI flex (page 9)"
+    },
+    {
+      "name": "DSI1_DP0",
+      "type": "mipi_dsi_data",
+      "source": {"component": "bcm2727_d1400", "pin": "V20"},
+      "destinations": [
+        {"component": "display_x8001", "pin": "DATA0+"}
+      ],
+      "bus": "dsi1",
+      "schematic_page": 2,
+      "notes": "MIPI DSI data lane 0+"
+    },
+    {
+      "name": "DSI1_DN0",
+      "type": "mipi_dsi_data",
+      "source": {"component": "bcm2727_d1400", "pin": "U20"},
+      "destinations": [
+        {"component": "display_x8001", "pin": "DATA0-"}
+      ],
+      "bus": "dsi1",
+      "schematic_page": 2,
+      "notes": "MIPI DSI data lane 0-"
+    },
+    {
+      "name": "FLASH_TRIGGER",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "N5"},
+      "destinations": [
+        {"component": "flash_regulator_n1500", "pin": "STROBE"}
+      ],
+      "schematic_page": 2,
+      "notes": "Camera flash strobe trigger. BCM2727 GPIO49."
+    },
+    {
+      "name": "FLASH_ENABLE",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "C3"},
+      "destinations": [
+        {"component": "flash_regulator_n1500", "pin": "I2C_EN"}
+      ],
+      "schematic_page": 2,
+      "notes": "Flash regulator I2C/EN. BCM2727 GPIO52."
+    },
+    {
+      "name": "SENNA_TORCH_ENABLE",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "J2899_G13"},
+      "destinations": [
+        {"component": "flash_regulator_n1500", "pin": "TORCH"}
+      ],
+      "schematic_page": 2,
+      "notes": "Torch mode control from RAPUYAMA CMT modem"
+    },
+    {
+      "name": "CCP_BUS_30_0",
+      "type": "parallel_bus",
+      "source": {"component": "bcm2727_d1400", "pin": null},
+      "destinations": [
+        {"component": "rapuyama_b2800", "pin": null}
+      ],
+      "bus": "ccp_imaging_bus",
+      "width": 31,
+      "schematic_page": 2,
+      "notes": "30-bit CCP imaging data bus BCM2727 to RAPUYAMA"
+    },
+    {
+      "name": "DAC_2V5",
+      "type": "analog",
+      "source": {"component": "bcm2727_d1400", "pin": "DAC_2V5"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "VREF"}
+      ],
+      "schematic_page": 2,
+      "notes": "2.5V DAC reference for primary camera"
+    },
+    {
+      "name": "19P2_MHz_CRYSTAL",
+      "type": "clock",
+      "source": {"component": "crystal_b1400", "pin": null},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "XIN"},
+        {"component": "bcm2727_d1400", "pin": "XOUT"}
+      ],
+      "schematic_page": 2,
+      "notes": "19.2 MHz main clock via L1515/L1400 filtering"
+    },
+    {
+      "name": "GPS_15_0",
+      "type": "parallel_bus",
+      "source": {"component": "rapuyama_b2800", "pin": "genio29_30_51_46"},
+      "destinations": [
+        {"component": "bob_wl1273_n6300", "pin": null}
+      ],
+      "bus": "gps_bus",
+      "width": 16,
+      "schematic_page": 3,
+      "notes": "GPS data bus RAPUYAMA to WL1273 BOB"
+    },
+    {
+      "name": "BT_23_0",
+      "type": "parallel_bus",
+      "source": {"component": "rapuyama_b2800", "pin": null},
+      "destinations": [
+        {"component": "bob_wl1273_n6300", "pin": null}
+      ],
+      "bus": "bluetooth_bus",
+      "width": 24,
+      "schematic_page": 3,
+      "notes": "Bluetooth interface RAPUYAMA to WL1273"
+    },
+    {
+      "name": "WLAN_15_0",
+      "type": "parallel_bus",
+      "source": {"component": "rapuyama_b2800", "pin": "genio77_75_76"},
+      "destinations": [
+        {"component": "bob_wl1273_n6300", "pin": null}
+      ],
+      "bus": "wlan_spi_bus",
+      "width": 16,
+      "schematic_page": 3,
+      "notes": "WLAN SPI+control bus RAPUYAMA to WL1273"
+    },
+    {
+      "name": "ULPIClock",
+      "type": "ulpi_clock",
+      "source": {"component": "rapuyama_b2800", "pin": "K20"},
+      "destinations": [
+        {"component": "usb_module_n3300", "pin": null}
+      ],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI USB clock"
+    },
+    {
+      "name": "ULPIDir",
+      "type": "ulpi_control",
+      "source": {"component": "rapuyama_b2800", "pin": "K21"},
+      "destinations": [
+        {"component": "usb_module_n3300", "pin": null}
+      ],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI direction control"
+    },
+    {
+      "name": "ULPINxt",
+      "type": "ulpi_control",
+      "source": {"component": "rapuyama_b2800", "pin": "H21"},
+      "destinations": [
+        {"component": "usb_module_n3300", "pin": null}
+      ],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI next"
+    },
+    {
+      "name": "ULPIStp",
+      "type": "ulpi_control",
+      "source": {"component": "rapuyama_b2800", "pin": "G20"},
+      "destinations": [
+        {"component": "usb_module_n3300", "pin": null}
+      ],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI stop"
+    },
+    {
+      "name": "ULPIData_0",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "J21"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D0"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 0"
+    },
+    {
+      "name": "ULPIData_1",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "J20"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D1"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 1"
+    },
+    {
+      "name": "ULPIData_2",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "M22"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D2"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 2"
+    },
+    {
+      "name": "ULPIData_3",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "H20"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D3"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 3"
+    },
+    {
+      "name": "ULPIData_4",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "L21"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D4"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 4"
+    },
+    {
+      "name": "ULPIData_5",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "F21"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D5"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 5"
+    },
+    {
+      "name": "ULPIData_6",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "F20"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D6"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 6"
+    },
+    {
+      "name": "ULPIData_7",
+      "type": "ulpi_data",
+      "source": {"component": "rapuyama_b2800", "pin": "E20"},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D7"}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI data bit 7"
+    },
+    {
+      "name": "ULPICS",
+      "type": "ulpi_control",
+      "source": {"component": "rapuyama_b2800", "pin": "K20_area"},
+      "destinations": [{"component": "usb_module_n3300", "pin": null}],
+      "bus": "ulpi_usb",
+      "schematic_page": 3,
+      "notes": "ULPI chip select"
+    },
+    {
+      "name": "USB_PSE_ChargeINT",
+      "type": "interrupt",
+      "source": {"component": "rapuyama_b2800", "pin": "P23"},
+      "destinations": [{"component": "usb_module_n3300", "pin": null}],
+      "schematic_page": 3,
+      "notes": "USB charge interrupt"
+    },
+    {
+      "name": "AudioClk_IN",
+      "type": "clock",
+      "source": {"component": "rapuyama_b2800", "pin": "P23"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "schematic_page": 3,
+      "notes": "Audio clock input to PEARL, shared pin P23 with USB_PSE_ChargeINT"
+    },
+    {
+      "name": "RFCTRL_11_0",
+      "type": "rf_control",
+      "source": {"component": "rapuyama_b2800", "pin": "A20_P4_N4_N3"},
+      "destinations": [{"component": "aura_n7509", "pin": null}],
+      "bus": "rfctrl_bus",
+      "width": 12,
+      "schematic_page": 3,
+      "notes": "RF control bus RAPUYAMA to AURA"
+    },
+    {
+      "name": "RFCLK_1_0",
+      "type": "rf_clock",
+      "source": {"component": "rapuyama_b2800", "pin": "G3_G2"},
+      "destinations": [{"component": "aura_n7509", "pin": null}],
+      "width": 2,
+      "schematic_page": 3,
+      "notes": "RF clock differential pair to AURA"
+    },
+    {
+      "name": "TXC_2_0",
+      "type": "rf_control",
+      "source": {"component": "rapuyama_b2800", "pin": "J2800_J2801"},
+      "destinations": [{"component": "aura_n7509", "pin": null}],
+      "width": 3,
+      "schematic_page": 3,
+      "notes": "TX control bus"
+    },
+    {
+      "name": "RFBusDa",
+      "type": "rf_serial",
+      "source": {"component": "rapuyama_b2800", "pin": "H3"},
+      "destinations": [{"component": "aura_n7509", "pin": null}],
+      "bus": "rf_serial_bus",
+      "schematic_page": 3,
+      "notes": "RF serial bus data"
+    },
+    {
+      "name": "RFBusClk",
+      "type": "rf_serial",
+      "source": {"component": "rapuyama_b2800", "pin": "J3"},
+      "destinations": [{"component": "aura_n7509", "pin": null}],
+      "bus": "rf_serial_bus",
+      "schematic_page": 3,
+      "notes": "RF serial bus clock"
+    },
+    {
+      "name": "RFBusEn1X",
+      "type": "rf_serial",
+      "source": {"component": "rapuyama_b2800", "pin": "H4"},
+      "destinations": [{"component": "aura_n7509", "pin": "P12"}],
+      "bus": "rf_serial_bus",
+      "schematic_page": 3,
+      "notes": "RF bus enable (active low)"
+    },
+    {
+      "name": "RFCONV_20_0",
+      "type": "rf_iq_data",
+      "source": {"component": "rapuyama_b2800", "pin": "J2805_J2806_J2807"},
+      "destinations": [{"component": "aura_n7509", "pin": "N9_M9_M10_N10"}],
+      "bus": "rfconv_bus",
+      "width": 21,
+      "schematic_page": 3,
+      "notes": "RF IQ converter data (TX/RX)"
+    },
+    {
+      "name": "CBUS_3_0",
+      "type": "cbus",
+      "source": {"component": "rapuyama_b2800", "pin": "N7_N8_P8"},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": null},
+        {"component": "bob_wl1273_n6300", "pin": "K1_L1"}
+      ],
+      "bus": "cbus",
+      "width": 4,
+      "schematic_page": 3,
+      "notes": "C-bus (TWL control + FM radio clock/data)"
+    },
+    {
+      "name": "DIG_AUDIO_20_0",
+      "type": "digital_audio",
+      "source": {"component": "rapuyama_b2800", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "bus": "dig_audio_bus",
+      "width": 21,
+      "schematic_page": 3,
+      "notes": "Digital audio bus RAPUYAMA to PEARL"
+    },
+    {
+      "name": "ACI_7_0",
+      "type": "aci",
+      "source": {"component": "rapuyama_b2800", "pin": "D11_N9_R22"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "D11_B12"}],
+      "bus": "aci_bus",
+      "width": 8,
+      "schematic_page": 3,
+      "notes": "Accessory interface bus (MBusRx/MBusTx)"
+    },
+    {
+      "name": "EMINT_3_0",
+      "type": "interrupt",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "Y15_AA16"}],
+      "width": 4,
+      "schematic_page": 3,
+      "notes": "PEARL power management interrupt to RAPUYAMA"
+    },
+    {
+      "name": "HDMI_REG_EN",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "Y13"},
+      "destinations": [{"component": "hdmi_boost_n1654", "pin": "EN"}],
+      "schematic_page": 3,
+      "notes": "HDMI 5V boost regulator enable"
+    },
+    {
+      "name": "HDMI_HPD",
+      "type": "hotplug_detect",
+      "source": {"component": "messi_16_n1653", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio43_AA10"}],
+      "schematic_page": 3,
+      "notes": "HDMI hot plug detect from MESSI-16 controller"
+    },
+    {
+      "name": "HDMI_CABLE_DET",
+      "type": "gpio_input",
+      "source": {"component": "hdmi_connector_x1650", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio24"}],
+      "schematic_page": 3,
+      "notes": "HDMI cable detect"
+    },
+    {
+      "name": "DISPCDataLCD_14_0",
+      "type": "display_data",
+      "source": {"component": "rapuyama_b2800", "pin": "ASIP"},
+      "destinations": [{"component": "bcm2727_d1400", "pin": null}],
+      "bus": "dispc_lcd_bus",
+      "width": 15,
+      "schematic_page": 3,
+      "notes": "Display data bus from RAPUYAMA ASIP to BCM2727"
+    },
+    {
+      "name": "IVE3_HAT_INT",
+      "type": "interrupt",
+      "source": {"component": "messi_16_n1653", "pin": "E10"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "D12"}],
+      "schematic_page": 3,
+      "notes": "HDMI controller interrupt to RAPUYAMA"
+    },
+    {
+      "name": "SleepClkBuf",
+      "type": "clock",
+      "source": {"component": "clock_buffer_n2800", "pin": null},
+      "destinations": [
+        {"component": "bob_wl1273_n6300", "pin": "L6"},
+        {"component": "gps_module_n6200", "pin": "genio54"},
+        {"component": "led_driver_n2500", "pin": "B3"}
+      ],
+      "schematic_page": 3,
+      "notes": "32.768 kHz buffered sleep clock"
+    },
+    {
+      "name": "I2C2SDA",
+      "type": "i2c_data",
+      "source": {"component": "rapuyama_b2800", "pin": "W23"},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": "A4_B4"},
+        {"component": "led_driver_n2500", "pin": "E1"}
+      ],
+      "bus": "i2c2",
+      "schematic_page": 3,
+      "notes": "I2C bus 2 data"
+    },
+    {
+      "name": "I2C2SCL",
+      "type": "i2c_clock",
+      "source": {"component": "rapuyama_b2800", "pin": "A11"},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": "A4_B4"},
+        {"component": "led_driver_n2500", "pin": "D1"}
+      ],
+      "bus": "i2c2",
+      "schematic_page": 3,
+      "notes": "I2C bus 2 clock"
+    },
+    {
+      "name": "TxCClk",
+      "type": "clock",
+      "source": {"component": "rapuyama_b2800", "pin": "G12"},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": null},
+        {"component": "aura_n7509", "pin": null}
+      ],
+      "schematic_page": 3,
+      "notes": "TX clock from RAPUYAMA to PEARL audio and RF"
+    },
+    {
+      "name": "MMC2Cmd",
+      "type": "mmc_command",
+      "source": {"component": "rapuyama_b2800", "pin": "M5"},
+      "destinations": [{"component": "emmc_d2800", "pin": "CMD"}],
+      "series_resistor": "R3222_15R",
+      "schematic_page": 4,
+      "notes": "eMMC command line"
+    },
+    {
+      "name": "MMC2Clk",
+      "type": "mmc_clock",
+      "source": {"component": "rapuyama_b2800", "pin": "M6"},
+      "destinations": [{"component": "emmc_d2800", "pin": "CLK"}],
+      "series_resistor": "R3223_33R",
+      "schematic_page": 4,
+      "notes": "eMMC clock"
+    },
+    {
+      "name": "MMC2Da0",
+      "type": "mmc_data",
+      "source": {"component": "rapuyama_b2800", "pin": "A3"},
+      "destinations": [{"component": "emmc_d2800", "pin": "A3"}],
+      "series_resistor": "R3224_33R",
+      "schematic_page": 4,
+      "notes": "eMMC data bit 0"
+    },
+    {
+      "name": "MMC2Da1",
+      "type": "mmc_data",
+      "source": {"component": "rapuyama_b2800", "pin": "A4"},
+      "destinations": [{"component": "emmc_d2800", "pin": "A4"}],
+      "series_resistor": "R3225_33R",
+      "schematic_page": 4,
+      "notes": "eMMC data bit 1"
+    },
+    {
+      "name": "MMC2Da2",
+      "type": "mmc_data",
+      "source": {"component": "rapuyama_b2800", "pin": "A5"},
+      "destinations": [{"component": "emmc_d2800", "pin": "A5"}],
+      "series_resistor": "R3225_33R",
+      "schematic_page": 4,
+      "notes": "eMMC data bit 2"
+    },
+    {
+      "name": "MMC2Da3",
+      "type": "mmc_data",
+      "source": {"component": "rapuyama_b2800", "pin": "B2"},
+      "destinations": [{"component": "emmc_d2800", "pin": "B2"}],
+      "series_resistor": "R3225_33R",
+      "schematic_page": 4,
+      "notes": "eMMC data bit 3"
+    },
+    {
+      "name": "MMC_1V8_EN",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "T7"},
+      "destinations": [{"component": "emmc_switch_n3252", "pin": "ON"}],
+      "schematic_page": 4,
+      "notes": "eMMC 1.8V switch enable. RAPUYAMA genio17."
+    },
+    {
+      "name": "MMC_3V0_EN",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "genio23"},
+      "destinations": [{"component": "emmc_switch_n3252", "pin": "via_J3226"}],
+      "schematic_page": 4,
+      "notes": "eMMC 3.0V switch enable"
+    },
+    {
+      "name": "MMCDa_0_3",
+      "type": "mmc_data",
+      "source": {"component": "rapuyama_b2800", "pin": "AC21_AB21"},
+      "destinations": [{"component": "combo_memory_d3000", "pin": null}],
+      "bus": "mmc1",
+      "width": 4,
+      "schematic_page": 4,
+      "notes": "MMC1 data bus to combo memory (256MB LPDDR+1024MB NAND)"
+    },
+    {
+      "name": "MMCCmd",
+      "type": "mmc_command",
+      "source": {"component": "rapuyama_b2800", "pin": "AB19"},
+      "destinations": [{"component": "combo_memory_d3000", "pin": null}],
+      "bus": "mmc1",
+      "schematic_page": 4,
+      "notes": "MMC1 command to combo memory"
+    },
+    {
+      "name": "VIO_eMMC",
+      "type": "power",
+      "source": {"component": "emmc_switch_n3252", "pin": "VOUT"},
+      "destinations": [{"component": "emmc_d2800", "pin": "C6_M4_N4_P3_P5"}],
+      "schematic_page": 4,
+      "notes": "eMMC IO pad supply 1.8V"
+    },
+    {
+      "name": "VMEM2",
+      "type": "power",
+      "source": {"component": "vmem2_regulator_n3201", "pin": "VOUT"},
+      "destinations": [{"component": "emmc_d2800", "pin": "E6_F5_J10_K9"}],
+      "schematic_page": 4,
+      "notes": "eMMC core supply (VBAT->boost)"
+    },
+    {
+      "name": "AccInt1",
+      "type": "interrupt",
+      "source": {"component": "accelerometer_n1103", "pin": "8"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "AA11"}],
+      "schematic_page": 4,
+      "notes": "Accelerometer INT1. RAPUYAMA genio44."
+    },
+    {
+      "name": "AccInt2",
+      "type": "interrupt",
+      "source": {"component": "accelerometer_n1103", "pin": "9"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "T23"}],
+      "schematic_page": 4,
+      "notes": "Accelerometer INT2. RAPUYAMA genio12."
+    },
+    {
+      "name": "I2C0SDA",
+      "type": "i2c_data",
+      "source": {"component": "rapuyama_b2800", "pin": "J1100"},
+      "destinations": [
+        {"component": "accelerometer_n1103", "pin": "13"},
+        {"component": "magnetometer_n1001", "pin": "15"},
+        {"component": "io_expander_n1002", "pin": "F2"},
+        {"component": "touch_ctrl_x8000", "pin": null},
+        {"component": "als_prox_b8000", "pin": null},
+        {"component": "lock_key_s1002", "pin": null}
+      ],
+      "bus": "i2c0",
+      "schematic_page": 4,
+      "notes": "I2C bus 0 data (shared across QWERTY flex and UI flex)"
+    },
+    {
+      "name": "I2C0SCL",
+      "type": "i2c_clock",
+      "source": {"component": "rapuyama_b2800", "pin": "J1106"},
+      "destinations": [
+        {"component": "accelerometer_n1103", "pin": "14"},
+        {"component": "magnetometer_n1001", "pin": "16"},
+        {"component": "io_expander_n1002", "pin": "F1"},
+        {"component": "touch_ctrl_x8000", "pin": null},
+        {"component": "als_prox_b8000", "pin": null}
+      ],
+      "bus": "i2c0",
+      "schematic_page": 4,
+      "notes": "I2C bus 0 clock"
+    },
+    {
+      "name": "volume_down",
+      "type": "gpio_input",
+      "source": {"component": "volume_key_s2402", "pin": "S20"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "U20"}],
+      "schematic_page": 4,
+      "notes": "Volume down key. RAPUYAMA genio65."
+    },
+    {
+      "name": "volume_up",
+      "type": "gpio_input",
+      "source": {"component": "volume_key_s2402", "pin": "S10"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "U10"}],
+      "schematic_page": 4,
+      "notes": "Volume up key. RAPUYAMA genio2."
+    },
+    {
+      "name": "AVVideoCTRL",
+      "type": "analog_control",
+      "source": {"component": "rapuyama_b2800", "pin": "AA4"},
+      "destinations": [{"component": "av_switch_n2001", "pin": "control"}],
+      "schematic_page": 4,
+      "notes": "AV analog video switch control. RAPUYAMA J3226/genio3."
+    },
+    {
+      "name": "Touch_RSTX",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "W4"},
+      "destinations": [{"component": "touch_ctrl_x8000", "pin": "RST"}],
+      "schematic_page": 4,
+      "notes": "Touch controller reset"
+    },
+    {
+      "name": "Touch_Int",
+      "type": "interrupt",
+      "source": {"component": "touch_ctrl_x8000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "V3"}],
+      "schematic_page": 4,
+      "notes": "Touch controller interrupt"
+    },
+    {
+      "name": "Prox_int",
+      "type": "interrupt",
+      "source": {"component": "als_prox_b8000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "Y10"}],
+      "schematic_page": 4,
+      "notes": "ALS/proximity sensor interrupt"
+    },
+    {
+      "name": "Hall_sensor_DET",
+      "type": "gpio_input",
+      "source": {"component": "hall_sensor_n1000", "pin": "4"},
+      "destinations": [
+        {"component": "rapuyama_b2800", "pin": "T3"},
+        {"component": "io_expander_n1002", "pin": "IN9"}
+      ],
+      "schematic_page": 4,
+      "notes": "Hall effect sensor (slide detection)"
+    },
+    {
+      "name": "mm_drdy",
+      "type": "gpio_input",
+      "source": {"component": "magnetometer_n1001", "pin": "13"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "N23"}],
+      "schematic_page": 4,
+      "notes": "Magnetometer data ready. RAPUYAMA genio13."
+    },
+    {
+      "name": "mm_int",
+      "type": "interrupt",
+      "source": {"component": "magnetometer_n1001", "pin": "14"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "K17"}],
+      "schematic_page": 4,
+      "notes": "Magnetometer interrupt"
+    },
+    {
+      "name": "Capture_key",
+      "type": "gpio_input",
+      "source": {"component": "camera_key_s1000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "S25"}],
+      "schematic_page": 4,
+      "notes": "Camera shutter button. RAPUYAMA G15/genio36."
+    },
+    {
+      "name": "VCORE",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VCoreCoil"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "VDD"}],
+      "inductor": "L2340",
+      "voltage": "1.2V",
+      "schematic_page": 5,
+      "notes": "RAPUYAMA core supply from PEARL SMPS, via C2230/C2231"
+    },
+    {
+      "name": "VIO",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VIOCoil"},
+      "destinations": [
+        {"component": "rapuyama_b2800", "pin": "VIO"},
+        {"component": "bcm2727_d1400", "pin": "VDD_1V8"}
+      ],
+      "inductors": ["L2202", "L2206", "L2207"],
+      "voltage": "1.8V",
+      "schematic_page": 5,
+      "notes": "Main 1.8V digital IO supply from PEARL SMPS"
+    },
+    {
+      "name": "VOUT",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VOUT_LDO"},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "VDD_IO"},
+        {"component": "usb_module_n3300", "pin": "VAux2"}
+      ],
+      "voltage": "2.5V",
+      "schematic_page": 5,
+      "notes": "PEARL LDO 2.5V for BCM2727 DAC and IO banks"
+    },
+    {
+      "name": "VAUX2",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VAUX2_LDO"},
+      "destinations": [
+        {"component": "accelerometer_n1103", "pin": "VAUX2_ref"},
+        {"component": "combo_memory_d3000", "pin": "ref"}
+      ],
+      "voltage": "2.5V",
+      "schematic_page": 5,
+      "notes": "PEARL LDO for accelerometer and combo memory reference"
+    },
+    {
+      "name": "VAUX1",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VAUX1_LDO"},
+      "destinations": [
+        {"component": "primary_camera_x1476", "pin": "VANA"},
+        {"component": "qwerty_flex_x1000", "pin": "VAUX1"}
+      ],
+      "voltage": "2.78V",
+      "schematic_page": 5,
+      "notes": "PEARL LDO for cameras, QWERTY LEDs, sensors"
+    },
+    {
+      "name": "VRFC",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VRFC_LDO"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "VRFC"}],
+      "voltage": "1.8V",
+      "schematic_page": 5,
+      "notes": "RAPUYAMA RF analog supply"
+    },
+    {
+      "name": "VR1",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VR1_LDO"},
+      "destinations": [{"component": "headphone_amp_n2000", "pin": "HPVDD"}],
+      "voltage": "2.5V",
+      "schematic_page": 5,
+      "notes": "Headphone amplifier supply"
+    },
+    {
+      "name": "VDigiMic",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VDigiMic"},
+      "destinations": [
+        {"component": "digi_mic_b1001", "pin": "VDD"},
+        {"component": "digi_mic_b2101", "pin": "VDD"}
+      ],
+      "voltage": "1.8V",
+      "schematic_page": 5,
+      "notes": "Digital MEMS microphone supply"
+    },
+    {
+      "name": "VSIM",
+      "type": "power",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "VSIM_LDO"},
+      "destinations": [{"component": "sim_connector_z9700", "pin": "VSIM"}],
+      "voltage": "1.8V_or_3.0V",
+      "schematic_page": 5,
+      "notes": "SIM card supply, switched 1.8V or 3.0V"
+    },
+    {
+      "name": "PUSL_15_0",
+      "type": "power_sequencing",
+      "source": {"component": "rapuyama_b2800", "pin": null},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": "SMPSClk_PURX_SleepX"},
+        {"component": "aura_n7509", "pin": null}
+      ],
+      "width": 16,
+      "schematic_page": 5,
+      "notes": "RF power-up sequencing signals"
+    },
+    {
+      "name": "CHIP_SEL_N",
+      "type": "gpio_input",
+      "source": {"component": "usb_module_n3300", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 5,
+      "notes": "USB module chip select"
+    },
+    {
+      "name": "CHRG_DET",
+      "type": "gpio_input",
+      "source": {"component": "usb_module_n3300", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 5,
+      "notes": "USB charger detect"
+    },
+    {
+      "name": "VCharIn1",
+      "type": "power",
+      "source": {"component": "usb_charger_smps_n2400", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "VCharIn1"}],
+      "schematic_page": 5,
+      "notes": "Charge current input 1 to PEARL"
+    },
+    {
+      "name": "VCharIn2",
+      "type": "power",
+      "source": {"component": "usb_charger_smps_n2400", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "VCharIn2"}],
+      "schematic_page": 5,
+      "notes": "Charge current input 2 to PEARL"
+    },
+    {
+      "name": "VBUS",
+      "type": "power",
+      "source": {"component": "usb_connector_x3300", "pin": null},
+      "destinations": [{"component": "usb_module_n3300", "pin": "D4_A1"}],
+      "voltage": "5.0V",
+      "schematic_page": 5,
+      "notes": "USB 5V bus power when cable connected"
+    },
+    {
+      "name": "PwrOnX",
+      "type": "gpio_input",
+      "source": {"component": "power_key_s2403", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "B10"}],
+      "schematic_page": 5,
+      "notes": "Power on (active low)"
+    },
+    {
+      "name": "UserResetX",
+      "type": "gpio_input",
+      "source": {"component": "hw_reset_n2400", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 5,
+      "notes": "Hardware reset to RAPUYAMA"
+    },
+    {
+      "name": "BTemp",
+      "type": "analog",
+      "source": {"component": "battery_connector_x2070", "pin": "BSI_temp"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "schematic_page": 5,
+      "notes": "Battery temperature/BSI sense"
+    },
+    {
+      "name": "SenseP",
+      "type": "analog",
+      "source": {"component": "current_sense_r2200", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "schematic_page": 5,
+      "notes": "Battery current sense positive (1 ohm)"
+    },
+    {
+      "name": "SenseM",
+      "type": "analog",
+      "source": {"component": "current_sense_r2200", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "schematic_page": 5,
+      "notes": "Battery current sense negative"
+    },
+    {
+      "name": "VBack",
+      "type": "power",
+      "source": {"component": "backup_battery", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "VRTC"}],
+      "schematic_page": 5,
+      "notes": "RTC backup supply (not assembled on all units)"
+    },
+    {
+      "name": "32768Hz_CRYSTAL",
+      "type": "clock",
+      "source": {"component": "rtc_crystal_b2200", "pin": null},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": "32IN"},
+        {"component": "clock_buffer_n2800", "pin": null}
+      ],
+      "frequency": "32768Hz",
+      "schematic_page": 5,
+      "notes": "RTC 32.768 kHz crystal"
+    },
+    {
+      "name": "Chind",
+      "type": "gpio_output",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "charging_led_v2505", "pin": null}],
+      "schematic_page": 5,
+      "notes": "Charging indicator LED drive"
+    },
+    {
+      "name": "VIBRAP",
+      "type": "h_bridge",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "C1"},
+      "destinations": [{"component": "vibra_motor_m1000", "pin": "+"}],
+      "schematic_page": 6,
+      "notes": "Vibra motor H-bridge positive"
+    },
+    {
+      "name": "VIBRAN",
+      "type": "h_bridge",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "D2"},
+      "destinations": [{"component": "vibra_motor_m1000", "pin": "-"}],
+      "schematic_page": 6,
+      "notes": "Vibra motor H-bridge negative"
+    },
+    {
+      "name": "IHF_AMP_EN",
+      "type": "gpio_output",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "17"},
+      "destinations": [{"component": "ihf_amp_n2150", "pin": "EN"}],
+      "schematic_page": 6,
+      "notes": "IHF speaker amplifier enable"
+    },
+    {
+      "name": "IHFP",
+      "type": "audio",
+      "source": {"component": "ihf_amp_n2150", "pin": "SPKP"},
+      "destinations": [{"component": "ihf_speaker_pads_e1001", "pin": null}],
+      "schematic_page": 6,
+      "notes": "IHF speaker output positive, via L2403 ferrite"
+    },
+    {
+      "name": "IHFN",
+      "type": "audio",
+      "source": {"component": "ihf_amp_n2150", "pin": "SPKN"},
+      "destinations": [{"component": "ihf_speaker_pads_e1000", "pin": null}],
+      "schematic_page": 6,
+      "notes": "IHF speaker output negative, via L2404 ferrite"
+    },
+    {
+      "name": "FM_AUDIO_PR",
+      "type": "audio_differential",
+      "source": {"component": "bob_wl1273_n6300", "pin": "G3"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "G3"}],
+      "schematic_page": 6,
+      "notes": "FM audio right channel positive"
+    },
+    {
+      "name": "FM_AUDIO_NR",
+      "type": "audio_differential",
+      "source": {"component": "bob_wl1273_n6300", "pin": "J8"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "J4"}],
+      "schematic_page": 6,
+      "notes": "FM audio right channel negative"
+    },
+    {
+      "name": "FM_AUDIO_PL",
+      "type": "audio_differential",
+      "source": {"component": "bob_wl1273_n6300", "pin": "K8"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "G4"}],
+      "schematic_page": 6,
+      "notes": "FM audio left channel positive"
+    },
+    {
+      "name": "FM_AUDIO_NL",
+      "type": "audio_differential",
+      "source": {"component": "bob_wl1273_n6300", "pin": "H9"},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "F4"}],
+      "schematic_page": 6,
+      "notes": "FM audio left channel negative"
+    },
+    {
+      "name": "HeadDet",
+      "type": "gpio_input",
+      "source": {"component": "headset_detect_j2232", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "D10"}],
+      "schematic_page": 6,
+      "notes": "Headset insertion detect"
+    },
+    {
+      "name": "HookDet",
+      "type": "gpio_input",
+      "source": {"component": "headset_hook_j2232", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "HookDet1"}],
+      "schematic_page": 6,
+      "notes": "Headset hook (button) detect"
+    },
+    {
+      "name": "SIMDa",
+      "type": "sim_data",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "C4"},
+      "destinations": [{"component": "sim_connector_z9700", "pin": "IO"}],
+      "schematic_page": 6,
+      "notes": "SIM data (bidirectional)"
+    },
+    {
+      "name": "SIMClk",
+      "type": "sim_clock",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "A4"},
+      "destinations": [{"component": "sim_connector_z9700", "pin": "CLK"}],
+      "schematic_page": 6,
+      "notes": "SIM clock"
+    },
+    {
+      "name": "SIMIOC",
+      "type": "sim_control",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "E3"},
+      "destinations": [{"component": "sim_connector_z9700", "pin": null}],
+      "schematic_page": 6,
+      "notes": "SIM I/O control"
+    },
+    {
+      "name": "SimDetX",
+      "type": "gpio_input",
+      "source": {"component": "sim_detector_b2700", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": "F9"}],
+      "schematic_page": 6,
+      "notes": "SIM card present detect (active low), R2700 100k pull"
+    },
+    {
+      "name": "EarP",
+      "type": "audio",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "G1"},
+      "destinations": [{"component": "headphone_amp_n2000", "pin": "INL+"}],
+      "schematic_page": 6,
+      "notes": "Earpiece/headphone left"
+    },
+    {
+      "name": "EarN",
+      "type": "audio",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "K4"},
+      "destinations": [{"component": "headphone_amp_n2000", "pin": "INR+"}],
+      "schematic_page": 6,
+      "notes": "Earpiece/headphone right"
+    },
+    {
+      "name": "COMP_VIDEO",
+      "type": "analog_video",
+      "source": {"component": "rapuyama_b2800", "pin": null},
+      "destinations": [{"component": "av_switch_n2001", "pin": "IN"}],
+      "schematic_page": 6,
+      "notes": "Composite video from RAPUYAMA imaging"
+    },
+    {
+      "name": "PLUG_DET",
+      "type": "gpio_input",
+      "source": {"component": "av_connector_x2700", "pin": null},
+      "destinations": [{"component": "pearl_twl5031_n2200", "pin": null}],
+      "schematic_page": 6,
+      "notes": "3.5mm AV jack plug detection"
+    },
+    {
+      "name": "FMANT",
+      "type": "rf_antenna",
+      "source": {"component": "av_connector_x2700", "pin": null},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "LNA_IN"}],
+      "schematic_page": 6,
+      "notes": "FM radio antenna (uses headset cable as antenna)"
+    },
+    {
+      "name": "AudioClk0",
+      "type": "clock",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio39"}],
+      "schematic_page": 6,
+      "notes": "Audio clock 0 from PEARL to RAPUYAMA"
+    },
+    {
+      "name": "Digi_mic_DATA",
+      "type": "digital_audio",
+      "source": {"component": "digi_mic_b1001", "pin": "3"},
+      "destinations": [
+        {"component": "pearl_twl5031_n2200", "pin": "N3"},
+        {"component": "io_expander_n1002", "pin": "IN2"}
+      ],
+      "schematic_page": 6,
+      "notes": "MEMS microphone PDM data"
+    },
+    {
+      "name": "Digi_mic_CLK",
+      "type": "clock",
+      "source": {"component": "pearl_twl5031_n2200", "pin": "N5"},
+      "destinations": [
+        {"component": "digi_mic_b1001", "pin": "2"},
+        {"component": "io_expander_n1002", "pin": "IN8"}
+      ],
+      "schematic_page": 6,
+      "notes": "MEMS microphone PDM clock"
+    },
+    {
+      "name": "INT_SIM_5_0",
+      "type": "interrupt",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "width": 6,
+      "schematic_page": 6,
+      "notes": "SIM interrupt bus to RAPUYAMA"
+    },
+    {
+      "name": "INT_MMC_13_0",
+      "type": "interrupt",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "width": 14,
+      "schematic_page": 6,
+      "notes": "MMC interrupt bus to RAPUYAMA"
+    },
+    {
+      "name": "SetCurrKB",
+      "type": "led_control",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "qwerty_led_driver_n1002_area", "pin": null}],
+      "schematic_page": 6,
+      "notes": "Keyboard LED current set"
+    },
+    {
+      "name": "OVVLed",
+      "type": "led_control",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "qwerty_led_driver_n1002_area", "pin": null}],
+      "schematic_page": 6,
+      "notes": "LED overcurrent indicator"
+    },
+    {
+      "name": "SetCurrD",
+      "type": "led_control",
+      "source": {"component": "pearl_twl5031_n2200", "pin": null},
+      "destinations": [{"component": "qwerty_led_driver_n1002_area", "pin": null}],
+      "schematic_page": 6,
+      "notes": "Display LED current set"
+    },
+    {
+      "name": "BT_WAKEUP",
+      "type": "gpio_output",
+      "source": {"component": "bob_wl1273_n6300", "pin": "C9"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio50"}],
+      "schematic_page": 7,
+      "notes": "Bluetooth wake-up from BOB to RAPUYAMA"
+    },
+    {
+      "name": "BT_RESETX",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "genio48"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "J5"}],
+      "schematic_page": 7,
+      "notes": "Bluetooth reset (active low)"
+    },
+    {
+      "name": "PCM_SYNC",
+      "type": "pcm",
+      "source": {"component": "bob_wl1273_n6300", "pin": "E6"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTPCMSync"}],
+      "bus": "bt_pcm",
+      "schematic_page": 7,
+      "notes": "BT PCM sync"
+    },
+    {
+      "name": "PCM_CLK",
+      "type": "pcm",
+      "source": {"component": "bob_wl1273_n6300", "pin": "E5"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTPCMClk"}],
+      "bus": "bt_pcm",
+      "schematic_page": 7,
+      "notes": "BT PCM clock"
+    },
+    {
+      "name": "PCM_OUT",
+      "type": "pcm",
+      "source": {"component": "bob_wl1273_n6300", "pin": "F5"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTPCMout"}],
+      "bus": "bt_pcm",
+      "schematic_page": 7,
+      "notes": "BT PCM output"
+    },
+    {
+      "name": "PCM_IN",
+      "type": "pcm",
+      "source": {"component": "bob_wl1273_n6300", "pin": "G5"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTPCMIn"}],
+      "bus": "bt_pcm",
+      "schematic_page": 7,
+      "notes": "BT PCM input"
+    },
+    {
+      "name": "UART_TX",
+      "type": "uart",
+      "source": {"component": "bob_wl1273_n6300", "pin": "J6"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTUARTIn"}],
+      "bus": "bt_uart",
+      "series_resistor": "R2860_68R",
+      "schematic_page": 7,
+      "notes": "BT UART transmit"
+    },
+    {
+      "name": "UART_RX",
+      "type": "uart",
+      "source": {"component": "rapuyama_b2800", "pin": "BTUARTOut"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "H6"}],
+      "bus": "bt_uart",
+      "schematic_page": 7,
+      "notes": "BT UART receive"
+    },
+    {
+      "name": "UART_CTS",
+      "type": "uart_flow",
+      "source": {"component": "bob_wl1273_n6300", "pin": "G6"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "BTCTS"}],
+      "bus": "bt_uart",
+      "schematic_page": 7,
+      "notes": "BT UART clear to send"
+    },
+    {
+      "name": "UART_RTS",
+      "type": "uart_flow",
+      "source": {"component": "rapuyama_b2800", "pin": "BTRTS"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "H7"}],
+      "bus": "bt_uart",
+      "schematic_page": 7,
+      "notes": "BT UART request to send"
+    },
+    {
+      "name": "UART_WAKE",
+      "type": "gpio",
+      "source": {"component": "bob_wl1273_n6300", "pin": "C8"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "HostWakeUp"}],
+      "schematic_page": 7,
+      "notes": "BT UART wake host"
+    },
+    {
+      "name": "WLAN_IRQ",
+      "type": "interrupt",
+      "source": {"component": "bob_wl1273_n6300", "pin": "J4"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "V22"}],
+      "schematic_page": 7,
+      "notes": "WLAN interrupt. RAPUYAMA genio77 / J6376."
+    },
+    {
+      "name": "WLANENABLE",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "N22"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "E2"}],
+      "schematic_page": 7,
+      "notes": "WLAN enable from RAPUYAMA. J6373."
+    },
+    {
+      "name": "SPI_CLK",
+      "type": "spi",
+      "source": {"component": "rapuyama_b2800", "pin": "D10"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "E3"}],
+      "bus": "wlan_spi",
+      "schematic_page": 7,
+      "notes": "WLAN SPI clock (SPI-A bus). J2804."
+    },
+    {
+      "name": "SPI_MOSI",
+      "type": "spi",
+      "source": {"component": "rapuyama_b2800", "pin": "Y20"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "F4"}],
+      "bus": "wlan_spi",
+      "schematic_page": 7,
+      "notes": "WLAN SPI MOSI"
+    },
+    {
+      "name": "SPI_MISO",
+      "type": "spi",
+      "source": {"component": "bob_wl1273_n6300", "pin": "G4"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "P17"}],
+      "bus": "wlan_spi",
+      "series_resistor": "R2859_68R",
+      "schematic_page": 7,
+      "notes": "WLAN SPI MISO"
+    },
+    {
+      "name": "SPI_CSX",
+      "type": "spi",
+      "source": {"component": "rapuyama_b2800", "pin": "G9"},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": "E4"}],
+      "bus": "wlan_spi",
+      "schematic_page": 7,
+      "notes": "WLAN SPI chip select (active low)"
+    },
+    {
+      "name": "CLK_REQ",
+      "type": "clock_request",
+      "source": {"component": "bob_wl1273_n6300", "pin": "B9"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "J6375"}],
+      "schematic_page": 7,
+      "notes": "WLAN clock request"
+    },
+    {
+      "name": "FM_INTX",
+      "type": "interrupt",
+      "source": {"component": "bob_wl1273_n6300", "pin": "H9"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "FMIRQ"}],
+      "schematic_page": 7,
+      "notes": "FM radio interrupt (active low)"
+    },
+    {
+      "name": "CBUSCLK_SCL",
+      "type": "cbus",
+      "source": {"component": "bob_wl1273_n6300", "pin": "K1"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "CBUS"}],
+      "schematic_page": 7,
+      "notes": "FM radio C-bus clock"
+    },
+    {
+      "name": "CBUSCLK_SDA",
+      "type": "cbus",
+      "source": {"component": "bob_wl1273_n6300", "pin": "L1"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "CBUS"}],
+      "schematic_page": 7,
+      "notes": "FM radio C-bus data"
+    },
+    {
+      "name": "GPS_CLK",
+      "type": "clock",
+      "source": {"component": "gps_tcxo_g6200", "pin": "A4"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "GPS_15_0"}],
+      "frequency": "16.368MHz",
+      "schematic_page": 7,
+      "notes": "GPS TCXO 16.368 MHz to RAPUYAMA"
+    },
+    {
+      "name": "GPS_EN_RESET",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "genio53"},
+      "destinations": [{"component": "gps_module_n6200", "pin": "H2_E6"}],
+      "schematic_page": 7,
+      "notes": "GPS module reset/enable"
+    },
+    {
+      "name": "I2C_SCL_U1TX",
+      "type": "i2c_clock",
+      "source": {"component": "gps_module_n6200", "pin": "B6"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "I2C1SCL"}],
+      "schematic_page": 7,
+      "notes": "GPS I2C clock (or UART TX in UART mode)"
+    },
+    {
+      "name": "I2C_SDA_U1RX",
+      "type": "i2c_data",
+      "source": {"component": "gps_module_n6200", "pin": "H3"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "I2C1SDA"}],
+      "schematic_page": 7,
+      "notes": "GPS I2C data (or UART RX in UART mode)"
+    },
+    {
+      "name": "IO_TIMESTAMP_DATARDY",
+      "type": "gpio_input",
+      "source": {"component": "gps_module_n6200", "pin": "E8"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "GPS_TimeStamp"}],
+      "schematic_page": 7,
+      "notes": "GPS timestamp/data ready"
+    },
+    {
+      "name": "IO_PA_EN",
+      "type": "gpio_output",
+      "source": {"component": "gps_module_n6200", "pin": "H6"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "GPS_Blanking"}],
+      "schematic_page": 7,
+      "notes": "GPS PA enable / blanking"
+    },
+    {
+      "name": "AGPS_CLK_REQ",
+      "type": "clock_request",
+      "source": {"component": "gps_module_n6200", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 7,
+      "notes": "Assisted GPS clock request"
+    },
+    {
+      "name": "RF_PORT_BT_WLAN",
+      "type": "rf_antenna",
+      "source": {"component": "bob_wl1273_n6300", "pin": null},
+      "destinations": [{"component": "bandpass_filter_z6300", "pin": "COM"}],
+      "schematic_page": 7,
+      "notes": "BT/WLAN RF output to 2.4 GHz bandpass filter"
+    },
+    {
+      "name": "GPS_LNA_IN",
+      "type": "rf_antenna",
+      "source": {"component": "gps_saw_filter_z6200", "pin": null},
+      "destinations": [{"component": "gps_module_n6200", "pin": "D1"}],
+      "schematic_page": 7,
+      "notes": "GPS antenna input via 1575.42 MHz SAW filter"
+    },
+    {
+      "name": "mm_DRDY",
+      "type": "gpio_input",
+      "source": {"component": "magnetometer_n1001", "pin": "13"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio13"}],
+      "schematic_page": 8,
+      "notes": "Magnetometer data ready (on QWERTY flex)"
+    },
+    {
+      "name": "mm_INT",
+      "type": "interrupt",
+      "source": {"component": "magnetometer_n1001", "pin": "14"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 8,
+      "notes": "Magnetometer interrupt (on QWERTY flex)"
+    },
+    {
+      "name": "IOexp_IRQ",
+      "type": "interrupt",
+      "source": {"component": "io_expander_n1002", "pin": "IRQN"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "genio44"}],
+      "schematic_page": 8,
+      "notes": "IO expander interrupt (active low)"
+    },
+    {
+      "name": "IOexp_RESETN",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "genio42"},
+      "destinations": [{"component": "io_expander_n1002", "pin": "RESETN"}],
+      "schematic_page": 8,
+      "notes": "IO expander reset (active low)"
+    },
+    {
+      "name": "KPY_0_10",
+      "type": "keyboard_matrix",
+      "source": {"component": "io_expander_n1002", "pin": "OUT"},
+      "destinations": [{"component": "qwerty_keyboard_matrix", "pin": "ROW"}],
+      "width": 11,
+      "schematic_page": 8,
+      "notes": "Keyboard row drive lines (11 rows)"
+    },
+    {
+      "name": "KPX_0_7",
+      "type": "keyboard_matrix",
+      "source": {"component": "io_expander_n1002", "pin": "OUT"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "KEYB"}],
+      "width": 8,
+      "schematic_page": 8,
+      "notes": "Keyboard column sense lines (8 columns)"
+    },
+    {
+      "name": "Lock_key",
+      "type": "gpio_input",
+      "source": {"component": "lock_key_s1002", "pin": null},
+      "destinations": [
+        {"component": "rapuyama_b2800", "pin": "I2C0SDA_direct"},
+        {"component": "io_expander_n1002", "pin": "IN1"}
+      ],
+      "schematic_page": 8,
+      "notes": "Hardware lock key"
+    },
+    {
+      "name": "Camera_SW_1",
+      "type": "gpio_input",
+      "source": {"component": "camera_key_s1000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "CAPTURE_KEY_IVE3"}],
+      "schematic_page": 8,
+      "notes": "Camera shutter button"
+    },
+    {
+      "name": "DSI1_CLKP_UI",
+      "type": "mipi_dsi_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "V21"},
+      "destinations": [{"component": "display_x8001", "pin": "CLK+"}],
+      "bus": "dsi1",
+      "schematic_page": 9,
+      "notes": "MIPI DSI clock+ routed through UI flex connector"
+    },
+    {
+      "name": "DSI1_CLKN_UI",
+      "type": "mipi_dsi_clock",
+      "source": {"component": "bcm2727_d1400", "pin": "U21"},
+      "destinations": [{"component": "display_x8001", "pin": "CLK-"}],
+      "bus": "dsi1",
+      "schematic_page": 9,
+      "notes": "MIPI DSI clock- routed through UI flex connector"
+    },
+    {
+      "name": "DSI1_DP0_UI",
+      "type": "mipi_dsi_data",
+      "source": {"component": "bcm2727_d1400", "pin": "V20"},
+      "destinations": [{"component": "display_x8001", "pin": "DATA0+"}],
+      "bus": "dsi1",
+      "schematic_page": 9,
+      "notes": "MIPI DSI data lane 0+"
+    },
+    {
+      "name": "DSI1_DN0_UI",
+      "type": "mipi_dsi_data",
+      "source": {"component": "bcm2727_d1400", "pin": "U20"},
+      "destinations": [{"component": "display_x8001", "pin": "DATA0-"}],
+      "bus": "dsi1",
+      "schematic_page": 9,
+      "notes": "MIPI DSI data lane 0-"
+    },
+    {
+      "name": "TE0",
+      "type": "display_te",
+      "source": {"component": "display_x8001", "pin": "TE"},
+      "destinations": [
+        {"component": "bcm2727_d1400", "pin": "GPIO33_L5"},
+        {"component": "rapuyama_b2800", "pin": null}
+      ],
+      "schematic_page": 9,
+      "notes": "Display tearing effect, command mode sync"
+    },
+    {
+      "name": "DISP_RESET_N",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "GPIO37_L6"},
+      "destinations": [{"component": "display_x8001", "pin": "RES"}],
+      "schematic_page": 9,
+      "notes": "Display reset (active low)"
+    },
+    {
+      "name": "SEC_CAM_CLK_UI",
+      "type": "clock",
+      "source": {"component": "bcm2727_d1400", "pin": "GPIO32_M10"},
+      "destinations": [{"component": "secondary_camera_h8000", "pin": "EXTCLK"}],
+      "schematic_page": 9,
+      "notes": "Secondary camera clock from BCM2727"
+    },
+    {
+      "name": "SEC_CAM_SHUTDOWN_UI",
+      "type": "gpio_output",
+      "source": {"component": "bcm2727_d1400", "pin": "GPIO36_L3"},
+      "destinations": [{"component": "secondary_camera_h8000", "pin": "XSHUTDOWN"}],
+      "schematic_page": 9,
+      "notes": "Secondary camera shutdown"
+    },
+    {
+      "name": "SEC_CAM_CCP_3_0",
+      "type": "ccp_data",
+      "source": {"component": "bcm2727_d1400", "pin": "J22_J23_K23"},
+      "destinations": [{"component": "secondary_camera_h8000", "pin": "CLK_DATA"}],
+      "bus": "sec_cam_ccp",
+      "width": 4,
+      "schematic_page": 9,
+      "notes": "Secondary camera CCP bus (CLK+/-, DATA+/-)"
+    },
+    {
+      "name": "SEC_CAM_I2C_1_0",
+      "type": "i2c",
+      "source": {"component": "bcm2727_d1400", "pin": "via_R1487_R1488"},
+      "destinations": [{"component": "secondary_camera_h8000", "pin": "SDA_SCL"}],
+      "bus": "i2c_cam_sec",
+      "schematic_page": 9,
+      "notes": "Secondary camera I2C (via 3k3 series resistors)"
+    },
+    {
+      "name": "TOUCH_INT",
+      "type": "interrupt",
+      "source": {"component": "touch_ctrl_x8000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "V3"}],
+      "schematic_page": 9,
+      "notes": "Touch controller interrupt to RAPUYAMA"
+    },
+    {
+      "name": "TOUCH_RST",
+      "type": "gpio_output",
+      "source": {"component": "rapuyama_b2800", "pin": "W4"},
+      "destinations": [{"component": "touch_ctrl_x8000", "pin": "RST"}],
+      "schematic_page": 9,
+      "notes": "Touch controller reset"
+    },
+    {
+      "name": "PROX_INT",
+      "type": "interrupt",
+      "source": {"component": "als_prox_b8000", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "Y10"}],
+      "schematic_page": 9,
+      "notes": "ALS/proximity sensor interrupt"
+    },
+    {
+      "name": "LED1",
+      "type": "led_drive",
+      "source": {"component": "led_driver_n2500", "pin": "LED1"},
+      "destinations": [{"component": "home_led_v8002", "pin": null}],
+      "schematic_page": 9,
+      "notes": "Home area LED 1"
+    },
+    {
+      "name": "LED2",
+      "type": "led_drive",
+      "source": {"component": "led_driver_n2500", "pin": "LED2"},
+      "destinations": [{"component": "home_led_v8003", "pin": null}],
+      "schematic_page": 9,
+      "notes": "Home area LED 2"
+    },
+    {
+      "name": "LED3",
+      "type": "led_drive",
+      "source": {"component": "led_driver_n2500", "pin": "LED3"},
+      "destinations": [{"component": "home_led", "pin": null}],
+      "schematic_page": 9,
+      "notes": "Home area LED 3"
+    },
+    {
+      "name": "CLK_32K_LED",
+      "type": "clock",
+      "source": {"component": "clock_buffer_n2800", "pin": null},
+      "destinations": [{"component": "led_driver_n2500", "pin": "B3"}],
+      "frequency": "32768Hz",
+      "schematic_page": 9,
+      "notes": "32 kHz reference for LED driver charge pump"
+    },
+    {
+      "name": "HOME_KEY",
+      "type": "gpio_input",
+      "source": {"component": "home_key_s8002", "pin": null},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "KEYB_15_0"}],
+      "schematic_page": 9,
+      "notes": "Home button to RAPUYAMA keyboard bus"
+    },
+    {
+      "name": "ADDR_SEL0_ALS",
+      "type": "strap",
+      "source": {"component": "resistor_r2505_0R", "pin": null},
+      "destinations": [{"component": "als_prox_b8000", "pin": "ADDR_SEL0"}],
+      "schematic_page": 9,
+      "notes": "ALS I2C address select strap (0R to GND)"
+    },
+    {
+      "name": "RFCONV_20_0_p10",
+      "type": "rf_iq_data",
+      "source": {"component": "rapuyama_b2800", "pin": "J2805_J2807"},
+      "destinations": [{"component": "aura_n7509", "pin": "N9_M9_M10_N10"}],
+      "bus": "rfconv_bus",
+      "width": 21,
+      "schematic_page": 10,
+      "notes": "RF IQ data bus (page 10 detail)"
+    },
+    {
+      "name": "RFCLKP",
+      "type": "rf_clock",
+      "source": {"component": "aura_n7509", "pin": "N11"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "RFCLK_0"}],
+      "schematic_page": 10,
+      "notes": "RF reference clock+ from AURA"
+    },
+    {
+      "name": "RFCLKM",
+      "type": "rf_clock",
+      "source": {"component": "aura_n7509", "pin": "P11"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": "RFCLK_1"}],
+      "schematic_page": 10,
+      "notes": "RF reference clock- from AURA"
+    },
+    {
+      "name": "RFSTROBE",
+      "type": "rf_control",
+      "source": {"component": "aura_n7509", "pin": "N12"},
+      "destinations": [{"component": "rapuyama_b2800", "pin": null}],
+      "schematic_page": 10,
+      "notes": "RF strobe from AURA to RAPUYAMA"
+    },
+    {
+      "name": "OUTCP_TX",
+      "type": "rf_tx",
+      "source": {"component": "aura_n7509", "pin": "E14"},
+      "destinations": [
+        {"component": "pa_ukko_n7510", "pin": "TXHB"},
+        {"component": "pa_qubbe_n7512", "pin": "TXLB"}
+      ],
+      "schematic_page": 10,
+      "notes": "TX output coupling point from AURA to PAs"
+    },
+    {
+      "name": "TXLP",
+      "type": "rf_tx",
+      "source": {"component": "aura_n7509", "pin": "0"},
+      "destinations": [{"component": "pa_qubbe_n7512", "pin": "TXLB+"}],
+      "schematic_page": 10,
+      "notes": "Low-band TX IQ positive"
+    },
+    {
+      "name": "TXLM",
+      "type": "rf_tx",
+      "source": {"component": "aura_n7509", "pin": "2"},
+      "destinations": [{"component": "pa_qubbe_n7512", "pin": "TXLB-"}],
+      "schematic_page": 10,
+      "notes": "Low-band TX IQ negative"
+    },
+    {
+      "name": "TXHP",
+      "type": "rf_tx",
+      "source": {"component": "aura_n7509", "pin": "3"},
+      "destinations": [{"component": "pa_ukko_n7510", "pin": "TXHB+"}],
+      "schematic_page": 10,
+      "notes": "High-band TX IQ positive"
+    },
+    {
+      "name": "TXHM",
+      "type": "rf_tx",
+      "source": {"component": "aura_n7509", "pin": "8"},
+      "destinations": [{"component": "pa_ukko_n7510", "pin": "TXHB-"}],
+      "schematic_page": 10,
+      "notes": "High-band TX IQ negative"
+    },
+    {
+      "name": "RFoutHB",
+      "type": "rf_tx",
+      "source": {"component": "pa_ukko_n7510", "pin": null},
+      "destinations": [{"component": "saw_filter_z7513", "pin": null}],
+      "schematic_page": 10,
+      "notes": "High-band PA RF output to SAW filter"
+    },
+    {
+      "name": "RFoutLB",
+      "type": "rf_tx",
+      "source": {"component": "pa_qubbe_n7512", "pin": null},
+      "destinations": [{"component": "lb_antenna_path", "pin": null}],
+      "schematic_page": 10,
+      "notes": "Low-band PA RF output to antenna"
+    },
+    {
+      "name": "XINP",
+      "type": "clock",
+      "source": {"component": "rf_tcxo_b7500", "pin": null},
+      "destinations": [{"component": "aura_n7509", "pin": "XINP"}],
+      "frequency": "38.4MHz",
+      "schematic_page": 10,
+      "notes": "38.4 MHz TCXO reference clock+ to AURA"
+    },
+    {
+      "name": "XINM",
+      "type": "clock",
+      "source": {"component": "rf_tcxo_b7500", "pin": null},
+      "destinations": [{"component": "aura_n7509", "pin": "XINM"}],
+      "frequency": "38.4MHz",
+      "schematic_page": 10,
+      "notes": "38.4 MHz TCXO reference clock- to AURA"
+    },
+    {
+      "name": "PA_DAC",
+      "type": "analog",
+      "source": {"component": "aura_n7509", "pin": "DACOUT"},
+      "destinations": [
+        {"component": "pa_qubbe_n7512", "pin": null},
+        {"component": "pa_ukko_n7510", "pin": null}
+      ],
+      "schematic_page": 10,
+      "notes": "PA bias DAC output from AURA"
+    },
+    {
+      "name": "LBAnt",
+      "type": "rf_antenna",
+      "source": {"component": "pa_qubbe_n7512", "pin": "RFC1_2_3"},
+      "destinations": [{"component": "lb_antenna_spring_x7403", "pin": null}],
+      "schematic_page": 10,
+      "notes": "Low-band antenna path to spring contact"
+    },
+    {
+      "name": "HBAnt",
+      "type": "rf_antenna",
+      "source": {"component": "saw_filter_z7513", "pin": null},
+      "destinations": [{"component": "hb_antenna_spring_x7402", "pin": null}],
+      "schematic_page": 10,
+      "notes": "High-band antenna path to spring contact"
+    },
+    {
+      "name": "RFClkExt_5_0",
+      "type": "rf_clock",
+      "source": {"component": "aura_n7509", "pin": null},
+      "destinations": [{"component": "bob_wl1273_n6300", "pin": null}],
+      "width": 6,
+      "schematic_page": 10,
+      "notes": "RF external clock from AURA to WL1273"
+    }
+  ]
+}
