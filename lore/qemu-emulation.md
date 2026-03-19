@@ -4,7 +4,16 @@
 - Name: `nokia-e7`, SoC type: `omap3630`
 - Source: `emulation/qemu/hw/arm/omap3630.c` (SoC) + `nokia_e7.c` (board)
 - Build: `cd emulation/qemu && ninja -C build`
-- Boot: **~0.82s** to shell (ext4 root via virtio-blk)
+- Boot: **~1.43s** to shell (ext4 root via virtio-blk)
+- 0 oopses, 0 -22 errors in clean boot
+
+## Real Hardware Status (2026-03-19)
+- Symbian exe execution: WORKING (CRT startup fix: eexe.lib + usrt2_2.lib)
+- LDD loading: BLOCKED (TCB = ROM-only, kernel signature enforcement)
+- MemSpy driver: DEAD END (no DPlatChunkHw import, reverse-engineered)
+- FShell memoryAccess: DEAD END (source code confirms Kern::ThreadRawRead only)
+- PADCONF read: UNRESOLVED (0/584 bytes, 12+ phone crashes)
+- Active path: Phonet/FBUS protocol RE via Phoenix service tools
 
 ## Register Stubs (omap3630.c)
 

@@ -123,3 +123,44 @@ restore TTY state. All subsequent shell I/O is garbled.
 **Prevention**: Use `-nographic 2>/tmp/out.log` with explicit redirection,
 or use `-serial mon:stdio` instead, or run QEMU with `-monitor unix:/tmp/qemu.sock,server,nowait`
 and keep the terminal clean.
+
+## Symbian On-Device Debugging (2026-03-15 to 2026-03-19)
+
+### CRT Startup Fix
+**Problem**: All Symbian exes crash silently — install OK but never execute.
+**Root cause**: Missing CRT startup code. Must link with `eexe.lib` + `usrt2_2.lib`.
+**Fix**: `-Wl,--entry,_E32Startup -Wl,--whole-archive eexe.lib usrt2_2.lib`
+Plus `crt_stubs.cpp` for exception handling symbols.
+
+### TCB Capability Wall
+**Problem**: Can't load custom LDDs (-20 KErrAccessDenied).
+**Root cause**: TCB is ROM-only on Symbian. Kernel verifies binary signature chain,
+not just capability header flags. No SIS-installed binary can ever have TCB.
+**Confirmed by**: Symbian World community (127K messages analyzed), source code analysis.
+
+### MemSpy Driver — Dead End
+**Problem**: MemSpy channel opens but can't read MMIO at 0x48002030.
+**Analysis**: Reverse-engineered decompressed binary (63KB, 191 imports).
+DPlatChunkHw::New (ordinal 60) NOT imported. Only Kern::ThreadRawRead.
+All 200 threads return -13 for MMIO addresses.
+
+### FShell memoryAccess — Dead End (Source Confirmed)
+**Problem**: FShell readmem crashes, DoCreate panics without TCB.
+**Source code found**: In `source.zip` from Nokia SDK archive.
+GetThreadMem uses Kern::ThreadRawRead — user-space only.
+WriteShadowMemory uses Epoc::AllocShadowPage — ROM patching only.
+NO DPlatChunkHw::New anywhere in the entire driver source.
+
+### MemSpy Opcode Scan Technique
+Useful for mapping undocumented kernel driver APIs:
+1. Start with NULL params on all opcodes (safest)
+2. Write log after EACH attempt (crash won't lose data)
+3. Use `memread_start.txt` marker file for crash recovery
+4. Skip known crashers (183, 184, 203, 222, 223, 224 for MemSpy)
+5. C:\Data log survives when E: log doesn't (USB mass storage locks E:)
+6. C:\sys\bin takes priority over E:\sys\bin — delete C: copy to test E: version
+
+### BB5 Address Remapping Warning
+From nokiahacking.pl: Nokia modified OMAP addressing for BB5 platform.
+PADCONF at physical 0x48002030 might not be at that virtual address.
+This could explain FShell readmem crashes on "valid" addresses.
