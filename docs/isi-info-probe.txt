@@ -1,0 +1,76 @@
+
+=== PHONE_INFO Deep Probe (2026-03-21 09:39:09) ===
+Phone alive
+
+--- Scanning msg IDs 0x00-0xFF on PHONE_INFO (0x1B) ---
+  msg 0x00: *** RESPONDS msg=0x01 [4B] 00010200 ***
+  msg 0x02: *** RESPONDS msg=0x03 [4B] 02030100 ***
+  msg 0x04: *** RESPONDS msg=0x05 [3B] 040500 ***
+  msg 0x07: *** RESPONDS msg=0x08 [220B] 070802096c0c000334300000000000006d0c00033030000000000000730c0d0331310000000000006f08000432353600714c00474843492056657273696f6e20313220287265762e203634292e204c4d502056657273696f6e20333620287265762e203634292e204d616e75666163747572657220323838302e00006e080004323536006914000d3131312e3034302e31353131000000006a3800323131312e3034302e313531313131312e3034302e313531312e31352e30313131312e3034302e313531312e4330302e30310000006b0c0006302e303337000000 ***
+  msg 0x09: *** RESPONDS msg=0x0a [3B] 090a01 ***
+  msg 0x0b: *** RESPONDS msg=0x0c [4B] 0b0c0100 ***
+  msg 0x0d: *** RESPONDS msg=0x0e [3B] 0d0e01 ***
+  msg 0x0f: *** RESPONDS msg=0x10 [3B] 0f1000 ***
+  msg 0x11: *** RESPONDS msg=0x12 [4B] 11120200 ***
+  msg 0x13: *** RESPONDS msg=0x14 [4B] 13140200 ***
+  msg 0x15: *** RESPONDS msg=0x16 [4B] 15160200 ***
+  msg 0x17: *** RESPONDS msg=0x18 [4B] 17180100 ***
+  msg 0x23: *** RESPONDS msg=0x24 [12B] 23240000414015cf90000000 ***
+  msg 0x29: *** RESPONDS msg=0x2a [4B] 292a0000 ***
+  msg 0x2b: *** RESPONDS msg=0x2c [4B] 2b2c0000 ***
+  msg 0x2e: *** RESPONDS msg=0x2f [140B] 2e2f0001f0008800000000030000000f0000009b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 ***
+  msg 0x30: *** RESPONDS msg=0x31 [4B] 30310001 ***
+  msg 0x32: *** RESPONDS msg=0x33 [8B] 3233000000004094 ***
+  msg 0x34: *** RESPONDS msg=0x35 [4B] 34350016 ***
+
+--- Scanning msg IDs 0x00-0x30 on SIM (0x09) ---
+  msg 0x00: *** msg=0x00 [4B] 000000fa ***
+  msg 0x01: *** msg=0x02 [4B] 010200fb ***
+  msg 0x02: *** msg=0x02 [4B] 020200fa ***
+  msg 0x03: *** msg=0x04 [4B] 030400fb ***
+  msg 0x04: *** msg=0x04 [4B] 040400fa ***
+  msg 0x05: *** msg=0x06 [4B] 050600fb ***
+  msg 0x06: *** msg=0x06 [4B] 060600fa ***
+  msg 0x07: *** msg=0x08 [4B] 070800fb ***
+  msg 0x08: *** msg=0x08 [4B] 080800fa ***
+  msg 0x09: *** msg=0x0a [4B] 090a00fa ***
+  msg 0x0a: *** msg=0x0a [4B] 0a0a00fa ***
+  msg 0x0b: *** msg=0x0b [4B] 0b0b00fa ***
+  msg 0x0c: *** msg=0x0c [4B] 0c0c00fa ***
+  msg 0x0d: *** msg=0x0d [4B] 0d0d00fa ***
+  msg 0x0e: *** msg=0x0e [4B] 0e0e00fa ***
+  msg 0x0f: *** msg=0x0f [4B] 0f0f00fa ***
+  msg 0x10: *** msg=0x10 [4B] 101000fa ***
+  msg 0x11: *** msg=0x11 [4B] 111100fa ***
+  msg 0x12: *** msg=0x12 [4B] 121200fa ***
+  msg 0x13: *** msg=0x14 [4B] 131400fb ***
+  msg 0x14: *** msg=0x14 [4B] 141400fa ***
+  msg 0x15: *** msg=0x15 [4B] 151500fa ***
+  msg 0x16: *** msg=0x16 [4B] 161600fa ***
+  msg 0x17: *** msg=0x17 [4B] 171700fa ***
+  msg 0x18: *** msg=0x18 [4B] 181800fa ***
+  msg 0x19: *** msg=0x1a [4B] 191a00fb ***
+  msg 0x1a: *** msg=0x1a [4B] 1a1a00fa ***
+  msg 0x1b: *** msg=0x1b [4B] 1b1b00fa ***
+  msg 0x1c: *** msg=0x1c [4B] 1c1c00fa ***
+  msg 0x1d: *** msg=0x1e [4B] 1d1e00fb ***
+  msg 0x1e: *** msg=0x1e [4B] 1e1e00fa ***
+  msg 0x1f: *** msg=0x20 [4B] 1f2000fa ***
+  msg 0x20: *** msg=0x20 [4B] 202000fa ***
+  msg 0x21: *** msg=0x22 [4B] 212200fb ***
+  msg 0x22: *** msg=0x22 [4B] 222200fa ***
+  msg 0x23: *** msg=0x24 [4B] 232400fb ***
+  msg 0x24: *** msg=0x24 [4B] 242400fa ***
+  msg 0x25: *** msg=0x25 [4B] 252500fa ***
+  msg 0x26: *** msg=0x26 [4B] 262600fa ***
+  msg 0x27: *** msg=0x27 [4B] 272700fa ***
+  msg 0x28: *** msg=0x28 [4B] 282800fa ***
+  msg 0x29: *** msg=0x2a [4B] 292a00fb ***
+  msg 0x2a: *** msg=0x2a [4B] 2a2a00fa ***
+  msg 0x2b: *** msg=0x2c [4B] 2b2c00fb ***
+  msg 0x2c: *** msg=0x2c [4B] 2c2c00fa ***
+  msg 0x2d: *** msg=0x2e [4B] 2d2e00fb ***
+  msg 0x2e: *** msg=0x2e [4B] 2e2e00fa ***
+  msg 0x2f: *** msg=0x30 [4B] 2f3000fb ***
+
+=== Probe Complete ===

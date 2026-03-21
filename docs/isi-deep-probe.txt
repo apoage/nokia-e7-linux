@@ -1,0 +1,70 @@
+
+=== ISI Deep Probe (2026-03-21 09:20:56) ===
+
+--- 0x1B PHONE_INFO ---
+  IMEI: [24B] 010100014114001033353438363430343836353030303700
+  VERSION: [52B] 020800014830002b562037395f7372315f31327731382e350a32372d30372d31320a524d2d3632360a286329204e6f6b69610000
+  PRODUCT_NAME: [4B] 03160200
+  PP_READ: [4B] 04030100
+
+--- 0x15 MTC ---
+  STATE_QUERY: [8B] 10f0010200000000
+
+--- 0x09 SIM ---
+  STATUS: [4B] 1119fafa
+
+--- 0x0A NETWORK ---
+  REG_STATUS: [8B] 12f0140001000000
+
+--- 0x43 FIREWALL ---
+  msg=0x02: [6B] 210200000000
+  msg=0x04: [6B] 230400000000
+  msg=0x06: [15B] 25060100ffffffffffffffffe06400
+
+--- 0x10 COMMGR ---
+
+--- 0x2C UNKNOWN (v4.0) ---
+
+--- 0x0E UNKNOWN (vFAFA) ---
+
+--- 0xF1 UNKNOWN (msg 0xCB) ---
+
+=== ISI Deep Probe (2026-03-21 09:36:55) ===
+
+--- 0x1B PHONE_INFO ---
+  IMEI: [24B] 010100014114001033353438363430343836353030303700
+  VERSION: [52B] 020800014830002b562037395f7372315f31327731382e350a32372d30372d31320a524d2d3632360a286329204e6f6b69610000
+  PRODUCT_NAME: [4B] 03160200
+  PP_READ: [4B] 04030100
+
+--- 0x15 MTC ---
+  STATE_QUERY: [8B] 10f0010200000000
+
+--- 0x09 SIM ---
+  STATUS: [4B] 1119fafa
+
+--- 0x0A NETWORK ---
+  REG_STATUS: [8B] 12f0140001000000
+
+--- 0x43 FIREWALL --- SKIPPED (crash risk)
+
+--- 0x10 COMMGR ---
+
+--- 0x2C UNKNOWN (v4.0) ---
+
+--- 0x0E UNKNOWN (vFAFA) ---
+
+--- 0xF1 UNKNOWN (msg 0xCB) ---
+
+--- ERROR 0x01 resources with native messages ---
+  0x04 (CALL?): no response
+  0x0a (NETWORK): no response
+  0x0d (???): no response
+  0x11 (???): no response
+  0x42 (???): no response
+  0x62 (EPOC_INFO): no response
+  0x8e (???): no response
+  0x9d (???): no response
+  0xbb (???): no response
+
+=== Deep Probe Complete ===
