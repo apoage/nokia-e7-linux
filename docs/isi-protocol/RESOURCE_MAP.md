@@ -59,15 +59,35 @@ USB (CDC/Phonet)
             └── Service-specific payload (subblocks)
 ```
 
-## Missing / Unknown
+## Live Scan Results (Nokia E7 RM-626, 2026-03-21)
 
-The following are NOT documented in oFono/libisi:
-- PM (Permanent Memory) read/write service — what resource ID?
-- Hardware register read — does it exist?
-- File browser service — PN_EPOC_INFO or separate resource?
-- Test mode service — how Phoenix enters test mode
-- Memory dump service — what Phoenix Phone Browser uses
+Full scan of all 256 ISI resource IDs on device 0x00 (phone host).
+Sent COMM_ISI_VERSION_GET_REQ (0x12) to each.
 
-These are Nokia-proprietary ISI resources not implemented in open-source code.
-The Phonet/FBUS command from nokiahacking.pl simlock thread used raw FBUS,
-not ISI — suggesting PM access might use a different protocol layer.
+### Responding Resources (9)
+| ID | Version/Response | Notes |
+|----|-----------------|-------|
+| 0x0E | VERSION FAFA | Unknown, not in oFono |
+| 0x2C | VERSION 04.00 | Unknown, not in oFono |
+| 0x5E | VERSION 02.55 | 22B with FF padding |
+| 0x5F | VERSION 00.00 | Paired with 0x5E? |
+| 0x76 | VERSION 02.55 | Same response as 0x5E |
+| 0x77 | VERSION 00.00 | Same response as 0x5F |
+| 0xE2 | msg=0x16 (PRODUCT_INFO_RESP) | |
+| 0xE3 | msg=0x16 (PRODUCT_INFO_RESP) | |
+| 0xF1 | msg=0xCB, data=27efed12 | Completely unknown |
+
+### Crasher Resources (5)
+0x13, 0xDF, 0xE1, 0xF2, 0xF4
+
+### ERROR 0x01 Resources (34, exist but reject version query)
+0x04, 0x0A, 0x0D, 0x11, 0x12, 0x17-0x20, 0x42, 0x43, 0x47, 0x4C,
+0x4F, 0x5C, 0x61, 0x62, 0x8E, 0x9D, 0xA6, 0xB5, 0xBB, 0xBE,
+0xD3, 0xD6, 0xE0(0xFF), 0xE9, 0xEA-0xEC, 0xF0, 0xF3
+
+## Next Steps
+- Probe each responding resource with different message types
+- Resource 0x2C is most promising unknown (VERSION 04.00)
+- Resource 0xF1 returned completely unknown msg type 0xCB
+- ERROR 0x01 resources exist but may need different message format
+- PM read service might be among the ERROR 0x01 group

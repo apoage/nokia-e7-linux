@@ -76,3 +76,47 @@
   0xec (               ): ERROR:0xF0/0x01
   0xf1 (               ): ERROR:0xF0/0x01
   0xf2 (               ): CRASH detected (attempt 3)
+  0xf2 (               ): CRASH (all 3 attempts failed)
+  0xf3 (               ): ERROR:0xF0/0x01
+
+=== Scan COMPLETE (2026-03-21 09:09:08) ===
+
+=== ISI Resource Scan starting at 0x13 (2026-03-21 09:11:11) ===
+  0x17 (               ): ERROR:0xF0/0x01
+  0x18 (               ): ERROR:0xF0/0x01
+  0x19 (               ): ERROR:0xF0/0x01
+  0x1c (               ): ERROR:0xF0/0x01
+  0x1f (               ): ERROR:0xF0/0x01
+  0x20 (               ): ERROR:0xF0/0x01
+  0x2c (               ): VERSION:0400 [4B] 23130400
+  0x42 (               ): ERROR:0xF0/0x01
+  0x43 (FIREWALL       ): ERROR:0xF0/0x01
+  0x47 (               ): ERROR:0xF0/0x01
+  0x4c (               ): ERROR:0xF0/0x01
+  0x4f (               ): ERROR:0xF0/0x01
+  0x5c (               ): ERROR:0xF0/0x01
+  0x61 (               ): ERROR:0xF0/0x01
+  0x62 (EPOC_INFO      ): ERROR:0xF0/0x01
+  0x76 (               ): VERSION:0255 [22B] 53130255ffffffffffffffffffffffffffffffff0000
+  0x77 (               ): VERSION:0000 [4B] 54130000
+  0xa6 (               ): ERROR:0xF0/0x01
+  0xb5 (               ): ERROR:0xF0/0x01
+  0xd3 (               ): ERROR:0xF0/0x01
+  0xd6 (               ): ERROR:0xF0/0x01
+  0xdf (               ): CRASH detected (attempt 3)
+  0xdf (               ): CRASH (all 3 attempts failed)
+  0xe0 (               ): ERROR:0xF0/0xff
+  0xe1 (               ): CRASH detected (attempt 3)
+  0xe1 (               ): CRASH (all 3 attempts failed)
+  0xe2 (               ): RESPONSE:msg=0x16 [7B] e2161202000000
+  0xe9 (               ): ERROR:0xF0/0x01
+  0xeb (               ): ERROR:0xF0/0x01
+  0xf0 (               ): ERROR:0xF0/0x01
+  0xf1 (               ): RESPONSE:msg=0xcb [6B] edcb27efed12
+  0xf2 (               ): CRASH detected (attempt 3)
+  0xf2 (               ): CRASH (all 3 attempts failed)
+  0xf3 (               ): ERROR:0xF0/0x01
+  0xf4 (               ): CRASH detected (attempt 3)
+  0xf4 (               ): CRASH (all 3 attempts failed)
+
+=== Scan COMPLETE (2026-03-21 09:15:44) ===

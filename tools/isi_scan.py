@@ -173,10 +173,22 @@ KNOWN = {
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'reset':
         set_scan_idx(0)
-        try: os.remove(SCAN_LOG)
-        except: pass
         print("Scan reset to 0")
         return
+
+    if len(sys.argv) > 1 and sys.argv[1].startswith('0x'):
+        # Manual start: isi_scan.py 0x13
+        start_override = int(sys.argv[1], 16)
+        set_scan_idx(start_override)
+        print(f"Starting from 0x{start_override:02x}")
+
+    if len(sys.argv) > 2 and sys.argv[1] == 'range':
+        # Range scan: isi_scan.py range 0x13 0x42
+        range_start = int(sys.argv[2], 16)
+        range_end = int(sys.argv[3], 16) if len(sys.argv) > 3 else 256
+        set_scan_idx(range_start)
+        # We'll handle range_end below
+        print(f"Range scan 0x{range_start:02x}-0x{range_end:02x}")
 
     start_idx = get_scan_idx()
     if start_idx >= 256:
