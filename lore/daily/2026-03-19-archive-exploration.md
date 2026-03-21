@@ -176,3 +176,92 @@ Now have all the tools to analyze:
   2. CapsSwitch/PlatSec runtime disable (Task 079)
   3. UART capture from real hardware
   4. Modify memoryaccess source to add DPlatChunkHw (blocked by TCB signing)
+
+## Phonet/ISI USB Communication (Late Night 2026-03-19/20)
+
+### What Works
+- Phone detected at PID 0x0335 (Nokia Suite CDC mode) with 18 USB interfaces
+- **Interface 14/15**: UsbPnComm/UsbPnData = Phonet interface
+- `cdc_phonet` kernel module loaded and bound to interface 14
+- `usbpn0` network interface created (link/phonet 0x1b peer 0x00)
+- Phonet socket (AF_PHONET=35) created and bound via ctypes
+- **Phone RESPONDED**: dev=0x10 returned 0xF0/0x14 (COMM_ISA_ENTITY_NOT_REACHABLE_RESP)
+
+### What Doesn't Work Yet
+- Packets to dev 0x00/0x60/0x6C: no response (routing issue)
+- Phonet route table empty — rtnetlink route add for AF_PHONET not working
+- Raw packet socket (AF_PACKET): no response at all
+- Object ID scan on dev 0x10: stopped responding (connection state?)
+- Phone's PHONE_INFO service not reachable at any device address
+
+### Key Insight
+The phone's Phonet router IS processing our packets (confirmed by 0xF0/0x14 response).
+But it returns "entity not reachable" — meaning it can't find the target ISI service.
+Either:
+1. The phone's services are at a device address we haven't tried
+2. The phone needs a handshake/activation before exposing services to the PC
+3. Nokia Suite does something special during connection that we're not doing
+
+### Tools Created
+- `e7/tools/nokia_isi.py` — ISI protocol tool (Phonet socket based)
+- `/tmp/phonet_test.py`, `phonet_scan.py`, `phonet_route.py`, `phonet_direct.py`, `phonet_fix.py` — iterative test scripts
+- `/tmp/phonet_route_setup.py` — rtnetlink route setup (didn't work for Phonet)
+
+### Next Steps
+1. Capture what Nokia Suite/PC Suite ACTUALLY sends during connection (Wireshark USB capture in Windows VM)
+2. Check if the NCCD (Nokia Communication Controller) Symbian app needs to be explicitly started
+3. Try using the OBEX/PC Suite Services interface (intf 8/9) instead of Phonet
+4. Check if phonet_route_add in the kernel needs different parameters
+5. Try the oFono test programs directly (gisi library)
+
+### Protocol State of Knowledge
+- Phonet header: 7 bytes (rdev, sdev, res, len_BE, robj, sobj)
+- ISI message: utid, msg_id, data
+- 21 ISI resources mapped (from oFono/libisi)
+- Phone's link address: 0x1b (assigned to us), peer: 0x00
+- Our Phonet address: 0x10 (set via ip addr add)
+- CDC Phonet uses cdc_phonet kernel module
+- Phone responded from dev=0x10 res=0x1B with ENTITY_NOT_REACHABLE
+
+## ISI COMMUNICATION BREAKTHROUGH (2026-03-21 ~09:00)
+
+### WORKING! Phone responds to ISI messages over Phonet/USB!
+
+**Setup sequence (must be done after each reboot):**
+1. Phone in Nokia Suite USB mode (PID 0x0335)
+2. `sudo sh -c 'echo 3-2:1.14 > /sys/bus/usb/drivers/cdc_phonet/bind'`
+3. `sudo ip link set usbpn0 up`
+4. `sudo ip address flush dev usbpn0` (remove any stale IP addresses)
+5. Add Phonet address 0x10 via RTM_NEWADDR with AF_PHONET family
+6. Bind socket with SO_BINDTODEVICE=usbpn0
+7. Send to device 0x00 (phone's service host)
+
+**Key discovery: phone's address setup was the problem.**
+`ip address add 0x10 dev usbpn0` adds an IP address, NOT a Phonet address!
+Must use RTM_NEWADDR netlink message with family=AF_PHONET(35) and IFA_LOCAL=0x10.
+
+### Confirmed Working
+- **IMEI read**: 354864048650007 (Unit A confirmed!)
+- **Software version**: V 79_sr1_12w18.5, 27-07-12, RM-626, (c) Nokia
+- **Resource 0x0E**: responds to ISI version query (unknown service, version 0xFAFA)
+- **Device 0x00**: phone's ISI service host address
+
+### Crashed During Resource Scan
+- Scan got to resource 0x0E before phone rebooted
+- Resource 0x0E responded but scan continued to higher IDs
+- Some resource ID between 0x0F and 0xFF crashed the phone
+- Need per-resource logging (same technique as MemSpy opcode scan)
+
+### Protocol Stack (confirmed working)
+```
+Linux PC (us)               Nokia E7
+  dev=0x10                    dev=0x00
+     |                           |
+  AF_PHONET socket              ISI services
+  SO_BINDTODEVICE=usbpn0        PN_PHONE_INFO (0x1B) ✓
+     |                           PN_??? (0x0E) ✓
+  cdc_phonet driver              ...more to discover
+     |                           |
+  USB CDC Phonet              USB CDC Phonet
+  (interface 14/15)           (UsbPnComm/UsbPnData)
+```

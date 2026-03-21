@@ -1,0 +1,78 @@
+
+=== ISI Resource Scan starting at 0x00 (2026-03-21 09:00:51) ===
+
+=== ISI Resource Scan starting at 0x00 (2026-03-21 09:02:13) ===
+
+=== ISI Resource Scan starting at 0x00 (2026-03-21 09:02:57) ===
+  0x04 (               ): ERROR:0xF0/0x01
+  0x0a (NETWORK        ): ERROR:0xF0/0x01
+  0x0d (               ): ERROR:0xF0/0x01
+  0x0e (???            ): RESPONSE:msg=0x12 [4B] 0912fafa
+  0x11 (               ): ERROR:0xF0/0x01
+  0x12 (               ): ERROR:0xF0/0x01
+  0x13 (               ): SEND FAILED
+  0x14 (               ): SEND FAILED
+  0x15 (MTC            ): SEND FAILED
+  0x16 (               ): SEND FAILED
+  0x17 (               ): SEND FAILED
+  0x18 (               ): SEND FAILED
+  0x19 (               ): SEND FAILED
+  0x1a (               ): SEND FAILED
+  0x1b (PHONE_INFO     ): SEND FAILED
+  0x1c (               ): SEND FAILED
+  0x1d (               ): SEND FAILED
+  0x1e (               ): SEND FAILED
+  0x1f (               ): SEND FAILED
+  0x20 (               ): SEND FAILED
+  0x21 (               ): SEND FAILED
+  0x22 (               ): SEND FAILED
+  0x23 (               ): SEND FAILED
+  0x24 (               ): SEND FAILED
+  0x25 (               ): SEND FAILED
+  0x26 (               ): SEND FAILED
+  0x27 (               ): SEND FAILED
+  0x28 (               ): SEND FAILED
+  0x29 (               ): SEND FAILED
+  0x2a (               ): SEND FAILED
+  0x2b (               ): SEND FAILED
+  0x2c (               ): SEND FAILED
+  0x2d (               ): SEND FAILED
+  0x2e (               ): SEND FAILED
+  0x2f (               ): SEND FAILED
+  0x30 (               ): SEND FAILED
+  0x31 (GPDS           ): SEND FAILED
+  0x32 (GSS            ): SEND FAILED
+  0x33 (               ): SEND FAILED
+  0x34 (               ): SEND FAILED
+  0x35 (               ): SEND FAILED
+  0x36 (               ): SEND FAILED
+  0x37 (               ): SEND FAILED
+  0x38 (               ): SEND FAILED
+  0x39 (               ): SEND FAILED
+  0x3a (               ): SEND FAILED
+  0x3b (               ): SEND FAILED
+  0x3c (               ): SEND FAILED
+  0x3d (               ): SEND FAILED
+  0x3e (               ): SEND FAILED
+  0x3f (               ): SEND FAILED
+  0x40 (               ): SEND FAILED
+  0x41 (               ): SEND FAILED
+
+=== ISI Resource Scan starting at 0x42 (2026-03-21 09:05:50) ===
+  0x44 (               ): ERROR:0xF0/0x01
+  0x49 (               ): ERROR:0xF0/0x01
+  0x4a (               ): ERROR:0xF0/0x01
+  0x5e (               ): VERSION:0255 [22B] 53130255ffffffffffffffffffffffffffffffff0000
+  0x5f (               ): VERSION:0000 [4B] 54130000
+  0x8e (               ): ERROR:0xF0/0x01
+  0x9d (               ): ERROR:0xF0/0x01
+  0xbb (               ): ERROR:0xF0/0x01
+  0xbe (               ): ERROR:0xF0/0x01
+
+=== ISI Resource Scan starting at 0xd4 (2026-03-21 09:07:54) ===
+  0xe0 (               ): ERROR:0xF0/0xff
+  0xe3 (               ): RESPONSE:msg=0x16 [7B] e2161202000000
+  0xea (               ): ERROR:0xF0/0x01
+  0xec (               ): ERROR:0xF0/0x01
+  0xf1 (               ): ERROR:0xF0/0x01
+  0xf2 (               ): CRASH detected (attempt 3)
