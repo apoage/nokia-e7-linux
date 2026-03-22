@@ -70,3 +70,8 @@ Since the firewall can't be defeated through ISI messaging:
 - Find the firewall check in the phone's firmware and patch it (via RomPatcher)
 - Access hardware registers through a completely different path (UART, JTAG)
 - Use the working ISI services to extract useful data indirectly
+
+## Update: SecEnv and Alternative Paths (2026-03-22)
+- SecEnv at ROM 0x14083C may gate ISI forwarding on app processor side
+- Task 085: HaRET-style Linux RAM boot bypasses everything
+- Task 086: RAPUYAMA service box protocol RE
