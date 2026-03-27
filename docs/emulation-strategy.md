@@ -3,6 +3,15 @@
 > **Core principle**: never flash anything to real hardware that hasn't
 > booted successfully in emulation. The two E7 units are irreplaceable.
 
+> **CRITICAL NOTE (2026-03-23):** The QEMU emulation is based on **TI OMAP3630
+> (Cortex-A8, ARMv7)**, but the real Nokia E7 app processor is **ARM1176JZF-S
+> (ARMv6)**, likely **Broadcom BCM2763**. The emulation diverges from real HW at
+> the SoC level. It remains valuable for driver development, peripheral model
+> testing, and rootfs iteration, but kernel images built for the QEMU target
+> (ARMv7) will NOT run on real hardware (ARMv6). Real HW will eventually need
+> a separate kernel config targeting ARMv6/ARM1176.
+> See: [critical-cpu-discovery.md](./critical-cpu-discovery.md)
+
 ---
 
 ## Phase 0 — Firmware Archaeology
@@ -26,7 +35,7 @@ Tools:
 
 ---
 
-## Phase 1 — QEMU OMAP3 Emulation
+## Phase 1 — QEMU OMAP3 Emulation (synthetic — real HW is ARM1176/BCM2763)
 
 ### Step 1: Boot Original Firmware
 
@@ -124,10 +133,13 @@ Serial console (UART)          ← first, always
 
 ## Emulator Architecture
 
+> **Note:** This QEMU machine uses OMAP3630/Cortex-A8 (ARMv7). Real HW is
+> ARM1176JZF-S (ARMv6), likely BCM2763. The emulation is synthetic.
+
 ```
 ┌─────────────────────────────────────────────────┐
 │                QEMU (host x86_64)                │
-│                                                  │
+│         *** SYNTHETIC — NOT real HW SoC ***      │
 │  ┌────────────┐  ┌─────────────────────────────┐ │
 │  │ OMAP3630   │  │ Nokia E7 Board Model        │ │
 │  │ CPU model  │  │                              │ │

@@ -1,0 +1,98 @@
+=== _hack.pyd probe ===
+  imported OK
+  type: <type 'module'>
+  file: _hack.pyd
+
+  ALL attrs:
+    __doc__ [NoneType]
+    __file__ [str]
+    __name__ [str]
+    peek [builtin_function_or_method]
+    poke [builtin_function_or_method]
+
+=== miso.pyd probe ===
+  imported OK
+
+  ALL attrs:
+    FsNotifyChange [builtin_function_or_method]
+    __doc__ [NoneType]
+    __file__ [str]
+    __name__ [str]
+    alloc_heap_cell [builtin_function_or_method]
+    alloc_heap_cells_size [builtin_function_or_method]
+    check_heap [builtin_function_or_method]
+    compress_all_heaps [builtin_function_or_method]
+    create_drive_subst [builtin_function_or_method]
+    free_heap_cell [builtin_function_or_method]
+    get_hal_attr [builtin_function_or_method]
+    get_process_priority [builtin_function_or_method]
+    get_subst_path [builtin_function_or_method]
+    get_thread_priority [builtin_function_or_method]
+    have_process [builtin_function_or_method]
+    heap_base_address [builtin_function_or_method]
+    heap_biggest_avail [builtin_function_or_method]
+    heap_total_avail [builtin_function_or_method]
+    kill_process [builtin_function_or_method]
+    local_bt_address [builtin_function_or_method]
+    local_bt_name [builtin_function_or_method]
+    miso_version [builtin_function_or_method]
+    num_alloc_heap_cells [builtin_function_or_method]
+    num_free_heap_cells [builtin_function_or_method]
+    reset_inactivity_time [builtin_function_or_method]
+    restart_phone [builtin_function_or_method]
+    set_hal_attr [builtin_function_or_method]
+    set_process_priority [builtin_function_or_method]
+    set_thread_priority [builtin_function_or_method]
+    stack_info [builtin_function_or_method]
+    tick_count [builtin_function_or_method]
+    vibrate [builtin_function_or_method]
+
+=== _feature.pyd probe ===
+  imported OK
+    __doc__ [NoneType]
+    __file__ [str]
+    __name__ [str]
+    bitmap_server_version [builtin_function_or_method]
+    comms_server_version [builtin_function_or_method]
+    dbms_server_version [builtin_function_or_method]
+    discovery_server_version [builtin_function_or_method]
+    file_server_version [builtin_function_or_method]
+    socket_server_version [builtin_function_or_method]
+    supported [builtin_function_or_method]
+    tel_server_version [builtin_function_or_method]
+    win_server_version [builtin_function_or_method]
+
+=== cenrep probe ===
+  imported OK
+    AP [builtin_function_or_method]
+    __builtins__ [dict]
+    __doc__ [NoneType]
+    __file__ [str]
+    __name__ [str]
+    ap_keypad_volume [builtin_function_or_method]
+    ap_message_alert [builtin_function_or_method]
+    ap_ringing_type [builtin_function_or_method]
+    ap_ringing_volume [builtin_function_or_method]
+    ap_warning_tones [builtin_function_or_method]
+    bt_powerstate [builtin_function_or_method]
+    network_connection [builtin_function_or_method]
+    set_AP [builtin_function_or_method]
+    set_ap_keypad_volume [builtin_function_or_method]
+    set_ap_message_alert [builtin_function_or_method]
+    set_ap_ringing_type [builtin_function_or_method]
+    set_ap_ringing_volume [builtin_function_or_method]
+    set_ap_warning_tones [builtin_function_or_method]
+    set_bt_powerstate [builtin_function_or_method]
+    set_network_connection [builtin_function_or_method]
+    set_vibra_profile [builtin_function_or_method]
+    sip_t1 [builtin_function_or_method]
+    sip_t2 [builtin_function_or_method]
+    sip_t4 [builtin_function_or_method]
+    vibra_maxtime [builtin_function_or_method]
+    vibra_minofftime [builtin_function_or_method]
+    vibra_profile [builtin_function_or_method]
+
+=== _hack.pyd binary header ===
+  E:\sys\bin\_hack.pyd: 79 00 00 10 00 00 00 00 00 00 00 00 7e 0d 5a 04
+
+=== DONE ===

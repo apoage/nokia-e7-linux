@@ -1,45 +1,60 @@
 # Research Sources
 
-## Community Contacts
+## Community Confirmations
 
-| Person | Platform | Expertise |
-|--------|----------|-----------|
-| Max Bondarchenko (iCrazyDoctor) | t.me/symbian_world | RomPatcher internals, kernel arch, CFW |
-| symbuzzer | t.me/symbian_world | CapsSwitch/PlatSec tool, kernel patching |
-| Sicelo | postmarketOS | N900 maintainer, OMAP3 kernel work |
-| Trzyzet | nokiahacking.pl | BB5 RE, attempted Linux on N95-2 |
+### CPU Discovery (2026-03-23)
 
-## Telegram Groups
-- **Symbian World**: t.me/symbian_world (active, ~127K messages analyzed)
-- **Linux Mobile World**: t.me/linuxmobile_world
+**zaiood** (Telegram): Stated "RAPUYAMA and OMAP are unrelated" -- this was
+confirmed correct by our SuperPage CPUID analysis showing the app processor
+is ARM1176JZF-S (0x410fb764), not Cortex-A8.
 
-## Websites
-- **symwld.com**: Delight CFW, patches, curated app store
-- **nokiahacking.pl**: Polish Nokia forum, RE section
-- **allaboutsymbian.com**: News, reviews, guides
-- **fshell.sourceforge.net**: FShell documentation
+**karaba abdu** (community): Confirmed the ARM1176 in the Nokia E7 is
+Samsung-manufactured.
 
-## Archives
-- **Nokia Service Tools** (15.3GB): archive.org/details/phoenix_service_sw_a12_2003_50_7_36-Feb10-085637
-- **Symbian World Mega Repo**: mega.nz/folder/wnQkiSKD#vnJZyBYYbpJtfLMr2U69KQ
-- **WunderWungiel Symbian**: wunderwungiel.pl/Symbian
-- **Flasher tools**: wunderwungiel.pl/Maemo/flasher, wunderwungiel.pl/MeeGo/flasher
-- **SymbianSource**: github.com/SymbianSource
+**General community consensus**: "Nobody has cracked the bootloader yet" for
+the Nokia E7/N8 family. The Symbian bootloader chain (SWBL -> NLoader -> SOS)
+is non-standard and uses TrustZone-based encryption.
 
-## Technical References
-- **elinux.org/N950**: N950 hardware wiki
-- **postmarketOS OMAP3**: wiki.postmarketos.org/wiki/Texas_Instruments_OMAP_3_(OMAP3xxx)
-- **FShell docs**: fshell.sourceforge.net/documentation/fshell/index.html
-- **Symbian Platform Security**: web.archive.org/web/20240316184730/http://wiki.franklinheath.co.uk/index.php/Symbian_OS_Platform_Security
-- **Nokia E7 Service Hints**: Internal Nokia service document (in this repo's docs/)
+### Symbian Internals
 
-## Tools Used
-- QEMU v10.0.0 (custom nokia-e7 machine)
-- Linux 6.12 (arm cross-compile)
-- Docker (symbian-sdk build environment)
-- arm-none-symbianelf-gcc 12.1.0
-- GNUPoc (elf2e32, makesis, signsis, rcomp)
-- PyS60 (on-device Python scripting)
-- FShell v5.00 (on-device shell)
-- MemSpy (Nokia debug tool)
-- RomPatcherPlus 3.1 (kernel patching)
+**symbuzzer**: CapsSwitch/PlatSec tool author -- runtime platsec disable via
+RomPatcher LDD.
+
+**Max Bondarchenko (iCrazyDoctor)**: Key expert on Symbian kernel internals.
+
+**Symbian World chat**: Analysis of community knowledge on kernel access,
+RomPatcher LDDs, and capability bypass. See `memory/symbian-world-chat.md`.
+
+## Key References
+
+### Nokia E7 / N8 Hardware
+- SuperPage dump: `docs/superpage.dmp` -- contains CPUID, memory layout
+- Critical CPU discovery: `docs/critical-cpu-discovery.md`
+- Hardware lore: `docs/hardware-lore.md` (partially outdated -- SoC field incorrect)
+- Knowledge graph: `docs/knowledge-graph/` (9 JSON files, 4 Mermaid diagrams)
+- Service manual: `docs/service-manual/` (7 files including Service Hints v1.0)
+- DCP factory calibration: `docs/dcp-analysis.md`
+
+### Firmware Analysis
+- NLoader analysis: `docs/nloader-analysis.md`
+- Flash memory map: `docs/flash-memory-map.md`
+- Boot modes: `docs/boot-modes.md`
+- Nokia Cooker keys: `docs/nokia-cooker-analysis.md`
+- BCM2727 firmware: `docs/bcm2727-firmware-analysis.md`
+- VideoCore reference: `docs/videocore-reference-analysis.md`
+
+### Symbian SDK / Tools
+- Symbian^3 SDK: Archive.org
+- Kernel source: github.com/SymbianSource
+- FShell v5.00: installed on Unit B
+- Docker `symbian-sdk` image: `arm-none-symbianelf-gcc` 12.1.0 + full SDK
+
+### Related Devices
+- Nokia N8: same BCM2763 application processor family
+- Nokia N950/N9: use TI OMAP3630 (different platform, useful DTS reference for QEMU only)
+
+## Session Logs
+
+Chronological session notes in `lore/daily/`. Key entries:
+- `2026-03-08-nloader-full-boot.md` -- NLoader QEMU boot reaching GENIO config
+- `2026-03-23` session -- CPU discovery and community confirmation

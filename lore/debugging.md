@@ -160,7 +160,60 @@ Useful for mapping undocumented kernel driver APIs:
 5. C:\Data log survives when E: log doesn't (USB mass storage locks E:)
 6. C:\sys\bin takes priority over E:\sys\bin — delete C: copy to test E: version
 
-### BB5 Address Remapping Warning
-From nokiahacking.pl: Nokia modified OMAP addressing for BB5 platform.
-PADCONF at physical 0x48002030 might not be at that virtual address.
-This could explain FShell readmem crashes on "valid" addresses.
+### BB5 Address Remapping -- EXPLAINED (2026-03-23)
+~~From nokiahacking.pl: Nokia modified OMAP addressing for BB5 platform.~~
+**Real explanation**: The SoC is NOT OMAP3630 at all. It's BCM2727B1 (ARM1176JZF-S).
+PADCONF at 0x48002030 doesn't exist because that's an OMAP3 register address.
+The real GPIO registers are at physical 0x20200000 (BCM2835-compatible).
+FShell readmem crashes because memoryAccess LDD DoCreate panics without TCB,
+not because of address remapping.
+
+## BCM2727B1 Hardware Access (2026-03-25)
+
+### Real SoC Identified
+**CPUID**: 0x410fb764 = ARM1176JZF-S r0p4 (ARMv6, NOT ARMv7/Cortex-A8)
+**SoC**: Broadcom BCM2727B1, same family as BCM2835 (Raspberry Pi)
+**Platform**: Nokia RAPU (RapidoVariant, hw79, codename Gazoo)
+**Peripheral base**: 0x20200000 (matches BCM2835 GPIO base)
+**Kernel VA mapping**: peripherals at 0xC8000000+
+
+### GPIO Registers (target for pin mux dump)
+Physical 0x20200000, GPFSEL0-6 at offsets 0x00-0x18 (28 bytes, 70 pins).
+BCM2708 gpio.h from GitHub confirms register layout.
+
+### What Works on Phone
+- PyS60 1.4.5 (Python 2.5) -- file I/O, sysinfo, modules
+- RomPatcher+ with kernel LDDs (patcher.ldd, patcherS3.ldd, patcherShadow.ldd)
+- ISI/Phonet USB protocol (IMEI read, host resources)
+- FShell installed (fshell.exe, fshell_hal.exe, memaccess.exe)
+
+### What Doesn't Work
+- Custom exe execution (all return error 3 -- CRT/cert issue)
+- FShell readmem (memoryAccess LDD panics without TCB)
+- ISI modem routing (shared memory link not active from USB)
+- Direct physical memory read from Python (no ctypes)
+
+### New Attack Vectors (2026-03-25)
+- **fshell_hal.exe**: HAL value dumper, might expose HW info
+- **memaccess.exe** (6KB): standalone memory access — CRASHES PHONE (TCB)
+- **misty module**: get_hal_attr, alloc/free_heap_cell, process/thread control
+- **envy module**: capability enumeration (process has 5/20 caps)
+- **patcherShadow.ldd**: manufacturer-signed, ALL+TCB, no caller cap check
+
+### _hack.pyd peek/poke (2026-03-26)
+**peek(addr)**: reads 1 byte from user-space virtual address (0-255)
+**poke(addr, byte)**: writes 1 byte to user-space virtual address
+- Heap: read+write, NX (no execute)
+- ROM (0x80000000): read-only, executable
+- DLL code (0x7AAxxxxx): read-only, executable
+- Kernel VA (0xC8xxxxxx): CRASH (supervisor only)
+- Physical (0x20200000): CRASH (unmapped)
+- Bad addresses: HARD FAULT (not catchable, kills process)
+
+### Exploit Progress (2026-03-26)
+1. Heap code execution BLOCKED by NX bit
+2. PyMethodDef tables are read-only (DLL data section)
+3. Python object m_ml pointer IS writable (redirectable)
+4. 218 SVC instructions cataloged in ROM (kernel entry points)
+5. HAL::Get call chain fully traced into ROM Thumb code
+6. Next: find ROP gadget or SVC that reads from address parameter

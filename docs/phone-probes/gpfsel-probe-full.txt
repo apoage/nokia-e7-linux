@@ -1,0 +1,285 @@
+============================================================
+GPFSEL Probe v4 - BCM2727B1 GPIO Function Select Registers
+============================================================
+
+--- PROBE 1: RomPatcherPlus.exe command-line launch ---
+  FOUND: C:\sys\bin\RomPatcherPlus.exe (127697 bytes)
+  Attempting launch (GUI app, no CLI dump expected)...
+  start_exe returned: None
+
+  Patcher LDD files:
+    FOUND: C:\sys\bin\patcher.ldd (1568 bytes)
+      header: 79 00 00 10 af 00 00 10 11 89 00 e0 a4 03 17 1b
+    FOUND: C:\sys\bin\patcherS3.ldd (1609 bytes)
+      header: 79 00 00 10 af 00 00 10 12 89 00 e0 f7 56 17 1b
+    FOUND: C:\sys\bin\patcherShadow.ldd (1573 bytes)
+      header: 79 00 00 10 af 00 00 10 10 89 00 e0 95 30 17 1b
+
+--- PROBE 2: Filesystem-based access ---
+  not found: /dev/mem
+  not found: /dev/kmem
+  not found: /dev/gpio
+
+  Scanning C:\sys\bin for gpio/mem/hw related files...
+    RomPatcherPlus.exe (127697 bytes)
+    fshell.exe (100923 bytes)
+    fshell_base64.exe (2890 bytes)
+    fshell_btrace.exe (4564 bytes)
+    fshell_btservices.exe (11161 bytes)
+    fshell_cat.exe (3879 bytes)
+    fshell_ecom.exe (2351 bytes)
+    fshell_find.exe (2268 bytes)
+    fshell_genbmp.exe (2447 bytes)
+    fshell_glinfo.exe (2420 bytes)
+    fshell_grep.exe (1685 bytes)
+    fshell_hal.exe (2483 bytes)
+    fshell_hash.exe (2248 bytes)
+    fshell_icc.exe (6772 bytes)
+    fshell_input.exe (2045 bytes)
+    fshell_launcher.exe (6856 bytes)
+    fshell_lbs.exe (5777 bytes)
+    fshell_load.exe (1801 bytes)
+    fshell_nitz.exe (2855 bytes)
+    fshell_ping.exe (7320 bytes)
+    fshell_ramdefrag.exe (1953 bytes)
+    fshell_request.exe (1949 bytes)
+    fshell_rsocket.exe (2470 bytes)
+    fshell_sms.exe (6546 bytes)
+    fshell_sql.exe (2313 bytes)
+    fshell_sqlsrv.exe (7898 bytes)
+    fshell_startup.exe (2375 bytes)
+    fshell_stdioserver.exe (1774 bytes)
+    fshell_tail.exe (4544 bytes)
+    fshell_testexecute.exe (4985 bytes)
+    fshell_tfinfo.exe (1782 bytes)
+    fshell_uprofiler.exe (1599 bytes)
+    fshell_usb.exe (2435 bytes)
+    memaccess.exe (6376 bytes)
+    memoryaccess-fshell.ldd (18387 bytes)
+    memread.ldd (3732 bytes)
+    memsampler.exe (5131 bytes)
+    memsamplerdd.ldd (1856 bytes)
+    onmmem.dll (36356 bytes)
+    patchdata.exe (4543 bytes)
+    patcher.ldd (1568 bytes)
+    patcherS3.ldd (1609 bytes)
+    patcherShadow.ldd (1573 bytes)
+    patcher_probe.exe (1571 bytes)
+    photoeditormemoryplugin.dll (622 bytes)
+    widgetmemorywatcherplugin.dll (480 bytes)
+    (total files in C:\sys\bin: 1024)
+
+  Checking for memory-access LDDs...
+    FOUND: C:\sys\bin\memoryaccess-fshell.ldd (18387 bytes)
+
+--- PROBE 3: Socket-based IPC ---
+  No debug servers found on common ports
+
+  Socket address families:
+    AF_BT = 0
+    AF_INET = 2048
+    AF_UNSPEC = 0
+    AI_CANONNAME = 2
+    AI_NUMERICHOST = 4
+    AI_PASSIVE = 1
+    AUTH = 1
+    AUTHOR = 4
+    BTPROTO_RFCOMM = 3
+    EAI_ADDRFAMILY = 1
+    EAI_AGAIN = 2
+    EAI_BADFLAGS = 3
+    EAI_BADHINTS = 12
+    EAI_FAIL = 4
+    EAI_FAMILY = 5
+    EAI_MAX = 14
+    EAI_MEMORY = 6
+    EAI_NODATA = 7
+    EAI_NONAME = 8
+    EAI_PROTOCOL = 13
+    EAI_SERVICE = 9
+    EAI_SOCKTYPE = 10
+    EAI_SYSTEM = 11
+    ENCRYPT = 2
+    GAI_ANY = 0
+    IPPROTO_TCP = 6
+    IPPROTO_UDP = 17
+    MSG_PEEK = 1
+    MSG_WAITALL = 256
+    OBEX = 102
+    RFCOMM = 101
+    SOCK_DGRAM = 2
+    SOCK_STREAM = 1
+    SO_OOBINLINE = 789
+    SO_RCVBUF = 2
+    SO_REUSEADDR = 1030
+    SO_SNDBUF = 3
+    SSL_ERROR_EOF = 8
+    SSL_ERROR_INVALID_ERROR_CODE = 9
+    SSL_ERROR_NONE = 0
+    SSL_ERROR_SSL = 1
+    SSL_ERROR_SYSCALL = 5
+    SSL_ERROR_WANT_CONNECT = 7
+    SSL_ERROR_WANT_READ = 2
+    SSL_ERROR_WANT_WRITE = 3
+    SSL_ERROR_WANT_X509_LOOKUP = 4
+    SSL_ERROR_ZERO_RETURN = 6
+
+--- PROBE 4: e32 module internals ---
+  dir(e32):
+    Ao_lock  [builtin_function_or_method, callable]
+    Ao_timer  [builtin_function_or_method, callable]
+    __doc__ = None  [NoneType]
+    __name__ = 'e32'  [str]
+    _as_level  [builtin_function_or_method, callable]
+    _dlc_stats  [builtin_function_or_method, callable]
+    _globcnt  [builtin_function_or_method, callable]
+    _stdo  [builtin_function_or_method, callable]
+    _uidcrc_app  [builtin_function_or_method, callable]
+    ao_callgate  [builtin_function_or_method, callable]
+    ao_sleep  [builtin_function_or_method, callable]
+    ao_yield  [builtin_function_or_method, callable]
+    drive_list  [builtin_function_or_method, callable]
+    file_copy  [builtin_function_or_method, callable]
+    in_emulator  [builtin_function_or_method, callable]
+    inactivity  [builtin_function_or_method, callable]
+    is_ui_thread  [builtin_function_or_method, callable]
+    pys60_version = '1.4.5 final'  [str]
+    pys60_version_info = (1, 4, 5, 'final', 0)  [tuple]
+    reset_inactivity  [builtin_function_or_method, callable]
+    s60_version_info = (3, 0)  [tuple]
+    set_home_time  [builtin_function_or_method, callable]
+    start_exe  [builtin_function_or_method, callable]
+    start_server  [builtin_function_or_method, callable]
+    strerror  [builtin_function_or_method, callable]
+
+  Testing e32 hidden functions...
+    _s60_load_ldd: not available
+
+  Ao_timer methods:
+    after
+    cancel
+
+--- PROBE 5: appuifw module ---
+  dir(appuifw):
+    Canvas  [type]
+    Content_handler  [builtin_function_or_method]
+    EAColumn = 14
+    EApplicationWindow = 1
+    EBColumn = 15
+    EBatteryPane = 8
+    ECColumn = 16
+    EContextPane = 6
+    EControlPane = 4
+    EControlPaneBottom = 19
+    EControlPaneTop = 4
+    EDColumn = 17
+    EEventKey = 1
+    EEventKeyDown = 3
+    EEventKeyUp = 2
+    EFindPane = 11
+    EHCenterVBottom = 33
+    EHCenterVCenter = 17
+    EHCenterVTop = 1
+    EHLeftVBottom = 32
+    EHLeftVCenter = 16
+    EHLeftVTop = 0
+    EHRightVBottom = 34
+    EHRightVCenter = 18
+    EHRightVTop = 2
+    EIndicatorPane = 13
+    EMainPane = 3
+    ENaviPane = 10
+    EScreen = 0
+    ESignalPane = 5
+    EStaconBottom = 21
+    EStaconTop = 20
+    EStatusPane = 2
+    EStatusPaneBottom = 18
+    EStatusPaneTop = 2
+    ETitlePane = 7
+    EUniversalIndicatorPane = 9
+    EWallpaperPane = 12
+    FFormAutoFormEdit = 8
+    FFormAutoLabelEdit = 4
+    FFormDoubleSpaced = 16
+    FFormEditModeOnly = 1
+    FFormViewModeOnly = 2
+    Form  [builtin_function_or_method]
+    HIGHLIGHT_ROUNDED = 16
+    HIGHLIGHT_SHADOW = 32
+    HIGHLIGHT_STANDARD = 64
+    Icon  [builtin_function_or_method]
+    InfoPopup  [builtin_function_or_method]
+    Listbox  [builtin_function_or_method]
+    STYLE_BOLD = 1
+    STYLE_ITALIC = 4
+    STYLE_STRIKETHROUGH = 8
+    STYLE_UNDERLINE = 2
+    Text  [builtin_function_or_method]
+    app  [Application]
+    available_fonts  [builtin_function_or_method]
+    e32  [module]
+    multi_query  [builtin_function_or_method]
+    multi_selection_list  [builtin_function_or_method]
+    note  [builtin_function_or_method]
+    popup_menu  [builtin_function_or_method]
+    query  [builtin_function_or_method]
+    selection_list  [builtin_function_or_method]
+
+--- PROBE 6: HAL / sysinfo / other system APIs ---
+  sysinfo available:
+    active_profile() = 'offline'
+    battery() = 100
+    display_pixels() = (360, 640)
+    display_twips() = (2786, 4953)
+    e32 = <module 'e32' (built-in)>
+    free_drivespace() = {u'C:': 212348928, u'D:': 148086784, u'Z:': 0, u'E:': 1527414784}
+    free_ram() = 148086784
+    imei() = u'354864048650007'
+    max_ramdrive_size()  [callable, error]
+    os_version() = (2, 0, 4069)
+    ring_type() = 'normal'
+    signal()  [callable, error]
+    signal_bars()  [callable, error]
+    signal_dbm()  [callable, error]
+    sw_version() = u'111.040.1511 2012-07-28 RM-626 (c) Nokia'
+    total_ram() = 257228800
+    total_rom() = 11206656
+
+  Module availability scan:
+    telephone: YES
+    messaging: YES
+    inbox: YES
+    contacts: YES
+    calendar: YES
+    audio: YES
+    graphics: YES
+    topwindow: YES
+    globalui: YES
+    envy: YES
+    misty: YES
+    e32db: YES
+    e32dbm: YES
+    key_codes: YES
+    keycapture: YES
+    logs: YES
+    gles: YES
+    glcanvas: YES
+    camera: YES
+    location: YES
+    positioning: YES
+    contacts interesting attrs: locationmap, locationreversemap, pb_values_from_py_type_and_location, unknown_location
+    calendar interesting attrs: replicationmap
+    audio interesting attrs: ENotReady
+    graphics interesting attrs: Draw
+    envy interesting attrs: ECapabilityLocation, ECapabilityReadDeviceData, ECapabilityReadUserData, ECapabilityWriteDeviceData, is_app_ready, set_app_ready, version
+    misty interesting attrs: get_process_priority, get_thread_priority, kill_thread, set_process_priority, set_thread_priority, terminate_thread
+    e32db interesting attrs: format_rawtime
+    key_codes interesting attrs: EKeyApplication0, EKeyApplication1, EKeyApplication10, EKeyApplication11, EKeyApplication12, EKeyApplication13, EKeyApplication14, EKeyApplication15, EKeyApplication16, EKeyApplication17, EKeyApplication18, EKeyApplication19, EKeyApplication1A, EKeyApplication1B, EKeyApplication1C, EKeyApplication1D, EKeyApplication1E, EKeyApplication1F, EKeyApplication2, EKeyApplication3, EKeyApplication4, EKeyApplication5, EKeyApplication6, EKeyApplication7, EKeyApplication8, EKeyApplication9, EKeyApplicationA, EKeyApplicationB, EKeyApplicationC, EKeyApplicationD, EKeyApplicationE, EKeyApplicationF, EKeyDevice0, EKeyDevice1, EKeyDevice10, EKeyDevice11, EKeyDevice12, EKeyDevice13, EKeyDevice14, EKeyDevice15, EKeyDevice16, EKeyDevice17, EKeyDevice18, EKeyDevice19, EKeyDevice1A, EKeyDevice1B, EKeyDevice1C, EKeyDevice1D, EKeyDevice1E, EKeyDevice1F, EKeyDevice2, EKeyDevice3, EKeyDevice4, EKeyDevice5, EKeyDevice6, EKeyDevice7, EKeyDevice8, EKeyDevice9, EKeyDeviceA, EKeyDeviceB, EKeyDeviceC, EKeyDeviceD, EKeyDeviceE, EKeyDeviceF, EKeyScreenDimension0, EKeyScreenDimension1, EKeyScreenDimension2, EKeyScreenDimension3, EModifierCancelRotation, EStdKeyApplication0, EStdKeyApplication1, EStdKeyApplication10, EStdKeyApplication11, EStdKeyApplication12, EStdKeyApplication13, EStdKeyApplication14, EStdKeyApplication15, EStdKeyApplication16, EStdKeyApplication17, EStdKeyApplication18, EStdKeyApplication19, EStdKeyApplication1A, EStdKeyApplication1B, EStdKeyApplication1C, EStdKeyApplication1D, EStdKeyApplication1E, EStdKeyApplication1F, EStdKeyApplication2, EStdKeyApplication3, EStdKeyApplication4, EStdKeyApplication5, EStdKeyApplication6, EStdKeyApplication7, EStdKeyApplication8, EStdKeyApplication9, EStdKeyApplicationA, EStdKeyApplicationB, EStdKeyApplicationC, EStdKeyApplicationD, EStdKeyApplicationE, EStdKeyApplicationF, EStdKeyDevice0, EStdKeyDevice1, EStdKeyDevice10, EStdKeyDevice11, EStdKeyDevice12, EStdKeyDevice13, EStdKeyDevice14, EStdKeyDevice15, EStdKeyDevice16, EStdKeyDevice17, EStdKeyDevice18, EStdKeyDevice19, EStdKeyDevice1A, EStdKeyDevice1B, EStdKeyDevice1C, EStdKeyDevice1D, EStdKeyDevice1E, EStdKeyDevice1F, EStdKeyDevice2, EStdKeyDevice3, EStdKeyDevice4, EStdKeyDevice5, EStdKeyDevice6, EStdKeyDevice7, EStdKeyDevice8, EStdKeyDevice9, EStdKeyDeviceA, EStdKeyDeviceB, EStdKeyDeviceC, EStdKeyDeviceD, EStdKeyDeviceE, EStdKeyDeviceF
+    keycapture interesting attrs: EKeyApplication0, EKeyApplication1, EKeyApplication10, EKeyApplication11, EKeyApplication12, EKeyApplication13, EKeyApplication14, EKeyApplication15, EKeyApplication16, EKeyApplication17, EKeyApplication18, EKeyApplication19, EKeyApplication1A, EKeyApplication1B, EKeyApplication1C, EKeyApplication1D, EKeyApplication1E, EKeyApplication1F, EKeyApplication2, EKeyApplication3, EKeyApplication4, EKeyApplication5, EKeyApplication6, EKeyApplication7, EKeyApplication8, EKeyApplication9, EKeyApplicationA, EKeyApplicationB, EKeyApplicationC, EKeyApplicationD, EKeyApplicationE, EKeyApplicationF, EKeyDevice0, EKeyDevice1, EKeyDevice10, EKeyDevice11, EKeyDevice12, EKeyDevice13, EKeyDevice14, EKeyDevice15, EKeyDevice16, EKeyDevice17, EKeyDevice18, EKeyDevice19, EKeyDevice1A, EKeyDevice1B, EKeyDevice1C, EKeyDevice1D, EKeyDevice1E, EKeyDevice1F, EKeyDevice2, EKeyDevice3, EKeyDevice4, EKeyDevice5, EKeyDevice6, EKeyDevice7, EKeyDevice8, EKeyDevice9, EKeyDeviceA, EKeyDeviceB, EKeyDeviceC, EKeyDeviceD, EKeyDeviceE, EKeyDeviceF, EKeyScreenDimension0, EKeyScreenDimension1, EKeyScreenDimension2, EKeyScreenDimension3, EModifierCancelRotation, EStdKeyApplication0, EStdKeyApplication1, EStdKeyApplication10, EStdKeyApplication11, EStdKeyApplication12, EStdKeyApplication13, EStdKeyApplication14, EStdKeyApplication15, EStdKeyApplication16, EStdKeyApplication17, EStdKeyApplication18, EStdKeyApplication19, EStdKeyApplication1A, EStdKeyApplication1B, EStdKeyApplication1C, EStdKeyApplication1D, EStdKeyApplication1E, EStdKeyApplication1F, EStdKeyApplication2, EStdKeyApplication3, EStdKeyApplication4, EStdKeyApplication5, EStdKeyApplication6, EStdKeyApplication7, EStdKeyApplication8, EStdKeyApplication9, EStdKeyApplicationA, EStdKeyApplicationB, EStdKeyApplicationC, EStdKeyApplicationD, EStdKeyApplicationE, EStdKeyApplicationF, EStdKeyDevice0, EStdKeyDevice1, EStdKeyDevice10, EStdKeyDevice11, EStdKeyDevice12, EStdKeyDevice13, EStdKeyDevice14, EStdKeyDevice15, EStdKeyDevice16, EStdKeyDevice17, EStdKeyDevice18, EStdKeyDevice19, EStdKeyDevice1A, EStdKeyDevice1B, EStdKeyDevice1C, EStdKeyDevice1D, EStdKeyDevice1E, EStdKeyDevice1F, EStdKeyDevice2, EStdKeyDevice3, EStdKeyDevice4, EStdKeyDevice5, EStdKeyDevice6, EStdKeyDevice7, EStdKeyDevice8, EStdKeyDevice9, EStdKeyDeviceA, EStdKeyDeviceB, EStdKeyDeviceC, EStdKeyDeviceD, EStdKeyDeviceE, EStdKeyDeviceF
+    logs interesting attrs: exceptions, raw_log_data
+    gles interesting attrs: CheckExtension, GL_CONSTANT_ATTENUATION, GL_EMISSION, GL_EXTENSIONS, GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES, GL_IMPLEMENTATION_COLOR_READ_TYPE_OES, GL_INVALID_OPERATION, GL_LINEAR_ATTENUATION, GL_MAX_PROJECTION_STACK_DEPTH, GL_MAX_VIEWPORT_DIMS, GL_OES_VERSION_1_0, GL_OES_read_format, GL_OUT_OF_MEMORY, GL_PERSPECTIVE_CORRECTION_HINT, GL_POSITION, GL_PROJECTION, GL_QUADRATIC_ATTENUATION, GL_SPOT_DIRECTION, GL_VERSION, glDrawArrays, glDrawElements, glDrawElementsub, glDrawElementsus, glReadPixels, glTexImage2DIO, glTexSubImage2DIO, glViewport
+    glcanvas interesting attrs: EGL_DRAW, EGL_EXTENSIONS, EGL_READ, EGL_VERSION
+    camera interesting attrs: dev_index, device, number_of_devices
+    location interesting attrs: gsm_location
+    positioning interesting attrs: POSITION_INTERVAL, ThreadLocalStore, last_position, position, stop_position, thread

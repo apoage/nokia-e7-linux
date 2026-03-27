@@ -2,23 +2,36 @@
 
 **Date:** 2026-02-27
 **Goal:** Select modern, efficient software components that best utilise the E7's
-6 compute units, 256MB RAM, and dual-storage (OneNAND + eMMC) architecture.
+compute units, 256MB RAM, and dual-storage (OneNAND + eMMC) architecture.
 **Principle:** Every choice must earn its bytes. Prefer solutions that exploit
 the hardware we have, not fight against what we lack.
+
+> **CRITICAL UPDATE (2026-03-23):** This plan was written assuming TI OMAP3630
+> (Cortex-A8 ARMv7, C64x+ DSP, SGX530 GPU, OMAP3 ISP). Real hardware is
+> **ARM1176JZF-S (ARMv6)**, likely **Broadcom BCM2763**. The "6 compute units"
+> inventory below is WRONG for real hardware. NEON does not exist on ARM1176
+> (it has VFP11 instead). ARMv7-specific compiler flags (-march=armv7-a -mfpu=neon)
+> will NOT work on real hardware. OMAP3-specific HW crypto, sDMA, ISP, and DSP
+> do not exist on the BCM2763. BCM2727 VideoCore III co-processor remains valid.
+> This plan needs major revision once the real SoC peripherals are mapped.
+> See: `docs/critical-cpu-discovery.md`
 
 ---
 
 ## 1. Hardware Inventory at a Glance
 
-| Unit | Clock | Capability | Linux Status |
-|------|-------|-----------|-------------|
-| ARM Cortex-A8 | 1 GHz | General compute, NEON SIMD | Mainline, fully working |
-| C64x+ DSP (IVA2.2) | ~520 MHz | 8-way VLIW signal processing | **Dead** -- kernel driver removed 2014 |
-| PowerVR SGX530 | ~200 MHz | OpenGL ES 2.0 | **Dead** -- no open driver, stale blobs |
-| BCM2727 VideoCore III | ~250 MHz | H.264/JPEG/ISP, dual Vec16 DSP | **Unexplored** -- needs RE of CCP2/VCHI |
-| OMAP3 ISP | — | Camera pipeline (CCDC, preview, resize) | Mainline |
-| sDMA | — | 32-channel DMA engine | Mainline, transparent |
-| HW Crypto | — | AES, SHA1/256, MD5, RNG | Mainline (`omap-aes`, `omap-sham`) |
+> **WARNING:** This table assumed OMAP3630. Real SoC is ARM1176JZF-S / BCM2763.
+> Rows marked with (*) are OMAP3-specific and DO NOT exist on real hardware.
+
+| Unit | Clock | Capability | Linux Status | Real HW? |
+|------|-------|-----------|-------------|----------|
+| ARM Cortex-A8 | 1 GHz | General compute, NEON SIMD | Mainline, fully working | **NO — real CPU is ARM1176JZF-S (ARMv6, VFP11, no NEON)** |
+| C64x+ DSP (IVA2.2) | ~520 MHz | 8-way VLIW signal processing | **Dead** -- kernel driver removed 2014 | **NO — OMAP3 only** (*) |
+| PowerVR SGX530 | ~200 MHz | OpenGL ES 2.0 | **Dead** -- no open driver, stale blobs | **NO — OMAP3 only** (*) |
+| BCM2727 VideoCore III | ~250 MHz | H.264/JPEG/ISP, dual Vec16 DSP | **Unexplored** -- needs RE of CCP2/VCHI | **YES** |
+| OMAP3 ISP | — | Camera pipeline (CCDC, preview, resize) | Mainline | **NO — OMAP3 only** (*) |
+| sDMA | — | 32-channel DMA engine | Mainline, transparent | **NO — OMAP3 only** (*) |
+| HW Crypto | — | AES, SHA1/256, MD5, RNG | Mainline (`omap-aes`, `omap-sham`) | **NO — OMAP3 only** (*) |
 
 **Storage:** 256MB OneNAND (GPMC, MTD) + ~16GB eMMC (HSMMC, block device)
 **RAM:** 256MB mDDR (shared across all cores)
@@ -28,7 +41,11 @@ the hardware we have, not fight against what we lack.
 
 ## 2. Compute Strategy: What to Use, What to Skip
 
-### Use: Cortex-A8 + NEON (primary workhorse)
+### Use: Cortex-A8 + NEON (QEMU only — real HW is ARM1176 with VFP11, NO NEON)
+
+> **Real HW:** ARM1176JZF-S has VFP11 (single/double FP) but NO NEON SIMD.
+> Compiler flags for real hardware: `-march=armv6zk -mfpu=vfp -mfloat-abi=hard`
+> The NEON strategy below applies ONLY to the synthetic QEMU emulation.
 
 The NEON unit is the only reliably usable accelerator. Every software choice
 should be compiled with `-march=armv7-a -mfpu=neon -mfloat-abi=hard` to
@@ -55,7 +72,10 @@ exploit auto-vectorisation and hand-tuned NEON assembly.
 | libsodium | OpenSSL (for NaCl) | NEON ChaCha20/Curve25519 |
 | Ne10 | — | FFT, FIR, image processing |
 
-### Use: OMAP3 HW Crypto + sDMA
+### Use: OMAP3 HW Crypto + sDMA (QEMU only — does NOT exist on real BCM2763 HW)
+
+> **Real HW:** BCM2763 does not have OMAP3 crypto accelerators or sDMA.
+> The BCM2763 may have its own DMA and crypto, but these are uncharacterized.
 
 The OMAP3630 has dedicated AES/SHA/MD5/RNG accelerators with DMA. These are
 mainline and work transparently through the kernel crypto API:
@@ -243,13 +263,21 @@ This keeps the Cortex-A8 out of the video data path entirely.
 
 ### Compiler Flags (all userspace)
 
+**QEMU (synthetic OMAP3630):**
 ```
 CFLAGS="-march=armv7-a -mfpu=neon -mfloat-abi=hard -O2 -pipe"
 LDFLAGS="-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
 ```
 
-This ensures all code uses hard-float and NEON auto-vectorisation. The linker
-flags reduce binary size and improve security (RELRO, NOW binding).
+**Real hardware (ARM1176JZF-S / BCM2763):**
+```
+CFLAGS="-march=armv6zk -mfpu=vfp -mfloat-abi=hard -O2 -pipe"
+LDFLAGS="-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
+```
+
+The QEMU flags use hard-float and NEON auto-vectorisation. The real HW flags
+target ARMv6 with VFP (no NEON). The linker flags reduce binary size and
+improve security (RELRO, NOW binding).
 
 ---
 

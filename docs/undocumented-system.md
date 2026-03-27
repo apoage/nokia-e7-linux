@@ -1,5 +1,9 @@
 # OMAP 3630 System-Level — Undocumented & Overlooked Features
 
+> **Note (2026-03-23):** This document was written when we believed the Nokia E7 AP was OMAP3630.
+> Real HW CPUID = ARM1176JZF-S (ARMv6), likely Broadcom BCM2763. See docs/critical-cpu-discovery.md.
+> This content remains useful for the QEMU emulation (which IS OMAP3630) but does NOT describe the real phone hardware.
+
 Target: system-wide optimization for Nokia E7 Linux platform.
 
 ---

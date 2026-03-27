@@ -1,134 +1,85 @@
-# Nokia E7-00 Linux Project
+# Nokia E7-00 Linux
 
-> *"Nokia is dead, nobody cares about old Symbian junk"* — some guy on a forum, 2018
->
-> *Hold my soldering iron.*
+Bringing Linux to the Nokia E7-00 (RM-626) — a 2011 Symbian^3 smartphone with a slide-out QWERTY keyboard, 4" nHD AMOLED display, and 8MP camera.
 
-Bringing Linux to the Nokia E7-00 (RM-626) — a 2011 Symbian smartphone with a
-full slide-out QWERTY keyboard, 4" AMOLED display, and more silicon than most
-people realize. Two irreplaceable units. Zero documentation. Maximum stubbornness.
-
-The phone Nokia killed too soon deserves a proper OS. We're giving it one.
-
-**Status: Work in Progress** — QEMU boots to shell in 1.4 seconds,
-the real phone is putting up a fight (TrustZone, platform security, encrypted
-bootloader — the usual Nokia hospitality).
-
-## What's Here
-
-### QEMU Machine (`emulation/`)
-Custom QEMU machine type `nokia-e7` emulating the OMAP3630 SoC and E7 peripherals.
-Currently boots Linux 6.12 to an interactive shell in ~1.4 seconds.
-
-**Emulated hardware:**
-- OMAP3630 (Cortex-A8 1GHz) with INTC, GPIO (6 banks), sDMA (32 channels)
-- TWL5031 PMIC (I2C, 4-slave register model, RTC, USB PHY, watchdog, audio codec)
-- LM8323 keyboard controller (full key→FIFO→IRQ→input pipeline)
-- I2C sensors: LIS302DL accelerometer, AK8974 magnetometer, APDS990x proximity/ALS
-- Atmel mXT touchscreen, BQ2415x charger, LP5521 LED controller
-- GPMC with OneNAND model (Samsung 8Gbit MLC, full command state machine)
-- HSMMC2 eMMC model, CM/PRM clock/power domain tracking
-- DSS display model, I2C1/2/3 controllers
-
-> **Note:** This is very much a work in progress. Many peripherals are stubs that
-> return just enough to keep the kernel happy. The OMAP3630 model (`omap3630.c`)
-> is a single ~15K line file that will be refactored as it matures.
-
-### Kernel (`kernel/`)
-- `configs/nokia_e7_defconfig` — minimal 98-line defconfig
-- `dts/omap3630-nokia-e7.dts` — ~690 line device tree, all I2C devices probe
-
-### Documentation (`docs/`)
-- `hardware-lore.md` — master chip inventory (49 ICs)
-- `qemu-machine-design.md` — SoC emulation specification
-- `emulation-strategy.md` — emulate-first approach
-- `undocumented-*.md` — deep dives into undocumented ASICs
-- `knowledge-graph/` — structured JSON hardware knowledge base
-  - 49 components, 22 buses, 226 signals, 17 power rails, 32 flash partitions
-  - Mermaid diagrams: system block, power tree, I2C topology, boot sequence
-
-### Session Notes (`lore/`)
-Chronological development log documenting the journey from first boot attempt
-to working emulation, including dead ends, debugging techniques, and discoveries.
-
-## The Phone
-
-The Nokia E7-00 is a 2011 Symbian^3 smartphone built around:
+## Hardware
 
 | Component | Details |
 |-----------|---------|
-| SoC | OMAP3630 (ARM Cortex-A8 @ 1GHz) in RAPUYAMA D1800 package |
-| RAM | 256MB LPDDR (Samsung K5W8G1GACK) |
-| PMIC | TWL5031 (TI) |
-| GPU | PowerVR SGX530 |
-| ISP | BCM2727 (Broadcom VideoCore) |
-| Display | 640x360 nHD AMOLED |
-| Keyboard | Full slide-out QWERTY (LM8323 controller) |
-| Flash | 1GB OneNAND + 16GB eMMC |
-| Sensors | Accelerometer, magnetometer, proximity, ambient light, touch |
-| Connectivity | WiFi (SPI), BT, GPS, NFC (PN544), 3G modem |
+| **SoC** | Broadcom BCM2727B1 (ARM1176JZF-S, ARMv6) |
+| **GPU/ISP** | VideoCore III (same family as Raspberry Pi's BCM2835) |
+| **RAM** | 256MB LPDDR (Samsung K5W8G1GACK) |
+| **Display** | 640x360 nHD AMOLED |
+| **Storage** | OneNAND flash + eMMC |
+| **Modem** | RAPUYAMA D1800 (cellular modem/CMT) |
+| **PMIC** | TWL5031 (Nokia codename PEARL) |
+| **Platform** | Nokia RAPU (hw79, codename Gazoo) |
 
-Two units available — Unit A (development target) and Unit B (stock reference/rescue).
+> **Note:** The SoC was previously misidentified as TI OMAP3630. SuperPage CPUID analysis (0x410fb764) confirmed ARM1176JZF-S. The peripheral register map at 0x20200000 matches BCM2835 (Raspberry Pi), confirming the Broadcom lineage. See [critical-cpu-discovery.md](docs/critical-cpu-discovery.md).
 
-## Quick Start
+## Status
 
-```bash
-# Build kernel
-cd kernel/linux  # (not included — use a shallow clone of Linux 6.12)
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- nokia_e7_defconfig
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc) zImage dtbs
+### What Works
+- **QEMU emulation** boots Linux to shell in ~1.4s (synthetic OMAP3630 model, not HW-accurate)
+- **Symbian toolchain** — Python scripts run on phone via PyS60 1.4.5
+- **ISI/Phonet USB** — IMEI read, resource scanning, protocol documented
+- **ROM dump analyzed** — 30MB Symbian ROM with 800+ lines of peripheral mapping
+- **BCM2835 cross-reference** — GPIO, INTC, UART, I2C, SPI, USB addresses match Raspberry Pi
+- **218 kernel SVCs cataloged** — full executive call interface mapped from ROM
+- **peek/poke memory access** — `_hack.pyd` reads/writes user-space virtual memory
 
-# Build QEMU (apply omap3630.c to qemu source)
-cd qemu && ninja -C build
+### Current Challenge
+Reading GPIO Function Select registers (GPFSEL0-6, 28 bytes at physical 0x20200000) from the running phone. These contain the pin mux configuration needed for a Linux device tree. The registers are in kernel virtual address space (0xC8004xxx), inaccessible from user mode.
 
-# Boot (initramfs)
-qemu-system-arm -M nokia-e7 -m 256M -kernel zImage \
-  -dtb omap3630-nokia-e7.dtb -initrd initramfs.cpio.gz \
-  -append "earlycon clk_ignore_unused rdinit=/init" -nographic
+### Approaches Attempted
+1. Custom Symbian exe — blocked by TCB capability (ROM-only)
+2. FShell readmem — kernel panic (memoryAccess LDD needs TCB)
+3. ISI protocol modem routing — modem resources unreachable from USB
+4. RomPatcher+ patches — kernel LDDs installed but no programmatic control
+5. `_hack.pyd` peek/poke — user-space only, heap is NX (no code execution)
+6. ROP via Python function pointer redirect — in progress (218 SVCs cataloged)
 
-# Boot (ext4 root)
-qemu-system-arm -M nokia-e7 -m 256M -kernel zImage \
-  -dtb omap3630-nokia-e7.dtb \
-  -drive file=rootfs.ext4,if=none,format=raw,id=hd0,cache.no-flush=on \
-  -device virtio-blk-device,drive=hd0 \
-  -append "earlycon clk_ignore_unused root=/dev/vda rw init=/init" -nographic
+### Next Steps
+- **ROP exploit** — redirect Python function to ROM gadget that reads kernel memory
+- **UART capture** — hardware debug via J2060 test pad (NLoader prints GPIO config at boot)
+- **Real hardware DTS** — BCM2835-based device tree once GPIO config obtained
+
+## Repository Structure
+
+```
+e7/
+├── emulation/          # QEMU machine (synthetic OMAP3630) + rootfs
+├── kernel/             # Linux 6.12 source + Nokia E7 defconfig
+├── docs/               # Hardware analysis, ROM dump findings, research
+│   ├── critical-cpu-discovery.md    # BCM2727B1 revelation
+│   ├── rom-dump-analysis.md         # 800-line peripheral map
+│   ├── bcm2727-gpio-research.md     # GPIO register layout
+│   ├── phone-probes/                # Live phone probe outputs
+│   └── wiki/                        # Project wiki pages
+├── tools/              # ISI/Phonet protocol tools
+├── symbian-sdk/        # Symbian cross-compilation + phone scripts
+│   └── memread/pys60/  # Python scripts for phone-side probing
+├── lore/               # Session notes, debugging journal
+│   └── daily/          # Chronological session logs
+├── tasks/              # Work items with state tracking
+└── firmware-re/        # Firmware reverse engineering
 ```
 
-## Project Goals
+## Key Findings
 
-1. Boot a snappy Linux terminal on the E7's hardware
-2. Full networking (WiFi, cellular data)
-3. Exploit every ASIC (camera ISP, GPU, audio, sensors)
-4. Emulation-first development — nothing hits real hardware without QEMU validation
+- **BCM2727B1 peripheral map matches BCM2835** (Raspberry Pi) — GPIO, INTC, UART, I2C, SPI, USB all at same base addresses in 0x20xxxxxx space
+- **BCM2708 gpio.h** found on GitHub — confirms register layout with 7 GPFSEL registers (70 GPIO pins)
+- **Nokia platform**: RAPU (RapidoVariant), hw79, codename Gazoo
+- **34 clock domains**, 7 GPIO banks, MUSB OTG USB, Messi+CCP2 bus to VideoCore
+- **`_hack.pyd`** Python module provides byte-level memory read/write (user-space VA only)
+- **Heap is NX** (ARM1176 XN bit enforced) — no code execution from writable memory
+- **Bootloader uncracked** — community confirms no one has cracked Symbian bootloader
 
-## Current Adventures
+## Community
 
-We've been through quite a journey trying to read 584 bytes of pad mux
-registers from the running phone:
-
-- Built a working Symbian toolchain from scratch (GCC + Docker + CRT startup discovery)
-- Reverse-engineered Nokia's MemSpy kernel driver (191 imports, 168 debug strings — no physical memory access)
-- Mapped 250 MemSpy opcodes (crashed the phone 6 times in the process)
-- Enumerated 200 running threads and 25 kernel drivers on the live phone
-- Installed FShell and discovered the `memoryAccess` LDD is loaded but requires TCB capability
-- Learned that TCB is ROM-only on Symbian — no amount of certificate hacking can grant it
-- Searched through 160,000 Telegram messages from three Symbian communities
-- Analyzed a 30MB ROM dump looking for the PlatSec check to NOP out
-- Are now reverse-engineering Nokia's USB service protocol because apparently that's what it takes to read a register
-
-The 584 bytes remain unread. The phone remains defiant. We remain stubborn.
-
-## Contributing
-
-This is a personal research project on irreplaceable hardware. If you have
-Nokia E7 hardware knowledge, OMAP3630 experience, Symbian kernel internals,
-or you know what CapsSwitch actually does — open an issue or reach out.
-
-Especially interested in hearing from anyone who's gotten `readmem` working
-on FShell, or knows the Phonet/FBUS protocol for raw memory access.
+- Telegram: Symbian World group (zaiood, karaba abdu confirmed CPU details)
+- GitHub: [apoage/nokia-e7-linux](https://github.com/apoage/nokia-e7-linux)
 
 ## License
 
-Documentation and original code: MIT.
-Kernel patches follow Linux kernel licensing (GPL-2.0).
-QEMU machine code follows QEMU licensing (GPL-2.0).
+Research project. QEMU patches and tools are GPL-compatible. Symbian SDK components retain their original licenses.

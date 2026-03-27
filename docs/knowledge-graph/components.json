@@ -3,7 +3,7 @@
     {
       "id": "omap3630",
       "ref": null,
-      "name": "OMAP3630 SoC",
+      "name": "OMAP3630 SoC (QEMU emulation model — NOT real HW)",
       "type": "soc",
       "manufacturer": "Texas Instruments",
       "bus": "internal",
@@ -14,9 +14,9 @@
       "interrupts": {},
       "package": "PoP BGA (stacked with LPDDR)",
       "schematic_pages": [],
-      "confidence": 1.0,
+      "confidence": 0.0,
       "sources": ["hardware_lore", "block_diagrams"],
-      "notes": "Cortex-A8 ~1GHz, C64x+ DSP ~520MHz, SGX530 ~200MHz, ISP. PoP 256MB LPDDR stacked on top. Base region 0x48000000. No schematic ref visible (stacked)."
+      "notes": "CORRECTION (2026-03-23): Real HW CPUID = ARM1176JZF-S (ARMv6), likely Broadcom BCM2763, NOT OMAP3630/Cortex-A8. See docs/critical-cpu-discovery.md. This entry retained for QEMU emulation reference only. Original: Cortex-A8 ~1GHz, C64x+ DSP ~520MHz, SGX530 ~200MHz, ISP. PoP 256MB LPDDR stacked on top. Base region 0x48000000."
     },
     {
       "id": "bcm2727",

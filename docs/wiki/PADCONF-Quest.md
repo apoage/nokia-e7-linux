@@ -1,113 +1,52 @@
-# The PADCONF Quest
+# PADCONF Quest -- Pin Mux Register Exploration
 
-The ongoing battle to read 584 bytes of OMAP3630 pad mux registers from a
-Nokia E7-00 running Symbian Belle FP1.
+## IMPORTANT: OMAP3 Assumption May Be Invalid
 
-## Why We Need PADCONF
+> **As of 2026-03-23, we know the Nokia E7's application processor is ARM1176JZF-S
+> (likely Broadcom BCM2763), NOT TI OMAP3630.** The PADCONF registers documented
+> below are OMAP3-specific (base 0x48002030). These addresses may not exist or
+> may have completely different meanings on the real hardware.
+>
+> This page preserves the OMAP3 PADCONF research for reference (it remains
+> relevant to the QEMU synthetic emulation), but should NOT be assumed to
+> reflect the real Nokia E7 hardware register layout.
 
-The OMAP3630's System Control Module at physical address `0x48002030` contains
-292 16-bit pad configuration registers that define how every pin on the chip
-is configured: GPIO mode, pull-up/down, input enable, mux function.
+## Background
 
-Without these values, we can't create a correct device tree for Linux boot on
-real hardware. The NLoader bootloader (encrypted) configures these registers
-at boot, and the values are Nokia-proprietary.
+PADCONF (pad configuration) registers control pin multiplexing on TI OMAP
+SoCs. Each 32-bit register configures two pads (16 bits each), selecting
+the pin function (mux mode 0-7), pull-up/down, and input enable.
 
-## Methods Tried (All Failed)
+On OMAP3630, PADCONF registers live in the System Control Module (SCM)
+at base address 0x48002030, extending through 0x48002278.
 
-### 1. Custom Kernel LDD
-**Result: KErrAccessDenied (-20)**
+## OMAP3 PADCONF Layout (for QEMU reference only)
 
-Built `memread.ldd` using DPlatChunkHw::New() to map physical memory.
-Kernel rejects loading because the binary isn't manufacturer-signed.
-`User::LoadLogicalDevice` enforces signature verification at kernel level.
+- Base: `0x48002030`
+- End: `0x48002278`
+- Each register: 32 bits, controls 2 pads (low 16 bits + high 16 bits)
+- Bits per pad: `[2:0]` mux mode, `[3]` pull enable, `[4]` pull type, `[8]` input enable
 
-### 2. MemSpy Driver
-**Result: User-space only, no physical memory access**
+## Status on Real Hardware
 
-MemSpy driver channel opens successfully. Mapped all 250 opcodes.
-Reverse-engineered the binary: 191 imports, confirmed `DPlatChunkHw::New`
-is NOT imported. Only `Kern::ThreadRawRead` (user-space). Dead end.
+The Symbian LDD approach (using `DPlatChunkHw` to map physical memory) was
+proposed for reading PADCONF registers from the phone. However:
 
-### 3. FShell memoryAccess LDD
-**Result: TCB capability required, kernel panic**
+1. The address 0x48002030 is OMAP3-specific -- if the real SoC is BCM2763,
+   this address range likely maps to something else entirely (or nothing).
+2. Reading arbitrary physical addresses on unknown hardware is risky.
+3. The Broadcom BCM2763 pin mux register layout is not publicly documented.
 
-FShell v5.00 installed. `memoryAccess-fshell.ldd` is loaded in kernel
-(confirmed via `driver list logical`). But DoCreate panics because our
-process lacks TCB capability. TCB is ROM-only on Symbian — no SIS-installed
-binary can ever have it. Even rebuilding with capability=All and fshell's
-SID doesn't work — the kernel verifies the signature chain, not just header flags.
+## What We Know About Real Pin Mux
 
-### 4. FShell readmem Command
-**Result: Crashes**
+- GENIO_INIT (encrypted in NAND) configures pad mux during NLoader boot
+- The pad mux values are encrypted with TrustZone AES keys we do not have
+- GENIO_INIT decryption is blocked (see NLoader analysis)
+- The "genio" pins may be Broadcom GPIO, not OMAP GPIO
 
-FShell's own `readmem` command crashes on every address including ROM (0x80000000).
-Likely the memoryAccess LDD was built for a different kernel version, or the
-BB5 platform remaps OMAP addresses.
+## Next Steps
 
-### 5. Leftup Certificate Signing
-**Result: Dead end (confirmed by community)**
-
-The Leftup/OPDA/BiNPDA certificates in the hacked SWI certstore grant all
-capabilities for SIS installation EXCEPT TCB. TCB is enforced at the kernel
-binary loader level, not the certstore. "You can't have TCB capability on S60,
-it is only possible with ROM executables."
-
-### 6. TRK Debug Agent
-**Result: Kernel driver stripped from production firmware**
-
-TRK GUI apps exist in ROM (Z:\sys\bin) but `trkdriver.ldd` is missing —
-Nokia stripped it from production builds as a security measure.
-
-### 7. RomDumpPlus
-**Result: No custom address input**
-
-Successfully dumped the SuperPage (592 bytes), but RomDumpPlus only has
-preset dump targets. No way to specify a custom address.
-
-### 8. Sorcerer App
-**Result: Game cheat tool, not system debugger**
-
-Despite being described as a "memory debugger", Sorcerer v1.75 is a game
-memory modification tool. User-space only.
-
-## Methods Still Open
-
-### A. Phonet/FBUS Protocol (P1)
-Reverse-engineer Nokia's USB service protocol. Phoenix Phone Browser accesses
-phone memory from the PC, bypassing all Symbian security. The protocol operates
-at BB5 platform level, below the OS. Nokia Service Tools (15.3GB) downloading.
-
-### B. CapsSwitch / PlatSec Tool (P1)
-Runtime platform security disable via RomPatcher's kernel driver. Developed by
-'symbuzzer'. Would allow loading any LDD. Not yet found.
-
-### C. RomPatcher LDD Repurposing (P2)
-RomPatcher's own `patcher*.ldd` is loaded and has kernel write access (that's
-how it patches ROM). If we reverse-engineer its DoControl API, we could use it
-to read PADCONF or patch the platsec check.
-
-### D. UART Capture (P2)
-NLoader prints PADCONF values during boot. Connect UART adapter to E7's debug
-serial port and capture the output. Most reliable method but requires hardware
-modification and finding the UART pins.
-
-### E. Contact Community Experts (P1)
-- **Max Bondarchenko** (iCrazyDoctor) — RomPatcher internals expert
-- **symbuzzer** — CapsSwitch/PlatSec tool developer
-- Both active on t.me/symbian_world
-
-## Key Insight: BB5 Address Remapping
-
-From nokiahacking.pl reverse engineering thread: "OMAP addressing is modified
-by Nokia's BB5 platform — addresses differ from standard TI documentation."
-
-This means the standard OMAP3630 PADCONF address (0x48002030) might not be
-correct on the E7. This could explain why FShell's readmem crashes on every
-address — it's trying to access remapped memory.
-
-## The Scoreboard
-
-| Bytes read | Bytes needed | Crashes caused |
-|------------|-------------|----------------|
-| 0 | 584 | 12+ |
+- Identify the BCM2763 (or actual SoC) register map
+- Check Nokia N8 community for pin mux documentation
+- UART capture from real hardware may reveal register writes during boot
+- The SuperPage dump may contain additional clues about the memory map

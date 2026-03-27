@@ -1,5 +1,7 @@
 # ARM Cortex-A8 + NEON — Undocumented & Overlooked Features
 
+> **Note (2026-03-23):** Real HW is BCM2727B1 (ARM1176JZF-S), not OMAP3630 Cortex-A8. ARM1176 has NO NEON. This document applies only to the synthetic QEMU emulation. See docs/critical-cpu-discovery.md
+
 Target: OMAP 3630 Cortex-A8 as found in Nokia E7. Focused on computational
 photography optimization.
 

@@ -1,0 +1,32 @@
+# Upstream source trees (have their own git repos)
+kernel/linux/
+emulation/qemu/
+
+# Large binary / archive dirs
+archive-dump/
+firmware-re/
+firmware-stock/
+firmware/
+camera/
+dsp/
+sgx540-reversing/
+rootfs/
+networking/
+prompts/
+
+# Rootfs images (large, rebuilt from script)
+emulation/rootfs/initramfs/rootfs.ext4
+emulation/rootfs/initramfs.cpio.gz
+
+# Binary artifacts
+*.o
+*.elf
+*.bin
+*.dtb
+*.pdf
+
+# Editor/OS junk
+*.swp
+*~
+.DS_Store
+__pycache__/

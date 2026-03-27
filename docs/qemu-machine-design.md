@@ -1,7 +1,16 @@
 # QEMU Machine Definition Design: Nokia E7 (RM-626, OMAP3630)
 
+> **CRITICAL NOTE (2026-03-23):** The real Nokia E7 application processor is
+> **NOT TI OMAP3630**. SuperPage CPUID = 0x410fb764 = **ARM1176JZF-S (ARMv6)**,
+> likely **Broadcom BCM2763** (same as Nokia N8). The QEMU machine defined here
+> is a **synthetic OMAP3630-based emulation** that does NOT match real hardware
+> at the SoC level. It remains useful for Linux driver development and peripheral
+> bring-up, but register addresses, CPU architecture (ARMv7 vs ARMv6), and
+> on-chip peripherals (DSP, GPU, ISP, crypto) diverge from reality.
+> See: [critical-cpu-discovery.md](./critical-cpu-discovery.md)
+
 **Document date:** 2026-02-26
-**Status:** Design specification — pre-implementation
+**Status:** Design specification — synthetic emulation (real HW is ARM1176/BCM2763)
 **Authors:** derived from firmware RE, QEMU source archaeology, TI TRM
 
 ---

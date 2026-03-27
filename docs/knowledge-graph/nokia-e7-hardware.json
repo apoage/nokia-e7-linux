@@ -75,17 +75,18 @@
   },
 
   "soc": {
-    "name": "OMAP3630",
+    "name": "OMAP3630 (QEMU emulation model — real HW is ARM1176/BCM2763)",
     "manufacturer": "Texas Instruments",
     "nokia_codename": "Gazoo",
+    "_correction_2026_03_23": "Real HW CPUID = 0x410fb764 = ARM1176JZF-S (ARMv6), likely Broadcom BCM2763. See docs/critical-cpu-discovery.md. OMAP3630 data retained for QEMU emulation reference.",
     "cores": [
       {
-        "name": "Cortex-A8",
+        "name": "Cortex-A8 (QEMU only — real HW is ARM1176JZF-S)",
         "type": "cpu",
-        "arch": "ARMv7-A",
+        "arch": "ARMv7-A (QEMU) / ARMv6 (real HW)",
         "extensions": ["NEON SIMD 128-bit"],
         "frequency_mhz": 1000,
-        "notes": "680MHz rated, OC to ~1GHz possible"
+        "notes": "QEMU uses OMAP3630 model. Real HW: ARM1176JZF-S, no NEON, no Cortex-A8"
       },
       {
         "name": "C64x+ DSP (IVA2.2)",
@@ -229,7 +230,7 @@
   "nokia_terminology": {
     "PEARL": "TWL5031/TPS65950 PMIC (N2200)",
     "Pearl-J": "TWL5031 silicon variant (ASIC name from NLoader)",
-    "Gazoo": "OMAP3630 VCore regulator domain",
+    "Gazoo": "Application processor VCore regulator domain (originally thought OMAP3630, actually BCM2763)",
     "BOB": "WL1273 WiFi/BT/FM/GPS combo chip (N6300)",
     "AURA": "Nokia custom RF transceiver (N7509)",
     "UKKO": "High-band power amplifier (N7510)",

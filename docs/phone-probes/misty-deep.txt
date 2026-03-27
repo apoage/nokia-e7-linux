@@ -1,0 +1,87 @@
+=== misty deep v2 ===
+
+--- safe function signatures ---
+  FsNotifyChange: SKIPPED (dangerous)
+  alloc_heap_cell(): function takes exactly 1 argument (0 given)
+  alloc_heap_cells_size() = 339000
+  cancel_all_notes: SKIPPED (dangerous)
+  card_inserted() = 1
+  check_heap() = None
+  compress_all_heaps() = 0
+  create_drive_subst(): function takes exactly 2 arguments (0 given)
+  disable_soft_notes: SKIPPED (dangerous)
+  enable_autolock: SKIPPED (dangerous)
+  enable_soft_notes: SKIPPED (dangerous)
+  exit_fg_app: SKIPPED (dangerous)
+  free_heap_cell(): function takes exactly 1 argument (0 given)
+  get_hal_attr(): function takes exactly 1 argument (0 given)
+  get_process_priority() = 350
+  get_subst_path(): function takes exactly 1 argument (0 given)
+  get_thread_priority() = 0
+  heap_base_address() = 7406352
+  heap_biggest_avail() = 2444
+  heap_total_avail() = 22236
+  inactivity_time() = 1
+  keypad_locked() = 0
+  kill_process: SKIPPED (dangerous)
+  kill_thread: SKIPPED (dangerous)
+  local_bt_address(): [instance] [Errno -5] KErrNotSupported
+  local_bt_name(): [instance] [Errno -44] KErrHardwareNotAvailable
+  lock_keypad: SKIPPED (dangerous)
+  lock_keypad_silent: SKIPPED (dangerous)
+  num_alloc_heap_cells() = 1854
+  num_free_heap_cells() = 377
+  power_down: SKIPPED (dangerous)
+  reset_inactivity_time() = None
+  reset_phone: SKIPPED (dangerous)
+  set_hal_attr(): function takes exactly 2 arguments (0 given)
+  set_process_priority(): function takes exactly 1 argument (0 given)
+  set_thread_priority(): function takes exactly 1 argument (0 given)
+  take_photo: SKIPPED (dangerous)
+  terminate_process: SKIPPED (dangerous)
+  terminate_thread: SKIPPED (dangerous)
+  tick_count() = 80710
+  unlock_keypad: SKIPPED (dangerous)
+  unlock_keypad_silent: SKIPPED (dangerous)
+  vibrate: SKIPPED (dangerous)
+
+--- heap allocation ---
+  heap_base: 0x710310
+  heap_total_avail: 21588
+  heap_biggest_avail: 1960
+  alloc_cells_size: 341352
+  num_alloc: 1857
+  num_free: 376
+
+--- alloc test ---
+  alloc(16) = 0x601370 (6296432)
+  alloc(64) = 0x734148 (7553352)
+  alloc(256) = 0x7346c0 (7554752)
+  alloc(1024) = 0x725b90 (7494544)
+  alloc(4096) = 0x7378d8 (7567576)
+
+--- free test ---
+  free(0x601370) = None
+  free(0x734148) = None
+  free(0x7346c0) = None
+  free(0x725b90) = None
+  free(0x7378d8) = None
+
+--- set_hal_attr ---
+  () sig: function takes exactly 2 arguments (0 given)
+  (74) sig: function takes exactly 2 arguments (1 given)
+  get(74) = 0
+  set test: [Errno -5] KErrNotSupported
+
+--- HAL 128-200 ---
+
+--- HAL device arg ---
+  2 args: function takes exactly 1 argument (2 given)
+
+--- drive subst ---
+  create_drive_subst sig: function takes exactly 2 arguments (0 given)
+  get_subst_path sig: function takes exactly 1 argument (0 given)
+  subst(25, C:\): [Errno -46] KErrPermissionDenied
+  get_subst(25) = u''
+
+=== DONE ===

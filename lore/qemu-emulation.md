@@ -2,6 +2,10 @@
 
 ## Machine
 - Name: `nokia-e7`, SoC type: `omap3630`
+- **SYNTHETIC EMULATION** — real HW is ARM1176JZF-S (ARMv6), likely Broadcom BCM2763.
+  QEMU uses OMAP3630/Cortex-A8 (ARMv7) which does NOT match real hardware at the
+  SoC level. Useful for driver development but kernel images won't run on real HW.
+  See: `docs/critical-cpu-discovery.md`
 - Source: `emulation/qemu/hw/arm/omap3630.c` (SoC) + `nokia_e7.c` (board)
 - Build: `cd emulation/qemu && ninja -C build`
 - Boot: **~1.43s** to shell (ext4 root via virtio-blk)

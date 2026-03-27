@@ -1,0 +1,19 @@
+=== peek GPIO v3 ===
+peek reads virtual addresses (32-bit word)
+poke(addr, val) writes virtual addresses
+
+--- heap peek test ---
+  0x00710310 = 0x00000003
+  0x00710314 = 0x00000023
+  0x00710318 = 0x00000034
+  0x0071031c = 0x00000080
+
+--- ROM peek (0x80000000) ---
+  0x80000000 = 0x000000be
+  ROM+0x000 = 0x000000be
+  ROM+0x004 = 0x00000079
+  ROM+0x008 = 0x00000078
+  ROM+0x07c = 0x00000077
+  ROM+0x08c = 0x00000000
+  ROM+0x090 = 0x00000000
+  ROM+0x0ac = 0x00000000

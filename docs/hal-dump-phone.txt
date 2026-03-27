@@ -1,0 +1,145 @@
+=== HAL Attribute Dump ===
+
+--- HAL attributes 0-127 ---
+  [  0] EManufacturer = 2 (0x2)
+  [  1] EManufacturerHardwareRev = 256 (0x100)
+  [  2] EManufacturerSoftwareRev = 256 (0x100)
+  [  3] EManufacturerSoftwareBuild = 256 (0x100)
+  [  4] EModel = 537051030 (0x2002bf96)
+  [  5] EMachineUid = 537051030 (0x2002bf96)
+  [  6] EPowerGood = 1 (0x1)
+  [  7] ESpeedFactor = 2064 (0x810)
+  [  8] ESystemStartupReason = 0
+  [  9] ESystemException = 1024 (0x400)
+  [ 10] ESystemTickPeriod = 1 (0x1)
+  [ 11] ENanoTickPeriod = 192000 (0x2ee00)
+  [ 12] EFastCounterFrequency = 0
+  [ 13] EFastCounterCountsUp = -268439559 (0xefffeff9)
+  [ 14] EPointerX = 15625 (0x3d09)
+  [ 15] EPointerY = 257228800 (0xf550000)
+  [ 16] EMemoryRAM = 148226048 (0x8d5c000)
+  [ 17] EMemoryRAMFree = 11206656 (0xab0000)
+  [ 18] EMemoryROM = 4096 (0x1000)
+  [ 19] EMemoryPageSize = 1 (0x1)
+  [ 20] EPowerBackup: err [Errno -5] KErrNotSupported
+  [ 21] EKeyboard = 0
+  [ 22] EKeyboardDeviceKeys: err [Errno -5] KErrNotSupported
+  [ 23] EKeyboardAppKeys: err [Errno -5] KErrNotSupported
+  [ 24] EKeyboardClick: err [Errno -5] KErrNotSupported
+  [ 25] EKeyboardClickState: err [Errno -5] KErrNotSupported
+  [ 26] EKeyboardClickVolume: err [Errno -5] KErrNotSupported
+  [ 27] EDisplayXPixels = 0
+  [ 28] EDisplayYPixels: err [Errno -5] KErrNotSupported
+  [ 29] EDisplayXTwips: err [Errno -5] KErrNotSupported
+  [ 30] EDisplayYTwips: err [Errno -5] KErrNotSupported
+  [ 31] EDisplayColors = 360 (0x168)
+  [ 32] EDisplayState = 640 (0x280)
+  [ 33] EDisplayContrast = 2786 (0xae2)
+  [ 34] EBacklight = 4953 (0x1359)
+  [ 35] EBacklightState = 16777216 (0x1000000)
+  [ 36] EPen = 1 (0x1)
+  [ 37] EPenX: err [Errno -5] KErrNotSupported
+  [ 38] EPenY: err [Errno -5] KErrNotSupported
+  [ 39] EPenDisplayOn = 1 (0x1)
+  [ 40] EPenClick: err [Errno -5] KErrNotSupported
+  [ 41] EPenClickState = 1 (0x1)
+  [ 42] EPenClickVolume = 360 (0x168)
+  [ 43] EMouse = 640 (0x280)
+  [ 44] EMouseX = 0
+  [ 45] EMouseY = 0
+  [ 46] EMouseState: err [Errno -5] KErrNotSupported
+  [ 47] EMouseSpeed: err [Errno -5] KErrNotSupported
+  [ 48] EMouseAcceleration: err [Errno -5] KErrNotSupported
+  [ 49] EMouseButtons = 0
+  [ 50] EMouseButtonState: err [Errno -5] KErrNotSupported
+  [ 51] ECaseSwitch: err [Errno -5] KErrNotSupported
+  [ 52] ECaseSwitchDisplayOn: err [Errno -5] KErrNotSupported
+  [ 53] ECaseSwitchDisplayOff: err [Errno -5] KErrNotSupported
+  [ 54] ELEDs: err [Errno -5] KErrNotSupported
+  [ 55] ELEDmask: err [Errno -5] KErrNotSupported
+  [ 56] EIntDigitiserState: err [Errno -5] KErrNotSupported
+  [ 57] EKeyboardState: err [Errno -5] KErrNotSupported
+  [ 58] ELanguageIndex = 0
+  [ 59] EKeyboardInfo: err [Errno -5] KErrNotSupported
+  [ 60] ESystemDrive: err [Errno -5] KErrNotSupported
+  [ 61] EPenState: err [Errno -5] KErrNotSupported
+  [ 62] EDisplayIsMono: err [Errno -5] KErrNotSupported
+  [ 63] EDisplayIsPalettized = 1 (0x1)
+  [ 64] EDisplayBitsPerPixel = 6 (0x6)
+  [ 65] EDisplayNumModes = 100 (0x64)
+  [ 66] EDisplayMemoryAddress: err [Errno -5] KErrNotSupported
+  [ 67] EDisplayOffsetToFirstPixel = 0
+  [ 68] EDisplayOffsetBetweenLines = 1 (0x1)
+  [ 69] EDisplayPaletteEntry: err [Errno -5] KErrNotSupported
+  [ 70] EDisplayIsPixelOrderRGB: err [Errno -5] KErrNotSupported
+  [ 71] EDisplayIsPixelOrderLandscape: err [Errno -5] KErrNotSupported
+  [ 72] EDisplayMode = 65535 (0xffff)
+  [ 73] ESwitches = 1 (0x1)
+  [ 74] EDebugPort = 0
+  [ 75] ELocaleLoaded = 0
+  [ 76] EClipboardDrive = 24 (0x18)
+  [ 77] ECustomRestart = 1 (0x1)
+  [ 78] ECustomRestartReason = 517996544 (0x1ee00000)
+  [ 79] EDisplayNumberOfScreens = 0
+  [ 80] ENanoTickCount = 1472 (0x5c0)
+  [ 81] EFastCounterValue: err [Errno -5] KErrNotSupported
+  [ 82] ECpuProfilingDefaultInterruptBase = 1 (0x1)
+  [ 83] ENumCpus = 1 (0x1)
+  [ 84] EDigitiserOrientation = 0
+  [ 85] ESuperPage: err [Errno -5] KErrNotSupported
+  [ 86] EKernelConfigFlags = 0
+  [ 87] EMaxRAMDriveSize: err [Errno -5] KErrNotSupported
+  [ 88] EKeyboardNumberOfDevices = 3 (0x3)
+  [ 89] EDigitiserNumberOfDevices: err [Errno -5] KErrNotSupported
+  [ 90] HAL_90: err [Errno -5] KErrNotSupported
+  [ 91] HAL_91 = 2 (0x2)
+  [ 92] HAL_92 = 1000 (0x3e8)
+  [ 93] HAL_93 = 32768 (0x8000)
+  [ 94] HAL_94 = 1 (0x1)
+  [ 95] HAL_95: err [Errno -5] KErrNotSupported
+  [ 96] HAL_96 = 0
+  [ 97] HAL_97 = 0
+  [ 98] HAL_98 = 0
+  [ 99] HAL_99 = 0
+  [100] HAL_100 = 1 (0x1)
+  [101] HAL_101 = 1 (0x1)
+  [102] HAL_102 = 0
+  [103] HAL_103: err [Errno -5] KErrNotSupported
+  [104] HAL_104: err [Errno -5] KErrNotSupported
+  [105] HAL_105: err [Errno -5] KErrNotSupported
+  [106] HAL_106: err [Errno -5] KErrNotSupported
+  [107] HAL_107 = 1 (0x1)
+  [108] HAL_108 = 2 (0x2)
+  [109] HAL_109 = 2 (0x2)
+  [110] HAL_110 = 32767 (0x7fff)
+  [111] HAL_111 = 1 (0x1)
+  [112] HAL_112 = 2147483647 (0x7fffffff)
+  [113] HAL_113 = -2147483647 (0x80000001)
+  [114] HAL_114 = 2147483647 (0x7fffffff)
+  [115] HAL_115 = -2147483647 (0x80000001)
+  [116] HAL_116 = 1689649203 (0x64b60033)
+  [117] HAL_117: err [Errno -5] KErrNotSupported
+  [118] HAL_118: err [Errno -5] KErrNotSupported
+  [119] HAL_119 = 1 (0x1)
+  [120] HAL_120: err [Errno -5] KErrNotSupported
+  [121] HAL_121: err [Errno -5] KErrNotSupported
+  [122] HAL_122: err [Errno -5] KErrNotSupported
+  [123] HAL_123: err [Errno -5] KErrNotSupported
+  [124] HAL_124: err [Errno -5] KErrNotSupported
+  [125] HAL_125: err [Errno -5] KErrNotSupported
+  [126] HAL_126: err [Errno -5] KErrNotSupported
+  [127] HAL_127: err [Errno -5] KErrNotSupported
+
+--- Key values ---
+  heap_base_address: 0x710310
+  tick_count: 33491
+  card_inserted: 1
+
+--- capabilities ---
+  app_capabilities: LocalServices+NetworkServices+ReadUserData+UserEnvironment+WriteUserData
+  has TCB: 0
+  has AllFiles: 0
+  has ReadDeviceData: 0
+  has WriteDeviceData: 0
+
+=== DONE ===

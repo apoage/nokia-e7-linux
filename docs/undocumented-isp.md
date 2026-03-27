@@ -1,5 +1,7 @@
 # OMAP3 ISP — Undocumented & Overlooked Features
 
+> **Note (2026-03-23):** Real HW is BCM2727B1 (ARM1176), not OMAP3630. OMAP3 ISP does not exist on BCM2727. This document applies only to the synthetic QEMU emulation. See docs/critical-cpu-discovery.md
+
 Target: OMAP 3630 ISP subsystem for computational photography on Nokia E7.
 ISP base address: **0x480BC000**
 

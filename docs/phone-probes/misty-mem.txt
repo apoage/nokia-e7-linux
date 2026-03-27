@@ -1,0 +1,61 @@
+=== misty mem v2 ===
+
+--- python addresses ---
+  id('AAAA') = 0x1ae24ee0
+  id(42) = 0x19d45694
+  id([1,2,3]) = 0x1ae226d0
+  id(misty) = 0x1ae222a0
+  id(e32) = 0x1ae00850
+  id(os) = 0x1ae00a10
+
+--- heap ---
+  base: 0x710310
+  total_avail: 23420
+  biggest: 4996
+  alloc_size: 339524
+  alloc_count: 1856
+  free_count: 376
+
+--- alloc pattern ---
+  alloc(   16) = 0x00601370
+  alloc(   32) = 0x00600fc0
+  alloc(   64) = 0x00735270
+  alloc(  128) = 0x00734188
+  alloc(  256) = 0x007346c0
+  alloc(  512) = 0x00733f38
+  alloc( 1024) = 0x00725b90
+  alloc( 4096) = 0x00737460
+  alloc(16384) = 0x00738468
+  alloc(65536) = 0x00632000
+
+--- misty hidden ---
+  __builtins__ = {'vars': <built-in function vars>, 'pow': <built-in function pow>, 'RuntimeError
+  __doc__ = None
+  __file__ = 'E:\\resource\\misty.pyc'
+  __name__ = 'misty'
+
+--- capabilities ---
+  [ 0] TCB                 : 0
+  [ 1] CommDD              : 0
+  [ 2] PowerMgmt           : 0
+  [ 3] MultimediaDD        : 0
+  [ 4] ReadDeviceData      : 0
+  [ 5] WriteDeviceData     : 0
+  [ 6] DRM                 : 0
+  [ 7] TrustedUI           : 0
+  [ 8] ProtServ            : 0
+  [ 9] DiskAdmin           : 0
+  [10] NetworkControl      : 0
+  [11] AllFiles            : 0
+  [12] SwEvent             : 0
+  [13] NetworkServices     : 1
+  [14] LocalServices       : 1
+  [15] ReadUserData        : 1
+  [16] WriteUserData       : 1
+  [17] Location            : 0
+  [18] SurroundingsDD      : 0
+  [19] UserEnvironment     : 1
+
+  app_capabilities: LocalServices+NetworkServices+ReadUserData+UserEnvironment+WriteUserData
+
+=== DONE ===

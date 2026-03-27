@@ -9,11 +9,11 @@
 
 | Component        | Detail                                         |
 |------------------|-------------------------------------------------|
-| SoC              | TI OMAP 3630                                    |
-| CPU              | ARM Cortex-A8, 680 MHz (OC to ~1 GHz possible)  |
-| DSP              | TMS320C64x+ (IVA2.2), ~520 MHz                  |
-| GPU              | PowerVR SGX530, ~200 MHz                         |
-| ISP              | OMAP3 ISP (CCDC, preview, resizer)              |
+| SoC              | **Broadcom BCM2763** (likely, same as Nokia N8) — NOT TI OMAP3630! |
+| CPU              | **ARM1176JZF-S (ARMv6)**, Samsung-made (CPUID 0x410fb764) |
+| DSP              | Unknown — NOT TMS320C64x+ (that's OMAP3-specific) |
+| GPU              | Unknown — NOT PowerVR SGX530 (that's OMAP3-specific) |
+| ISP              | Unknown — NOT OMAP3 ISP (that's OMAP3-specific) |
 | RAM              | 256 MB mobile DDR (PoP)                          |
 | Storage          | 16 GB eMMC internal                              |
 | Display          | 4.0" AMOLED 640x360, capacitive touch            |
@@ -46,11 +46,25 @@
 - Base crystal: **38.4 MHz** (from NLoader: "MCU PLL is in ByPass Mode (38.4MHz)")
 - Nokia internal codenames: Gazoo=OMAP3630, RAPU/Rapuyama=modem, YAMA=VCore domain
 
+> **CRITICAL UPDATE (2026-03-23):** The application processor is **NOT TI OMAP3630**.
+> SuperPage CPUID = **0x410fb764 = ARM1176JZF-S (ARMv6)**, Samsung-manufactured.
+> This is likely **Broadcom BCM2763** (same SoC as Nokia N8), confirmed by community
+> member (zaiood) and CPUID analysis. RAPUYAMA (D1800) is the modem/CMT only, NOT
+> the app processor. The "Gazoo" codename may refer to the Broadcom SoC, not OMAP3630.
+> All OMAP3-specific register addresses (PADCONF at 0x48002030, SCM, etc.) need
+> re-evaluation. TWL5031 PMIC and 256MB LPDDR remain correct.
+> See: [docs/critical-cpu-discovery.md](./critical-cpu-discovery.md) for full analysis.
+
 ---
 
-## 2. OMAP 3630 — Silicon Breakdown
+## 2. SoC Silicon Breakdown
 
-### 2.1 Compute Units (6 Total)
+> **WARNING:** This section was written assuming TI OMAP3630 (Cortex-A8, ARMv7).
+> Real hardware is **ARM1176JZF-S (ARMv6)**, likely **Broadcom BCM2763**.
+> The OMAP3630 architecture below applies ONLY to the QEMU synthetic emulation,
+> NOT to the real Nokia E7 hardware. See [critical-cpu-discovery.md](./critical-cpu-discovery.md).
+
+### 2.1 Compute Units — OMAP3630 (QEMU emulation only, NOT real HW)
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -244,8 +258,12 @@ booted successfully in emulation.
 ## 8. Boot Chain
 
 ### Stock Symbian (from NLoader RE)
+
+> **Note:** Boot chain below was documented assuming OMAP3630. Real SoC is
+> ARM1176JZF-S (likely BCM2763). The ROM code and register addresses differ.
+
 ```
-OMAP3630 ROM code (mask ROM, immutable)
+SoC ROM code (mask ROM, immutable)
   → NLoader / SWBL (flash offset 0x140000, "RAMSET SW")
     → SDRAM init, VCore calibration (SmartReflex)
     → Charger detect, PLL config
@@ -257,7 +275,7 @@ OMAP3630 ROM code (mask ROM, immutable)
 
 ### Target Linux
 ```
-OMAP3630 ROM code (mask ROM)
+SoC ROM code (mask ROM) — BCM2763 boot ROM, NOT OMAP3630
   → NLoader (Nokia, preserved)
     → U-Boot (chainloaded, needs investigation)
       → Linux kernel (zImage + DTB)
@@ -298,7 +316,7 @@ OMAP3630 ROM code (mask ROM)
 | **Summit SMB138** | USB charger | I2C_2 (I2C3) | 2 | 0x6B | NLoader: same addr, rev-detect. `SMB138%c found (I2C_%d)` |
 | **NXP PN544** | NFC controller | I2C_0 (I2C1)? | 0? | 0x28* | `nfc.dll`; datasheet default 0x28; bus unconfirmed |
 | **ALS/Prox sensor** | Ambient light / proximity (N8001) | I2C_0 (I2C1)? | 0? | 0x39? | Schematic: UI flex, VAUX1 powered; model TBD |
-| **Mentor MUSB** | USB OTG controller | On-chip (OMAP3) | — | — | `MUSBMHDRC`, USB driver classes |
+| **Mentor MUSB** | USB OTG controller | On-chip (assumed OMAP3, needs re-eval for BCM2763) | — | — | `MUSBMHDRC`, USB driver classes |
 | **TI WL12xx** | WiFi/BT/FM/GPS combo | **SPI-A** + UART | — | — | `WlanScanFsm`, `am_spia.cpp`, `hci.ini` port=0 baud=115200 |
 | **Rapuyama** | 3G modem (Nokia CMT) | Internal bus | — | — | NLoader "Start RapuYama VCore calibration" |
 
@@ -345,9 +363,12 @@ Key points:
 - [x] ~~OneNAND vs eMMC partition layout~~ → **Full TOC extracted from NLoader** (24 partitions)
 - [ ] BCM2727 firmware blob location in flash/ROFS
 - [ ] GENIO_INIT (GPIO config) contents — encrypted by BB5
-- [ ] OMAP3630 GPMC addresses (909 in 0x50xxxxxx) — BCM2727 or OneNAND?
+- [ ] GPMC addresses (909 in 0x50xxxxxx) — BCM2727 or OneNAND? (OMAP3 assumption — re-evaluate for BCM2763)
+- [ ] **Real SoC identification** — confirm BCM2763 vs other ARM1176 SoCs (CPUID 0x410fb764)
+- [ ] **Real SoC register map** — OMAP3 addresses (0x48xxxxxx) may not apply to BCM2763
+- [ ] **Real SoC peripherals** — DSP, GPU, ISP, crypto need re-identification for Broadcom SoC
 
 ---
 
-*Last updated: 2026-02-26*
-*Status: Firmware archaeology phase — extraction complete, analysis ongoing*
+*Last updated: 2026-03-24*
+*Status: CRITICAL — SoC identity revised from OMAP3630 to ARM1176/BCM2763. Firmware RE and QEMU emulation continue on synthetic OMAP3630 model.*

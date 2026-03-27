@@ -1,5 +1,7 @@
 # PowerVR SGX530/540 — Reverse Engineering Notes & Undocumented Features
 
+> **Note (2026-03-23):** Real HW is BCM2727B1 (ARM1176), not OMAP3630. SGX is OMAP3630-specific and does not exist on BCM2727. This document applies only to the synthetic QEMU emulation. See docs/critical-cpu-discovery.md
+
 This document combines findings from the in-house SGX540 reversing work
 (`sgx540-reversing/`) with broader research on SGX530 internals for GPGPU
 exploitation on the Nokia E7 (OMAP 3630).
