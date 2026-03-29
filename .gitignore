@@ -30,3 +30,4 @@ emulation/rootfs/initramfs.cpio.gz
 *~
 .DS_Store
 __pycache__/
+symbian-sdk/memread/pys60/noki_python/
