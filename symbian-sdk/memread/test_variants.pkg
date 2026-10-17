@@ -1,0 +1,18 @@
+&EN
+
+#{"ExeTestVariants"},(0xA0000099),1,0,0
+
+%{"Nokia-E7-Linux"}
+:"Nokia-E7-Linux"
+
+; Platform dependencies — must match the set in fshell.sis (the package
+; proven to install on THIS phone). The 4th (0x1028315F) is the one
+; Symbian^3 actually satisfies; without it SWI fails with "unable to
+; install" after the missing-component prompts.
+(0x101F7961), *, *, *, {"Series60ProductID"}
+(0x102032BE), *, *, *, {"Series60ProductID"}
+(0x102752AE), *, *, *, {"Series60ProductID"}
+(0x1028315F), *, *, *, {"Series60ProductID"}
+
+"test_A.exe" - "!:\sys\bin\test_A.exe"
+"test_B.exe" - "!:\sys\bin\test_B.exe"

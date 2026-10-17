@@ -1,0 +1,13 @@
+&EN
+
+#{"Peek"},(0xA0000097),1,0,0
+
+%{"Nokia-E7-Linux"}
+:"Nokia-E7-Linux"
+
+(0x101F7961), *, *, *, {"Series60ProductID"}
+(0x102032BE), *, *, *, {"Series60ProductID"}
+(0x102752AE), *, *, *, {"Series60ProductID"}
+(0x1028315F), *, *, *, {"Series60ProductID"}
+
+"peek.exe" - "!:\sys\bin\peek.exe"

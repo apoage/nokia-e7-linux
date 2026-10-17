@@ -1,5 +1,10 @@
-/* patcher_probe.cpp v5 — Based on test.cpp (PROVEN WORKING template)
- * Just adds LDD loading and channel open to the working test.
+/* patcher_probe.cpp v6 — direct LDD channel opens only.
+ *
+ * v5 called User::LoadLogicalDevice() from a zero-cap process and the
+ * phone rebooted (empty E:\pp.txt = unflushed writes lost). Loading kernel
+ * drivers is panic territory; opening a channel on an ALREADY-LOADED
+ * driver is not. RomPatcher+ loads its LDDs at boot, so we just try the
+ * channel names. Every write is flushed so results survive crashes.
  */
 #include <e32base.h>
 #include <e32std.h>
@@ -25,46 +30,38 @@ GLDEF_C TInt E32Main()
         if (file.Replace(fs, _L("E:\\pp.txt"), EFileWrite) == KErrNone)
             {
             TBuf8<128> b;
-            file.Write(_L8("v5\r\n"));
+            file.Write(_L8("v6\r\n"));
+            file.Flush();
 
-            // Load LDDs
-            TInt r;
-            r = User::LoadLogicalDevice(_L("patcherShadow.ldd"));
-            b.Format(_L8("lS=%d\r\n"), r); file.Write(b);
-
-            r = User::LoadLogicalDevice(_L("patcherS3.ldd"));
-            b.Format(_L8("l3=%d\r\n"), r); file.Write(b);
-
-            r = User::LoadLogicalDevice(_L("patcher.ldd"));
-            b.Format(_L8("lB=%d\r\n"), r); file.Write(b);
-
-            // Try channel names
+            // Channel names only — no LoadLogicalDevice (v5 rebooted phone)
             RPatcher ch;
+            TInt r;
             r = ch.Open(_L("PatcherShadow"));
-            b.Format(_L8("o0=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o0=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             r = ch.Open(_L("patcherShadow"));
-            b.Format(_L8("o1=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o1=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             r = ch.Open(_L("Patcher"));
-            b.Format(_L8("o2=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o2=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             r = ch.Open(_L("patcher"));
-            b.Format(_L8("o3=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o3=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             r = ch.Open(_L("PatcherS3"));
-            b.Format(_L8("o4=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o4=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             r = ch.Open(_L("patcherS3"));
-            b.Format(_L8("o5=%d\r\n"), r); file.Write(b);
+            b.Format(_L8("o5=%d\r\n"), r); file.Write(b); file.Flush();
             if (r == KErrNone) { ch.Close(); }
 
             file.Write(_L8("done\r\n"));
+            file.Flush();
             file.Close();
             }
         fs.Close();

@@ -1,0 +1,8 @@
+&EN
+
+#{"TestV6"},(0xe0000099),1,0,0
+
+%{"Nokia-E7-Linux"}
+:"Nokia-E7-Linux"
+
+"test_v6.exe" - "!:\sys\bin\test_v6.exe"

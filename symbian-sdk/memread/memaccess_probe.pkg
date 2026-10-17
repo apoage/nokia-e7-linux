@@ -1,0 +1,13 @@
+&EN
+
+#{"memaccess_probe"},(0xA0000096),1,0,0
+
+%{"Nokia-E7-Linux"}
+:"Nokia-E7-Linux"
+
+(0x101F7961), *, *, *, {"Series60ProductID"}
+(0x102032BE), *, *, *, {"Series60ProductID"}
+(0x102752AE), *, *, *, {"Series60ProductID"}
+(0x1028315F), *, *, *, {"Series60ProductID"}
+
+"memaccess_probe.exe" - "!:\sys\bin\memaccess_probe.exe"
