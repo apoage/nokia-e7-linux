@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Broadcom BCM2727B1 (RAPU) SoC common dtsi.
+ *
+ * Nokia E7-00 (RM-626): ARM1176JZF-S + VideoCore III, 256 MB SDRAM.
+ * Physical map decoded from the Symbian ROM (docs/gpio-static-pinmux.md):
+ *   0x10000000  PDRAM, 2 MB (NLoader, early boot structures, TOC at
+ *               0x101ff000)
+ *   0x20200000  system block (GENIO pad/GPIO register file at +0x1810..,
+ *               clock gates at +0x2200.., security at +0x300, VideoCore
+ *               interface at +0x4000) up to 0x20400000
+ *   0x80000000  SDRAM, 256 MB
+ *
+ * NOT yet in this file (register bases not yet confirmed from binaries):
+ *   interrupt controller, timers, UART, I2C, SPI, USB, eMMC, display.
+ */
+
+/ {
+	compatible = "brcm,bcm2727b1";
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,arm1176jzf-s";
+			reg = <0>;
+		};
+	};
+
+	soc {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		pdram: sram@10000000 {
+			/* NLoader scratch / boot structures; not OS memory */
+			compatible = "mmio-sram";
+			reg = <0x10000000 0x00200000>;
+		};
+
+		/*
+		 * GENIO pad controller + GPIO banks: one register file at
+		 * 0x20200000 (pad mode grid +0x1810, WAKE +0x1990, DATA
+		 * +0x19f0, EDGE +0x1a50, IRQ/direction blocks +0x3400).
+		 * The factory pad table (docs/genio-padtable.md) configures
+		 * this grid before the kernel runs; pad defaults are
+		 * therefore left to the bootloader.
+		 */
+		genio: pinctrl@20200000 {
+			compatible = "brcm,bcm2727b1-genio";
+			reg = <0x20200000 0x4000>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "okay";
+		};
+	};
+
+	chosen { };
+};

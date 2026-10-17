@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Device tree for the Nokia E7-00 (RM-626) on the BCM2727B1 (RAPU) SoC.
+ *
+ * Hardware facts baked in here:
+ *   - 256 MB SDRAM at 0x80000000 (HAL reports 137945088 bytes usable by
+ *     Symbian; the physical bank is 256 MB)
+ *   - restart reason / custom restart: HAL ECustomRestartReason = 1,
+ *     ESystemException observed 0x400
+ *   - display: 640x360 (HAL EDisplayXPixels=360 pattern values; exact
+ *     node omitted until the DSI/display registers are decoded)
+ *
+ * Console: no UART node yet — no UART register base has been confirmed
+ * from binaries. NLoader polls a UART at base+8 (TX ready), data at
+ * base+0x1C, but the physical base it uses is loaded by SWBL and is not
+ * present in the NLoader binary. Runtime discovery or a UART trace is
+ * still needed (docs/genio-padtable.md §5.3).
+ */
+
+/dts-v1/;
+
+#include "bcm2727.dtsi"
+
+/ {
+	model = "Nokia E7-00 (RM-626)";
+	compatible = "nokia,rm-626", "brcm,bcm2727b1";
+
+	memory@80000000 {
+		device_type = "memory";
+		reg = <0x80000000 0x10000000>;	/* 256 MB */
+	};
+
+	chosen {
+		/* no console yet; update once a UART base is confirmed */
+		bootargs = "earlycon=";
+	};
+};

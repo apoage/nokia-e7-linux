@@ -1,0 +1,92 @@
+diff --git a/arch/arm/boot/dts/broadcom/Makefile b/arch/arm/boot/dts/broadcom/Makefile
+index 5881bcc95..484c96654 100644
+--- a/arch/arm/boot/dts/broadcom/Makefile
++++ b/arch/arm/boot/dts/broadcom/Makefile
+@@ -17,6 +17,9 @@ DTC_FLAGS_bcm2711-rpi-4-b := -@
+ DTC_FLAGS_bcm2711-rpi-cm4-io := -@
+ DTC_FLAGS_bcm2835-rpi-zero := -@
+ DTC_FLAGS_bcm2835-rpi-zero-w := -@
++dtb-$(CONFIG_ARCH_BCM2727) += \
++	bcm2727-nokia-e7.dtb
++
+ dtb-$(CONFIG_ARCH_BCM2835) += \
+ 	bcm2835-rpi-b.dtb \
+ 	bcm2835-rpi-a.dtb \
+diff --git a/arch/arm/mach-bcm/Kconfig b/arch/arm/mach-bcm/Kconfig
+index 24bc6e18d..70e9a7be2 100644
+--- a/arch/arm/mach-bcm/Kconfig
++++ b/arch/arm/mach-bcm/Kconfig
+@@ -147,6 +147,20 @@ config ARCH_BCM_MOBILE_SMP
+ 
+ comment "Other Architectures"
+ 
++config ARCH_BCM2727
++	bool "Broadcom BCM2727B1 (RAPU, Nokia E7-00)"
++	depends on ARCH_MULTI_V6
++	select GPIOLIB
++	select PINCTRL
++	select PINCTRL_BCM2727
++	help
++	  Say Y if you intend to run the kernel on the Broadcom BCM2727B1
++	  (RAPU) SoC, found in the Nokia E7-00 (RM-626).  ARM1176JZF-S +
++	  VideoCore III.  Currently only the GENIO pad/GPIO controller is
++	  supported; the interrupt controller and timers are still being
++	  reverse engineered, so the kernel cannot boot on real hardware
++	  yet.
++
+ config ARCH_BCM2835
+ 	bool "Broadcom BCM2835 family"
+ 	depends on ARCH_MULTI_V6 || ARCH_MULTI_V7
+diff --git a/arch/arm/mach-bcm/Makefile b/arch/arm/mach-bcm/Makefile
+index 2e523f29e..737925be5 100644
+--- a/arch/arm/mach-bcm/Makefile
++++ b/arch/arm/mach-bcm/Makefile
+@@ -35,6 +35,9 @@ obj-$(CONFIG_ARCH_BCM_MOBILE_L2_CACHE) += kona_l2_cache.o
+ obj-$(CONFIG_ARCH_BCM_MOBILE_SMC) += bcm_kona_smc.o
+ CFLAGS_REMOVE_bcm_kona_smc.o += $(CC_FLAGS_FTRACE)
+ 
++# BCM2727 (RAPU)
++obj-$(CONFIG_ARCH_BCM2727)	+= bcm2727.o
++
+ # BCM2835
+ ifeq ($(CONFIG_ARCH_BCM2835),y)
+ obj-y				+= board_bcm2835.o
+diff --git a/drivers/pinctrl/bcm/Kconfig b/drivers/pinctrl/bcm/Kconfig
+index 35b51ce42..ef60105f0 100644
+--- a/drivers/pinctrl/bcm/Kconfig
++++ b/drivers/pinctrl/bcm/Kconfig
+@@ -17,6 +17,22 @@ config PINCTRL_BCM281XX
+ 	  BCM28145, and BCM28155 SoCs.  This driver requires the pinctrl
+ 	  framework.  GPIO is provided by a separate GPIO driver.
+ 
++
++config PINCTRL_BCM2727
++	tristate "Broadcom BCM2727B1 (RAPU) GENIO pinctrl/GPIO driver"
++	depends on OF && (ARCH_BCM2727 || COMPILE_TEST)
++	select PINMUX
++	select GPIOLIB
++	select GENERIC_PINCONF
++	default ARCH_BCM2727
++	help
++	   Say Y here to enable the pin control and GPIO driver for the
++	   Broadcom BCM2727B1 (RAPU) GENIO block, as found in the Nokia
++	   E7-00.  Pad functions are set through a 22x8 nibble grid; GPIO
++	   banks 0-4 use set/clr register trios.  Interrupt support is not
++	   implemented yet (bank IRQ wiring to the CPU interrupt
++	   controller is still being decoded).
++
+ config PINCTRL_BCM2835
+ 	tristate "Broadcom BCM2835 GPIO (with PINCONF) driver"
+ 	depends on OF && (ARCH_BCM2835 || ARCH_BRCMSTB || COMPILE_TEST)
+diff --git a/drivers/pinctrl/bcm/Makefile b/drivers/pinctrl/bcm/Makefile
+index 82b868ec1..b84a28d8a 100644
+--- a/drivers/pinctrl/bcm/Makefile
++++ b/drivers/pinctrl/bcm/Makefile
+@@ -2,6 +2,7 @@
+ # Broadcom pinctrl support
+ 
+ obj-$(CONFIG_PINCTRL_BCM281XX)		+= pinctrl-bcm281xx.o
++obj-$(CONFIG_PINCTRL_BCM2727)		+= pinctrl-bcm2727.o
+ obj-$(CONFIG_PINCTRL_BCM2835)		+= pinctrl-bcm2835.o
+ obj-$(CONFIG_PINCTRL_BCM4908)		+= pinctrl-bcm4908.o
+ obj-$(CONFIG_PINCTRL_BCM63XX)		+= pinctrl-bcm63xx.o
