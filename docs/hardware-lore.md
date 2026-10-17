@@ -314,6 +314,7 @@ SoC ROM code (mask ROM) — BCM2763 boot ROM, NOT OMAP3630
 | **TI BQ2415x** | Li-Ion charger IC | I2C_2 (I2C3) | 2 | 0x6B | NLoader: probes 0xD6 (8-bit), `bq2415%d found (I2C_%d)` r3=2 |
 | **Summit SMB338** | USB charger SMPS | I2C_2 (I2C3) | 2 | 0x6B | NLoader: same addr, rev-detect. `SMB338%c found (I2C_%d)` |
 | **Summit SMB138** | USB charger | I2C_2 (I2C3) | 2 | 0x6B | NLoader: same addr, rev-detect. `SMB138%c found (I2C_%d)` |
+| **Charger variant @0x6A** | Second charger IC (BQ24150/1-class, 8-bit 0xD4) | I2C_2 (I2C3) | 2 | 0x6A* | NLoader polls 0xD4 reg1 bit1 alongside 0xD6 ("Hi-Z mode" check) — task 111, bcm2727-i2c.md §4 |
 | **NXP PN544** | NFC controller | I2C_0 (I2C1)? | 0? | 0x28* | `nfc.dll`; datasheet default 0x28; bus unconfirmed |
 | **ALS/Prox sensor** | Ambient light / proximity (N8001) | I2C_0 (I2C1)? | 0? | 0x39? | Schematic: UI flex, VAUX1 powered; model TBD |
 | **Mentor MUSB** | USB OTG controller | On-chip (assumed OMAP3, needs re-eval for BCM2763) | — | — | `MUSBMHDRC`, USB driver classes |
@@ -321,7 +322,9 @@ SoC ROM code (mask ROM) — BCM2763 boot ROM, NOT OMAP3630
 | **Rapuyama** | 3G modem (Nokia CMT) | Internal bus | — | — | NLoader "Start RapuYama VCore calibration" |
 
 *\* = High confidence but needs I2C scan or deeper RE for final confirmation.*
-See: [docs/i2c-bus-map.md](./i2c-bus-map.md) for full analysis and DTS template.
+See: [docs/bcm2727-i2c.md](./bcm2727-i2c.md) for the full engine decode
+(register map, transfer/IRQ protocol, bus-device map, QEMU+Linux
+contract — task 111).
 
 ## 11. NLoader Boot Sequence (from flash offset 0x140000)
 

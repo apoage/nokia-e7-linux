@@ -25,9 +25,15 @@ flash region loaded by NLoader and the Symbian kernel's DVCDriver at boot.
 - 20 DCC (Device Configuration Certificate) calibration files for two silicon variants
 - **CORRECTION (2026-03-01): Firmware IS BB5-ENCRYPTED (entropy 7.99/8.0)**
 - SOS+IVE3B not included in firmware update FPSXs (factory-programmed only)
-- `signed_2727b1_v2.dll` extracted (1MB) — is ARM HAL driver, NOT VC firmware
+- `signed_2727b1_v2.dll` extracted (1MB) — ~~is ARM HAL driver, NOT VC firmware~~
+  **CORRECTION (2026-08-31, task 114): it IS the VC firmware — the signed
+  DVCExe image-set container (3 images: 8 KB boot-rom loader ×2 variants +
+  1,010,219 B main Nucleus firmware). It is the primary boot source; see
+  docs/bcm2727-display-recon.md §7.**
 - 14 VideoCore DLLs found in Symbian ROM extension table (base 0x01278200)
 - Firmware extraction blocked: requires real hardware (UART capture or JTAG dump)
+  *(superseded 2026-08-31: the in-ROM plaintext copy is fully locatable —
+  display-recon §7; the flash IVE3B stays encrypted)*
 
 ---
 
@@ -36,11 +42,18 @@ flash region loaded by NLoader and the Symbian kernel's DVCDriver at boot.
 ### 2.1 Flash Partitions (SOS+IVE3A / SOS+IVE3B)
 
 From the NAND flash TOC (source: `flash-partitions.json`):
+*(CORRECTION 2026-08-31, task 114: the offsets below dropped digits — the
+real TOC in `firmware-re/nokia-e7-onenand.img` (file 0x140000) lists
+SOS+IVE3A at device 0x1238000 (163,840 B, **completely zero-filled in this
+dump** — blank, not encrypted) and SOS+IVE3B at device 0x0C0000
+(2,096,465 B, entropy 7.98, `fota_version` @+0x3E4 — an encrypted
+FOTA-side variant, not the bytes the phone boots). Full reconciliation:
+docs/bcm2727-display-recon.md §7.5.)*
 
 | Partition   | Flash Offset | Size      | Description |
 |-------------|-------------|-----------|-------------|
-| SOS+IVE3A   | 0x12380     | 160 KB    | BCM2727 firmware image A (boot stage) |
-| SOS+IVE3B   | 0x0C000     | ~2.0 MB   | BCM2727 firmware image B (main OS + services) |
+| SOS+IVE3A   | 0x1238000   | 160 KB    | BCM2727 firmware image A (blank/zero-filled in dump) |
+| SOS+IVE3B   | 0x0C0000    | ~2.0 MB   | BCM2727 firmware image B (encrypted FOTA-side container) |
 
 **SOS+IVE3A** (163,840 bytes): Likely the initial bootloader / second-stage loader
 that the ARM sends to the VC3 boot ROM via CCP2.

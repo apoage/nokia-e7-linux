@@ -1,0 +1,652 @@
+qemu-system-arm: info: bcm2727: memcard card 'emmc' attached (emmc)
+qemu-system-arm: info: bcm2727: memcard card 'sd' attached (sd-card)
+qemu-system-arm: info: bcm2727: onenand backed by drive 'onenand', (1022 MB device window)
+qemu-system-arm: info: bcm2727: SDRAM-TOC watch overlay at 0x101ff000 (slot-0 writer hunt, task 106)
+qemu-system-arm: info: nokia-e7: chain boot — trampoline 0x80010000, zImage 0x80010150 (2377296 bytes), dtb 0x88000000
+qemu-system-arm: info: nokia-e7: NLoader boot via SWBL shim — lld blob 36740 B @ 0x10016000, shim 1306 B @ 0x40200000
+swbl: swbl: onenand ids 
+swbl: 0x000000ec:0x00000068:0x00000121, reading TOC
+swbl: ona: page 
+swbl: 0x00000000 dst 
+swbl: 0x40201000
+swbl: ona: page 
+swbl: 0x00000001 dst 
+swbl: 0x40201800
+tocwatch: W off=0x00 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x04 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x08 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x0c size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x10 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x14 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x18 size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x1c size=4 val=0x00000000 pc=0x402000b6 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x00 size=4 val=0xffff0000 pc=0x402000c2 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x08 size=4 val=0x002447a0 pc=0x402000c8 lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x10 size=4 val=0x80010000 pc=0x402000ce lr=0x402003cb [sp@0x4020ffc8]=0x00000001
+tocwatch: W off=0x14 size=1 val=0x0000004d pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x15 size=1 val=0x00000043 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x16 size=1 val=0x00000055 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x17 size=1 val=0x00000053 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x18 size=1 val=0x00000057 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x19 size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1a size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1b size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1c size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1d size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1e size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+tocwatch: W off=0x1f size=1 val=0x00000000 pc=0x402002b8 lr=0x402000d9 [sp@0x4020ffc0]=0x40200c00
+swbl: swbl: toc '
+swbl: SWBL
+swbl: ' off 
+swbl: 0x00000800 sz 
+swbl: 0x00002200
+swbl: swbl: toc '
+swbl: ADA
+swbl: ' off 
+swbl: 0x00002a00 sz 
+swbl: 0x00000600
+swbl: swbl: toc '
+swbl: R&D
+swbl: ' off 
+swbl: 0x00003000 sz 
+swbl: 0x00000c00
+swbl: swbl: toc '
+swbl: PRIMAPP
+swbl: ' off 
+swbl: 0x00004000 sz 
+swbl: 0x00020000
+swbl: swbl: toc '
+swbl: RAP3NAND
+swbl: ' off 
+swbl: 0x00024000 sz 
+swbl: 0x0002c000
+swbl: swbl: toc '
+swbl: SOS+PMML
+swbl: ' off 
+swbl: 0x00050000 sz 
+swbl: 0x0000c000
+swbl: swbl: toc '
+swbl: SOS+DECOMP
+swbl: ' off 
+swbl: 0x00064000 sz 
+swbl: 0x0001f000
+swbl: swbl: toc '
+swbl: PASUBTOC
+swbl: ' off 
+swbl: 0x00083000 sz 
+swbl: 0x00001000
+swbl: swbl: toc '
+swbl: PAPUBKEYS
+swbl: ' off 
+swbl: 0x00084000 sz 
+swbl: 0x000043a0
+swbl: swbl: SDRAM TOC 
+swbl: 0x0000000a entries at 
+swbl: 0x101ff000
+nloader[xti239]: HW : RAPgv0.00 PA
+nloader[xti239]: acrc.MCDCR: 00000000
+nloader[xti239]: init IC2_2 controller done
+nloader[xti239]: XTI pipe cleaner
+nloader[xti239]: XTI enabled
+nloader[xti239]: SW : nloader_111_10.1.1 (Jul 27 2012 18:41:17)
+nloader[xti239]: Startup Reason: 00000064
+nloader[xti239]: Set VCore : 1425 mV, return : 100 
+nloader[xti239]: EM charging skipped
+nloader[xti239]: Set MCU/DSP speed: 449828 kHz/263314 kHz
+nloader[xti239]: Heap reserved : 1017F000 - 101FEFFF
+nloader[xti239]: Enable MMU
+swbl: lld: open dev 
+swbl: 0x10008188
+swbl: lld: onenand ids ok
+swbl: 
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001ffa
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffa0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffa0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffa06
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001ffb
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffb0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffb0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffb06
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001ffc
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffc0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffc0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffc06
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001ffd
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffd0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffd0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffd06
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001ffe
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffe0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffe0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001ffe06
+swbl: lld: stub@
+swbl: 0x100296ee a 
+swbl: 0x00000000 b 
+swbl: 0x00001fff
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001fff0e
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001fff0a
+swbl: lld: stub@
+swbl: 0x100294fe a 
+swbl: 0x00000000 b 
+swbl: 0x001fff06
+nloader[xti239]: Read TOC : 00020000
+swbl: lld: read lsn 
+swbl: 0x00000100 n 
+swbl: 0x00000004
+swbl: ona: page 
+swbl: 0x00000040 dst 
+swbl: 0x10201000
+nloader[xti239]: Read TOC : 00040000
+swbl: lld: read lsn 
+swbl: 0x00000200 n 
+swbl: 0x00000004
+swbl: ona: page 
+swbl: 0x00000080 dst 
+swbl: 0x10201000
+nloader[xti239]: Root-TOC not found
+nloader[xti239]: SWBL not found
+nloader[xti239]: Read TOC : 000A0000
+swbl: lld: read lsn 
+swbl: 0x00000500 n 
+swbl: 0x00000004
+swbl: ona: page 
+swbl: 0x00000140 dst 
+swbl: 0x10201000
+nloader[xti239]: SUSD not found
+nloader[xti239]: Startup mode : Normal
+nloader[xti239]: Build TOC in SDRAM
+nloader[xti239]: SOS core image not found -> try ENOSW
+nloader[xti239]: No executable image found
+nloader[xti239]: Copy & Authenticate SOS+DECOMP. Addr: 1e400000
+nloader[xti239]: SOS+DECOMP Authentication PASS
+nloader[xti239]: IVE3 binary not found
+nloader[xti239]: ---------------------------------------------------------
+nloader[xti239]: Source address:        Target address:       Filename:
+nloader[xti239]: FFFF0000 - FFFEFFFF -> 80010000 - 8000FFFF : MCUSW
+nloader[xti239]: 00000800 - 000007FF -> 00000000 - FFFFFFFF : SWBL
+nloader[xti239]: 00002A00 - 000029FF -> 00000000 - FFFFFFFF : ADA
+nloader[xti239]: 00003000 - 00002FFF -> 00000000 - FFFFFFFF : R&D
+nloader[xti239]: 00004000 - 00003FFF -> 00000000 - FFFFFFFF : PRIMAPP
+nloader[xti239]: 00024000 - 00023FFF -> 00000000 - FFFFFFFF : RAP3NAND
+nloader[xti239]: 00050000 - 0004FFFF -> 00000000 - FFFFFFFF : SOS+PMML
+nloader[xti239]: 00064000 - 00063FFF -> 00000000 - FFFFFFFF : SOS+DECOMP
+nloader[xti239]: 00083000 - 00082FFF -> 00000000 - FFFFFFFF : PASUBTOC
+nloader[xti239]: 00084000 - 00083FFF -> 00000000 - FFFFFFFF : PAPUBKEYS
+nloader[xti239]: ---------------------------------------------------------
+nloader[xti239]: Reserved  : 10000000 - 101FEFFF
+nloader[xti239]: Sandbox   : 2F884F00 - 30004EFF
+nloader[xti239]: -------------------------------
+nloader[xti239]: Copy images to SDRAM
+tocwatch: W off=0x00 size=4 val=0x6fe11000 pc=0x1003200c lr=0x10021ec8 [sp@0x4020ffb0]=0x00000000
+nloader[xti239]: Image name   : MCUSW�Rr  dtes
+nloader[xti239]: Image size   : 2377632 Bytes
+nloader[xti239]: Nand address : 0xFFFF0000
+nloader[xti239]: Load address : 0x80010000
+swbl: lld: read OOB lsn 
+swbl: 0x007fff80 n 
+swbl: 0x00000080
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: MCUSW copying failed
+nloader[xti239]: Image name   : SWBL
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 8704 Bytes
+nloader[xti239]: Nand address : 0x00000800
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: SWBL copying failed
+nloader[xti239]: Image name   : ADA
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 1536 Bytes
+nloader[xti239]: Nand address : 0x00002A00
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: ADA copying failed
+nloader[xti239]: Image name   : R&D
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 3072 Bytes
+nloader[xti239]: Nand address : 0x00003000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: R&D copying failed
+nloader[xti239]: Image name   : PRIMAPP
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 131072 Bytes
+nloader[xti239]: Nand address : 0x00004000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: PRIMAPP copying failed
+nloader[xti239]: Image name   : RAP3NAND
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 180224 Bytes
+nloader[xti239]: Nand address : 0x00024000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: RAP3NAND copying failed
+nloader[xti239]: Image name   : SOS+PMML
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 49152 Bytes
+nloader[xti239]: Nand address : 0x00050000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: SOS+PMML copying failed
+nloader[xti239]: Image name   : SOS+DECOMP
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 126976 Bytes
+nloader[xti239]: Nand address : 0x00064000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: SOS+DECOMP copying failed
+nloader[xti239]: Image name   : PASUBTOC
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 4096 Bytes
+nloader[xti239]: Nand address : 0x00083000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: PASUBTOC copying failed
+nloader[xti239]: Image name   : PAPUBKEYS
+nloader[xti239]: Reserved     : 0 Bytes
+nloader[xti239]: Image size   : 17312 Bytes
+nloader[xti239]: Nand address : 0x00084000
+nloader[xti239]: Load address : 0x00000000
+nloader[xti239]: BML status: 80010000
+nloader[xti239]: Image: PAPUBKEYS copying failed
+nloader[xti239]: PMM Loader not found
+nloader[xti239]: Disable MMU
+nloader[xti239]: SmartReflex DSP code not found
+nloader[xti239]: sr_vcore_status_set(0x13)
+nloader[xti239]: sr_vcore_status_set(): VCore status updated!
+nloader[xti239]: Beginning configuration build
+nloader[xti239]: hw_conf: SDRAM: 512 MB at 10000000
+nloader[xti239]: hw_conf: PDRAM: 16 kB at 30000000
+nloader[xti239]: hw_conf: MCU speed: 449828 kHz
+nloader[xti239]: hw_conf: DSP speed: 263314 kHz
+nloader[xti239]: hw_conf: Non-MCU area: 384 kB at 100E0000
+nloader[xti239]: hw_conf: MDI buffer: 764 kB at 10140000
+nloader[xti239]: hw_conf: M2D offset: 100E0000
+nloader[xti239]: hw_conf: ROM jump table: FFFD1200
+nloader[xti239]: hw_conf: BSI value: 65530
+nloader[xti239]:  vcore status: 19
+nloader[xti239]:  fop 0 mcu  : mul 29557, div 101, freq -1
+nloader[xti239]:  fop 0 dsp  : mul 53263, div 10496, freq 194846070
+nloader[xti239]:  fop 0 yama : mul 53261, div 34913, freq 58578862
+nloader[xti239]:  fop 0 vcore raw  : 975000
+nloader[xti239]:  fop 0 vcore final: 862500
+nloader[xti239]:  fop 0 mcu  : mem 189, fast 240, slow 181
+nloader[xti239]:  fop 1 mcu  : mul 17041, div 53258, freq 12286644
+nloader[xti239]:  fop 1 dsp  : mul 10496, div 53256, freq 7567951
+nloader[xti239]:  fop 1 yama : mul 17040, div 53254, freq 12286846
+nloader[xti239]:  fop 1 vcore raw  : 825000
+nloader[xti239]:  fop 1 vcore final: 3912500
+nloader[xti239]:  fop 1 mcu  : mem 39, fast 150, slow 78
+nloader[xti239]:  fop 2 mcu  : mul 10240, div 53252, freq 7383922
+nloader[xti239]:  fop 2 dsp  : mul 35040, div 17040, freq 78958746
+nloader[xti239]:  fop 2 yama : mul 53249, div 10240, freq 199664251
+nloader[xti239]:  fop 2 vcore raw  : 2550000
+nloader[xti239]:  fop 2 vcore final: 750000
+nloader[xti239]:  fop 2 mcu  : mem 97, fast 150, slow 160
+nloader[xti239]:  fop 3 mcu  : mul 53513, div 41088, freq 50010932
+nloader[xti239]:  fop 3 dsp  : mul 61442, div 63978, freq 36877300
+nloader[xti239]:  fop 3 yama : mul 8209, div 63487, freq 4965120
+nloader[xti239]:  fop 3 vcore raw  : 1575000
+nloader[xti239]:  fop 3 vcore final: 1250000
+nloader[xti239]:  fop 3 mcu  : mem 249, fast 154, slow 72
+nloader[xti239]:  fop 4 mcu  : mul 64013, div 8192, freq 300024313
+nloader[xti239]:  fop 4 dsp  : mul 45062, div 17344, freq 99762513
+nloader[xti239]:  fop 4 yama : mul 48400, div 41090, freq 45230342
+nloader[xti239]:  fop 4 vcore raw  : 775000
+nloader[xti239]:  fop 4 vcore final: 1025000
+nloader[xti239]:  fop 4 mcu  : mem 77, fast 0, slow 32
+nloader[xti239]:  fop 5 mcu  : mul 61442, div 63968, freq 36883065
+nloader[xti239]:  fop 5 dsp  : mul 41090, div 61442, freq 25679996
+nloader[xti239]:  fop 5 yama : mul 63965, div 35042, freq 70092629
+nloader[xti239]:  fop 5 vcore raw  : 3350000
+nloader[xti239]:  fop 5 vcore final: 3350000
+nloader[xti239]:  fop 5 mcu  : mem 70, fast 3, slow 70
+nloader[xti239]:  fop 6 mcu  : mul 34977, div 34912, freq 38470392
+nloader[xti239]:  fop 6 dsp  : mul 18027, div 49927, freq 13864701
+nloader[xti239]:  fop 6 yama : mul 41101, div 34851, freq 45285160
+nloader[xti239]:  fop 6 vcore raw  : 1550000
+nloader[xti239]:  fop 6 vcore final: 2362500
+nloader[xti239]:  fop 6 mcu  : mem 197, fast 32, slow 61
+nloader[xti239]:  fop 7 mcu  : mul 31330, div 31265, freq 38478602
+nloader[xti239]:  fop 7 dsp  : mul 61442, div 63954, freq 36891139
+nloader[xti239]:  fop 7 yama : mul 45062, div 8192, freq 211202343
+nloader[xti239]:  fop 7 vcore raw  : 1662500
+nloader[xti239]:  fop 7 vcore final: 1175000
+nloader[xti239]:  fop 7 mcu  : mem 238, fast 183, slow 97
+nloader[xti239]:  fop 8 mcu  : mul 48400, div 46576, freq 39902956
+nloader[xti239]:  fop 8 dsp  : mul 9216, div 9985, freq 35439054
+nloader[xti239]:  fop 8 yama : mul 20118, div 45193, freq 17093667
+nloader[xti239]:  fop 8 vcore raw  : 2450000
+nloader[xti239]:  fop 8 vcore final: 975000
+nloader[xti239]:  fop 8 mcu  : mem 152, fast 224, slow 14
+nloader[xti239]:  fop 9 mcu  : mul 24951, div 41110, freq 21369120
+nloader[xti239]:  fop 9 dsp  : mul 61442, div 63942, freq 36898062
+nloader[xti239]:  fop 9 yama : mul 18586, div 24647, freq 28955793
+nloader[xti239]:  fop 9 vcore raw  : 1575000
+nloader[xti239]:  fop 9 vcore final: 825000
+nloader[xti239]:  fop 9 mcu  : mem 32, fast 17, slow 70
+nloader[xti239]:  fop 10 mcu  : mul 19866, div 8192, freq 93110508
+nloader[xti239]:  fop 10 dsp  : mul 17921, div 17922, freq 38395715
+nloader[xti239]:  fop 10 yama : mul 17923, div 50447, freq 13642626
+nloader[xti239]:  fop 10 vcore raw  : 900000
+nloader[xti239]:  fop 10 vcore final: 2550000
+nloader[xti239]:  fop 10 mcu  : mem 249, fast 102, slow 30
+nloader[xti239]:  fop 11 mcu  : mul 50447, div 15648, freq 123788408
+nloader[xti239]:  fop 11 dsp  : mul 61455, div 61066, freq 38643981
+nloader[xti239]:  fop 11 yama : mul 25015, div 41110, freq 23365425
+nloader[xti239]:  fop 11 vcore raw  : 3362500
+nloader[xti239]:  fop 11 vcore final: 1575000
+nloader[xti239]:  fop 11 mcu  : mem 209, fast 9, slow 176
+nloader[xti239]:  fop 12 mcu  : mul 61442, div 63926, freq 36907297
+nloader[xti239]:  fop 12 dsp  : mul 8704, div 8195, freq 40780087
+nloader[xti239]:  fop 12 yama : mul 17937, div 63487, freq 10848991
+nloader[xti239]:  fop 12 vcore raw  : 962500
+nloader[xti239]:  fop 12 vcore final: 775000
+nloader[xti239]:  fop 12 mcu  : mem 189, fast 1, slow 171
+nloader[xti239]:  fop 13 mcu  : mul 63999, div 7782, freq 315760195
+nloader[xti239]:  fop 13 dsp  : mul 10240, div 53506, freq 7348870
+nloader[xti239]:  fop 13 yama : mul 45065, div 17968, freq 96304524
+nloader[xti239]:  fop 13 vcore raw  : 1162500
+nloader[xti239]:  fop 13 vcore final: 3350000
+nloader[xti239]:  fop 13 mcu  : mem 25, fast 100, slow 28
+nloader[xti239]:  fop 14 mcu  : mul 48624, div 43777, freq 42650682
+nloader[xti239]:  fop 14 dsp  : mul 161, div 6472, freq 955105
+nloader[xti239]:  fop 14 yama : mul 7268, div 31170, freq 8953552
+nloader[xti239]:  fop 14 vcore raw  : 2550000
+nloader[xti239]:  fop 14 vcore final: 1550000
+nloader[xti239]:  fop 14 mcu  : mem 178, fast 90, slow 84
+nloader[xti239]:  fop 15 mcu  : mul 45796, div 21594, freq 81433961
+nloader[xti239]:  fop 15 dsp  : mul 31106, div 6345, freq 188224141
+nloader[xti239]:  fop 15 yama : mul 11271, div 28746, freq 15055706
+nloader[xti239]:  fop 15 vcore raw  : 1575000
+nloader[xti239]:  fop 15 vcore final: 1662500
+nloader[xti239]:  fop 15 mcu  : mem 24, fast 7, slow 44
+nloader[xti239]: mcu_op = 0 (9)
+nloader[xti239]: dsp_op = 15 (73)
+nloader[xti239]: current_vcore = 73
+nloader[xti239]: hw_conf: TOC location: 101FF000
+nloader[xti239]: hw_conf: Startup Reason: 00000064
+nloader[xti239]: HW configuration in SDRAM:
+nloader[xti239]: 30003F00: 00000004
+nloader[xti239]: 30003F04: 00000010
+nloader[xti239]: 30003F08: 20004F00
+nloader[xti239]: 30003F0C: 10000000
+nloader[xti239]: 30003F10: 00000005
+nloader[xti239]: 30003F14: 00000010
+nloader[xti239]: 30003F18: 00004000
+nloader[xti239]: 30003F1C: 30000000
+nloader[xti239]: 30003F20: 00000016
+nloader[xti239]: 30003F24: 00000010
+nloader[xti239]: 30003F28: 1ACFD6C4
+nloader[xti239]: 30003F2C: 00000000
+nloader[xti239]: 30003F30: 00000015
+nloader[xti239]: 30003F34: 00000010
+nloader[xti239]: 30003F38: 0FB1DB60
+nloader[xti239]: 30003F3C: 00000000
+nloader[xti239]: 30003F40: 00000009
+nloader[xti239]: 30003F44: 00000010
+nloader[xti239]: 30003F48: 00060000
+nloader[xti239]: 30003F4C: 100E0000
+nloader[xti239]: 30003F50: 00000010
+nloader[xti239]: 30003F54: 00000010
+nloader[xti239]: 30003F58: 000BF000
+nloader[xti239]: 30003F5C: 10140000
+nloader[xti239]: 30003F60: 00000011
+nloader[xti239]: 30003F64: 0000000C
+nloader[xti239]: 30003F68: 100E0000
+nloader[xti239]: 30003F6C: 00000012
+nloader[xti239]: 30003F70: 0000000C
+nloader[xti239]: 30003F74: FFFD1200
+nloader[xti239]: 30003F78: 0000001E
+nloader[xti239]: 30003F7C: 0000000C
+nloader[xti239]: 30003F80: 0000FFFA
+nloader[xti239]: 30003F84: 0000001B
+nloader[xti239]: 30003F88: 0000015C
+nloader[xti239]: 30003F8C: 00000013
+nloader[xti239]: 30003F90: 00000000
+nloader[xti239]: 30003F94: 00000000
+nloader[xti239]: 30003F98: 00000000
+nloader[xti239]: 30003F9C: FFFFFFFF
+nloader[xti239]: 30003FA0: 00657375
+nloader[xti239]: 30003FA4: 0B9D1D76
+nloader[xti239]: 30003FA8: 2900D00F
+nloader[xti239]: 30003FAC: 037DD7AE
+nloader[xti239]: 30003FB0: 8861D00D
+nloader[xti239]: 30003FB4: 00000000
+nloader[xti239]: 30003FB8: 000EE098
+nloader[xti239]: 30003FBC: 000D2924
+nloader[xti239]: 30003FC0: 00BB7AB4
+nloader[xti239]: 30003FC4: D00A4291
+nloader[xti239]: 30003FC8: 00737A4F
+nloader[xti239]: 30003FCC: D0082900
+nloader[xti239]: 30003FD0: 00BB7B7E
+nloader[xti239]: 30003FD4: D0064290
+nloader[xti239]: 30003FD8: 00000000
+nloader[xti239]: 30003FDC: 000C96A8
+nloader[xti239]: 30003FE0: 003BB334
+nloader[xti239]: 30003FE4: 0070AB72
+nloader[xti239]: 30003FE8: D0042800
+nloader[xti239]: 30003FEC: 04B4D09A
+nloader[xti239]: 30003FF0: 429088E0
+nloader[xti239]: 30003FF4: 0BE6A27B
+nloader[xti239]: 30003FF8: 2800D001
+nloader[xti239]: 30003FFC: 00000000
+nloader[xti239]: 30004000: 0026E8F0
+nloader[xti239]: 30004004: 000B71B0
+nloader[xti239]: 30004008: 02FB1B34
+nloader[xti239]: 3000400C: A080D109
+nloader[xti239]: 30004010: 0232B3F4
+nloader[xti239]: 30004014: F9EAF002
+nloader[xti239]: 30004018: 004BC300
+nloader[xti239]: 3000401C: F7FF2011
+nloader[xti239]: 30004020: 00000000
+nloader[xti239]: 30004024: 00180858
+nloader[xti239]: 30004028: 001312D0
+nloader[xti239]: 3000402C: 11E201F9
+nloader[xti239]: 30004030: 2000FA0D
+nloader[xti239]: 30004034: 05F24151
+nloader[xti239]: 30004038: 43C0B006
+nloader[xti239]: 3000403C: 02B22906
+nloader[xti239]: 30004040: A082BD10
+nloader[xti239]: 30004044: 00000000
+nloader[xti239]: 30004048: 000BD358
+nloader[xti239]: 3000404C: 000FA3E8
+nloader[xti239]: 30004050: 0232CAC7
+nloader[xti239]: 30004054: F9E0F002
+nloader[xti239]: 30004058: 0187D87C
+nloader[xti239]: 3000405C: F002A082
+nloader[xti239]: 30004060: 042D8755
+nloader[xti239]: 30004064: 88E2F9DD
+nloader[xti239]: 30004068: 00000000
+nloader[xti239]: 3000406C: 00331DF0
+nloader[xti239]: 30004070: 00331DF0
+nloader[xti239]: 30004074: 024B02F8
+nloader[xti239]: 30004078: 886088A1
+nloader[xti239]: 3000407C: 00D38EFD
+nloader[xti239]: 30004080: C307466B
+nloader[xti239]: 30004084: 02B2FF28
+nloader[xti239]: 30004088: 8823A08D
+nloader[xti239]: 3000408C: 00000000
+nloader[xti239]: 30004090: 0017A6B0
+nloader[xti239]: 30004094: 00240C84
+nloader[xti239]: 30004098: 024B230A
+nloader[xti239]: 3000409C: 7A217A62
+nloader[xti239]: 300040A0: 0232EA03
+nloader[xti239]: 300040A4: F9D2F002
+nloader[xti239]: 300040A8: 0C96B127
+nloader[xti239]: 300040AC: 2000B006
+nloader[xti239]: 300040B0: 00000000
+nloader[xti239]: 300040B4: 00195E24
+nloader[xti239]: 300040B8: 0011EDD8
+nloader[xti239]: 300040BC: 0260DEEC
+nloader[xti239]: 300040C0: B5F0BD10
+nloader[xti239]: 300040C4: 021CC1CE
+nloader[xti239]: 300040C8: 27012400
+nloader[xti239]: 300040CC: 0104D423
+nloader[xti239]: 300040D0: B0894E96
+nloader[xti239]: 300040D4: 003D20C5
+nloader[xti239]: 300040D8: 00256250
+nloader[xti239]: 300040DC: 000EE098
+nloader[xti239]: 300040E0: 0000000A
+nloader[xti239]: 300040E4: 0000000C
+nloader[xti239]: 300040E8: 101FF000
+nloader[xti239]: 300040EC: 0000000D
+nloader[xti239]: 300040F0: 0000000C
+nloader[xti239]: 300040F4: 00000064
+nloader[xti239]: 300040F8: 00000002
+nloader[xti239]: 300040FC: 00000008
+nloader[xti239]: Total bootup time -20 msec
+nloader[xti239]: Start SOS at 80010000 (->80010000)
+Booting Linux on physical CPU 0x0
+Linux version 6.12.0-00006-g1bacff008820-dirty (lukas@terminus) (arm-linux-gnueabihf-gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.46) #36 Sun Aug 23 19:44:23 CEST 2026
+CPU: ARMv6-compatible processor [410fb767] revision 7 (ARMv7), cr=00c5387d
+CPU: VIPT aliasing data cache, unknown instruction cache
+OF: fdt: Machine model: Nokia E7-00 (RM-626)
+earlycon: pl11 at MMIO 0x40210000 (options '')
+printk: legacy bootconsole [pl11] enabled
+Memory policy: Data cache writeback
+Zone ranges:
+  Normal   [mem 0x0000000080000000-0x000000008fffffff]
+  HighMem  empty
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000080000000-0x000000008fffffff]
+Initmem setup node 0 [mem 0x0000000080000000-0x000000008fffffff]
+Kernel command line: earlycon=pl011,0x40210000 console=ttyAMA0 loglevel=7 root=/dev/mmcblk0 rootwait rw
+Dentry cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+Inode-cache hash table entries: 16384 (order: 4, 65536 bytes, linear)
+Built 1 zonelists, mobility grouping on.  Total pages: 65536
+mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+bcm2727-icu: /soc/interrupt-controller@20400000: 421 irq ids
+clocksource: bcm2727-frc: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 9556302233 ns
+sched_clock: 32 bits at 200MHz, resolution 5ns, wraps every 10737418237ns
+bcm2727-timer: /soc/timer@20203600 tick at 200000000 Hz, irq 16 (ICU id 0xf2)
+Console: colour dummy device 80x30
+Calibrating delay loop... 1528.62 BogoMIPS (lpj=7643136)
+CPU: Testing write buffer coherency: ok
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+Setting up static identity map for 0x80008220 - 0x8000827c
+Memory: 254144K/262144K available (3344K kernel code, 495K rwdata, 828K rodata, 160K init, 225K bss, 7488K reserved, 0K cma-reserved, 0K highmem)
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 1 part 20 variant b rev 5
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+Serial: AMBA PL011 UART driver
+platform soc: Fixed dependency cycle(s) with /soc/interrupt-controller@20400000
+40210000.serial: ttyAMA0 at MMIO 0x40210000 (irq = 17, base_baud = 0) is a PL011 rev1
+printk: legacy console [ttyAMA0] enabled
+printk: legacy console [ttyAMA0] enabled
+printk: legacy bootconsole [pl11] disabled
+printk: legacy bootconsole [pl11] disabled
+clocksource: Switched to clocksource bcm2727-frc
+workingset: timestamp_bits=30 max_order=16 bucket_order=0
+io scheduler mq-deadline registered
+io scheduler kyber registered
+io scheduler bfq registered
+bcm2727-pinctrl 20200000.pinctrl: BCM2727B1 GENIO: 176 pads, 160 gpios (banks 0-4), edge irqchip via ICU level-3; banks 5/6 wake-only
+bcm2727-softuart softuart: TX bit-bang soft-UART on /softuart gpio spec (115200 Bd, frc 200000000 Hz)
+mmc-bcm2727 20202800.mmc: BCM2727 Rapu_Memcard eMMC channel, IRQ-driven
+mmc-bcm2727 20202900.mmc: BCM2727 Rapu_Memcard SD channel, IRQ-driven
+clk: Disabling unused clocks
+Waiting for root device /dev/mmcblk0...
+mmc0: new MMC card at address 0001
+mmcblk0: mmc0:0001 QEMU!! 64.0 MiB
+mmc1: host does not support reading read-only switch, assuming write-enable
+mmc1: new SD card at address d0de
+mmcblk1: mmc1:d0de QEMU! 64.0 MiB
+EXT4-fs (mmcblk0): recovery complete
+EXT4-fs (mmcblk0): mounted filesystem ffd63d83-29ad-46e2-920e-665997fb1c82 r/w with ordered data mode. Quota mode: disabled.
+VFS: Mounted root (ext4 filesystem) on device 179:0.
+devtmpfs: mounted
+Freeing unused kernel image (initmem) memory: 160K
+Kernel memory protection not selected by kernel config.
+Run /sbin/init as init process
+
+============================================
+  Nokia E7-00 — Linux on BCM2727B1 (RAPU)
+  kernel 6.12.0-00006-g1bacff008820-dirty @ armv6l
+  root: /dev/mmcblk0 (buildroot ARMv6 musl)
+  RAM: 254816 kB
+============================================
+-- ROOT-UP: buildroot armv6/musl on the eMMC ext4 (task 103)
+-- toolchain: musl.cc armv6-linux-musleabi (gcc 11.2)
+-- block devices:
+major minor  #blocks  name
+
+ 179        0      65536 mmcblk0
+ 179        8      65536 mmcblk1
+e7:~# random: crng init done
+qemu-system-arm: terminating on signal 15 from pid 2184709 (timeout)

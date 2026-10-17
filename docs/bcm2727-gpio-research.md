@@ -290,6 +290,12 @@ Crypto stubs pass auth but produce garbage values.
 Capture NLoader UART output during real hardware boot. NLoader prints
 GENIO configuration messages. This would reveal pad mux values.
 
+**[2026-08-22 correction (task 095): NLoader's text output is not a
+UART — it writes tagged records to the XTI trace mailbox at phys
+0x40100000 (drained by R&D tooling); its byte-driven "serial" path is an
+I2C master. Hardware capture options: XTI/STI jig, or a soft-UART
+bitbang on genio42 "TxCDa". See docs/bcm2727-xti-trace.md section 5.]**
+
 ### Path 4: Read BCM2835 Peripherals Doc + N8 Schematic
 Cross-reference BCM2835 GPIO ALT function table with N8/E7 schematic
 signal names. If signal routing matches, can infer GPFSEL values.

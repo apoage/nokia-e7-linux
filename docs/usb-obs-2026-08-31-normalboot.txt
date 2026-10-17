@@ -1,0 +1,125 @@
+# E7 hardware USB observation — normal power-on, 2026-08-31 (passive, zero writes)
+# Host: terminus, usbmon 0u + sysfs poll (200ms) + kernel journal. Phone: RM-626, connected, no keys held.
+
+## VID/PID timeline (sysfs poll, bus 3)
+22:17:33 baseline  0421:0335 (phone on, normal composite)
+22:19:08 dropped    (phone powered off; NOTHING on bus while off — no charging-mode device)
+22:19:32 APPEARED   0421:0333  <- boot-time device, device #12
+22:20:10 dropped    0333 gone after ~38 s
+22:20:12 APPEARED   0421:0335  device #13 (Symbian full stack up ~40 s after power-on)
+
+## usbmon ground truth (kernel-level — misses nothing)
+No 0421:0106 (ROM mode) and no 0421:0105 (ADL) EVER appeared — at any timescale.
+Only two Nokia devices: 0333 then 0335.
+
+## 0421:0333 decoded (from usbmon control transfers, device 012)
+Device : 12 01 00 02 00 00 00 40 | VID 0421 PID 0333 | bcdDevice 0101 | iMfg 1 iProd 2 iSer 3
+Config : 1 config, 1 interface, class 08/06/50 (MASS STORAGE, SCSI transparent, Bulk-Only)
+EPs    : 0x81 BULK IN + 0x01 BULK OUT, both 512-byte high-speed
+Strings: iManufacturer 'Nokia'; iProduct 'E7-00'; iSerial 354864048650007 (= IMEI-derived, same as 0335);
+         iConfiguration 'Bulk transfer mode'; + 'USB Mass Storage'; langid 0409; GET_MAX_LUN -> 1 LUN
+
+## Host->device SCSI audit (proof of no writes)
+260 CBWs, ALL read-class: 188 READ10, 56 TEST_UNIT_READY, 5 ALLOW_REMOVAL, 4 MODE_SENSE6,
+2 INQUIRY, 2 REQUEST_SENSE, 2 READ_CAPACITY10, 1 0xa1 probe.
+Bulk DATA-OUT beyond the 31-byte CBWs: 0 bytes. Nothing mounted read-write.
+(Reads = kernel partition scan + udisks filesystem probing. NAND/eMMC untouched.)
+
+## Ownership hunt (all negative — descriptor is runtime-staged)
+'Bulk transfer mode' / 'USB Mass Storage' / constant 0421:0333: not in nloader.bin,
+not in romdumpplus.dmp, not in nokia-e7-onenand.img. nloader.bin mode table DOES carry
+'Massmemory boot' (off 0x2fec) + 'hw_conf: Massmemory %d: %d MB' (0x101e4).
+By-product: SWBL flash copy (img 0x140800, 0x2200) is NOT erased — real strings:
+'Reading TOC from block %d', 'NLoader copied to SDRAM', 'NLoader authentication failed',
+'RAP3NAND', 'NLoader image not found', 'SDRAM init failed', build ts 18:41:18.
+
+## Raw excerpts (filtered from /tmp/e7-usb-catch/usbmon.log, bus 3 Nokia devices only)
+--- device-012 enumeration (control):
+ffff8df58a7b8000 1667686011 S Ci:3:012:0 s 80 06 0100 0000 0012 18 <
+ffff8df58a7b8000 1667686253 C Ci:3:012:0 0 18 = 12010002 00000040 21043303 00010102 0301
+ffff8df58a7b8000 1667686263 S Ci:3:012:0 s 80 06 0200 0000 0009 9 <
+ffff8df58a7b8000 1667686625 C Ci:3:012:0 0 9 = 09022300 01010480 fa
+ffff8df58a7b8000 1667686630 S Ci:3:012:0 s 80 06 0200 0000 0023 35 <
+ffff8df58a7b8000 1667687006 C Ci:3:012:0 0 35 = 09022300 01010480 fa090400 00020806 50060705 81020002 00070501 02000200
+ffff8df58a7b8000 1667687014 S Ci:3:012:0 s 80 06 0300 0000 00ff 255 <
+ffff8df58a7b8000 1667687375 C Ci:3:012:0 0 4 = 04030904
+ffff8df58a7b8000 1667687379 S Ci:3:012:0 s 80 06 0302 0409 00ff 255 <
+ffff8df58a7b8000 1667687753 C Ci:3:012:0 0 12 = 0c034500 37002d00 30003000
+ffff8df58a7b8000 1667687758 S Ci:3:012:0 s 80 06 0301 0409 00ff 255 <
+ffff8df58a7b8000 1667688125 C Ci:3:012:0 0 12 = 0c034e00 6f006b00 69006100
+ffff8df58a7b8000 1667688129 S Ci:3:012:0 s 80 06 0303 0409 00ff 255 <
+ffff8df58a7b8000 1667688500 C Ci:3:012:0 0 32 = 20033300 35003400 38003600 34003000 34003800 36003500 30003000 30003700
+ffff8df58a7b8000 1667688878 S Co:3:012:0 s 00 09 0001 0000 0000 0
+ffff8df58a7b8000 1667689126 C Co:3:012:0 0 0
+ffff8df58a7b8000 1667689138 S Ci:3:012:0 s 80 06 0304 0409 00ff 255 <
+ffff8df58a7b8000 1667689502 C Ci:3:012:0 0 70 = 46034200 75006c00 6b002000 74007200 61006e00 73006600 65007200 20006d00
+ffff8df58a7b8000 1667689575 S Ci:3:012:0 s 80 06 0306 0409 00ff 255 <
+ffff8df58a7b8000 1667689876 C Ci:3:012:0 0 54 = 36035500 53004200 20004d00 61007300 73002000 53007400 6f007200 61006700
+ffff8df58a7b8000 1668697013 S Ci:3:012:0 s a1 fe 0000 0000 0001 1 <
+ffff8df58a7b8000 1668697491 C Ci:3:012:0 0 1 = 00
+--- device-013 (0335) enumeration head:
+ffff8df58a7b8000 1706839010 S Ci:3:013:0 s 80 06 0100 0000 0012 18 <
+ffff8df58a7b8000 1706839288 C Ci:3:013:0 0 18 = 12010002 02000040 21043503 00010102 0301
+ffff8df58a7b8000 1706839300 S Ci:3:013:0 s 80 06 0200 0000 0009 9 <
+ffff8df58a7b8000 1706839659 C Ci:3:013:0 0 9 = 09022402 12010480 fa
+ffff8df58a7b8000 1706839664 S Ci:3:013:0 s 80 06 0200 0000 0224 548 <
+ffff8df58a7b8000 1706840034 C Ci:3:013:0 0 548 = 09022402 12010480 fa090400 00030601 01060705 81020002 01070501 02000201
+ffff8df58a7b8000 1706840064 S Ci:3:013:0 s 80 06 0300 0000 00ff 255 <
+ffff8df58a7b8000 1706840413 C Ci:3:013:0 0 4 = 04030904
+ffff8df58a7b8000 1706840419 S Ci:3:013:0 s 80 06 0302 0409 00ff 255 <
+ffff8df58a7b8000 1706840783 C Ci:3:013:0 0 12 = 0c034500 37002d00 30003000
+ffff8df58a7b8000 1706840790 S Ci:3:013:0 s 80 06 0301 0409 00ff 255 <
+ffff8df58a7b8000 1706841162 C Ci:3:013:0 0 12 = 0c034e00 6f006b00 69006100
+--- device-012 bulk traffic head/tail:
+ffff8df58a7b8000 1668697592 S Bo:3:012:1 -115 31 = 55534243 01000000 24000000 80000612 00000024 00000000 00000000 000000
+ffff8df58a7b8000 1668697613 C Bo:3:012:1 0 31 >
+ffff8df58a7b8000 1668698318 S Bo:3:012:1 -115 31 = 55534243 02000000 00000000 00000600 00000000 00000000 00000000 000000
+ffff8df58a7b8000 1668698330 C Bo:3:012:1 0 31 >
+ffff8df58a7b8000 1668698520 S Bo:3:012:1 -115 31 = 55534243 03000000 12000000 80000603 00000012 00000000 00000000 000000
+ffff8df58a7b8000 1668698554 C Bo:3:012:1 0 31 >
+ffff8df58a7b8000 1668698678 S Bo:3:012:1 -115 31 = 55534243 04000000 00000000 00000600 00000000 00000000 00000000 000000
+ffff8df58a7b8000 1668698703 C Bo:3:012:1 0 31 >
+ffff8df58a7b8000 1702041303 S Bo:3:012:1 -115 31 = 55534243 03010000 00000000 00000600 00000000 00000000 00000000 000000
+ffff8df58a7b8000 1702041322 C Bo:3:012:1 0 31 >
+ffff8df58a7b8000 1704089037 S Bo:3:012:1 -115 31 = 55534243 04010000 00000000 00000600 00000000 00000000 00000000 000000
+ffff8df58a7b8000 1704089061 C Bo:3:012:1 0 31 >
+
+=====================================================================
+ROUND 2 — cold-attach + force resets, 2026-08-31 ~22:35 (same rails: passive, no host commands, zero writes)
+User actions: power off -> unplug -> replug into POWERED-OFF phone (screen: "lowlevel
+init" then charging indication), later power-till-backlight, later 2x force reboot.
+
+## Timeline (sysfs poll, bus 3)
+22:35:29  off (0335 gone; menu-off state stays bus-silent, as in round 1)
+22:35:57  0421:0106 APPEARS  (~3.7 s window)  <- cable attach to unpowered phone
+22:36:00  0106 gone (no host engaged -> ROM timed out)
+22:36:36  0421:0333 (massmemory) ~64 s        <- boot proceeded; charging screen shown
+22:37:40  0106 again, then a RETRY LOOP: 4x 0106 blips (~3.7 s each, ~10 s period,
+          22:37:40 - 22:38:38)                <- warm-reset ROM loop (matches task 108's
+                                                 decode: Update window = ~10 warm resets)
+22:39:37  0421:0335 — full boot completed (cycle gave up, normal boot)
+22:40:25  0333 (~33 s) -> 0335                <- force reboot #1
+22:42:16  0333 (~42 s) -> 0335                <- force reboot #2 (same presentation)
+
+## 0421:0106 decoded (usbmon, device 014)
+Device  : 12 01 00 02 ff ff ff 40 | VID 0421 PID 0106 | bcdDevice 0106 | iMfg 1 iProd 6 iSer 2
+Class   : FF/FF/FF vendor-specific (the March doc's class claim — CONFIRMED)
+Config  : 1 config, 1 interface, bNumEndpoints = 0 -> CONTROL-ONLY device (no bulk EPs)
+Strings : 'Nokia' (iMfg); string idx 2 = 'Nokia USB ROM'; usb.ids names 0106 "ROM Parent"
+Traffic : enumeration + SET_CONFIGURATION ONLY. No ASIC-ID push, no unsolicited data,
+          no bulk endpoints to push on. The ROM waits ~3.7 s for an EP0 engage command,
+          then times out -> next boot stage / warm reset.
+
+## Conclusions (round 1 + 2)
+1. 0106 ROM mode is REAL — trigger is COLD ATTACH (cable into unpowered phone /
+   VBUS-triggered cold boot), NOT the power-button boot of round 1. The March dmesg
+   sighting = same trigger. Power-button boots go straight to 0333.
+2. The flasher catch rhythm is now fully observed end to end:
+   cold attach -> 0106 (3.7 s, control-only, waiting for EP0 engage) -> [no host] ->
+   0333 massmemory (~40-64 s, EM charging screen) -> [no host] -> 0106 warm-reset
+   loop (~4 observed cycles, ~10 s period) -> gives up -> full boot (0335).
+3. Abnormal reset (force reboot) presents the SAME 0333 -> 0335 as a normal boot —
+   no different USB presentation (internal mode may differ; externally identical).
+4. 0333's SCSI INQUIRY answers "Nokia   S60" (TSD S60 mass storage) — device 015.
+5. Host audit round 2: standard enumeration + read-class SCSI only; ZERO writes;
+   ROM windows received only standard enumeration. Phone untouched (both rounds).

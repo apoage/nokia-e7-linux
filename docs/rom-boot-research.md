@@ -2,6 +2,19 @@
 
 Research date: 2026-03-09
 
+> **Correction (2026-08-31, measured on hardware — ROUND 2 SAME DAY):**
+> a passive usbmon + sysfs capture of a NORMAL power-button boot (USB
+> attached) shows no 0421:0106 — the boot presents **0421:0333, a USB
+> mass-storage "Bulk transfer mode" device for ~38 s**, then the
+> normal 0335 composite. BUT a second capture with **cable attach to
+> the POWERED-OFF phone** (VBUS cold boot) **enumerates 0421:0106** —
+> the ROM window below IS real, ~3.7 s, control-only (FF/FF/FF, zero
+> endpoints), followed on timeout by the 0333 mass-memory window and a
+> 0106 warm-reset retry loop. The March premise stands with the
+> corrected trigger: **cold attach, not power-button boot**. Full
+> evidence: docs/usb-obs-2026-08-31-normalboot.txt +
+> bcm2727-usb-flashmode.md §8/§9.
+
 ## 1. USB Device Identity
 
 When the Nokia E7 briefly appears as "Nokia USB ROM" in dmesg, it is using:
@@ -20,6 +33,27 @@ ADL mode (0x0105) -> normal Symbian boot.
 > **Note (2026-03-23):** This section was written assuming RAPUYAMA = OMAP3630.
 > Real HW CPUID = ARM1176JZF-S (ARMv6), likely Broadcom BCM2763. The ROM boot
 > protocol may differ from TI's. See docs/critical-cpu-discovery.md.
+
+> **Note (2026-08-26):** The **device side** of the flasher channel is
+> confirmed inside `nloader.bin` (strings + 2026-02-26 chronicle): a full
+> **MUSB (Mentor) OTG driver** (`usb_hw_handle_events`,
+> `usb_hw_enqueue_packet`, "No MUSB DMA channels available"), the flash-mode
+> USB descriptor string "Nokia Mobile Device (NLoader mode)", and the
+> boot-mode selection that trips it ("ADL -> Local Mode", "USB -> Update
+> Mode", "Forced Local Mode", "FOTA -> Update Mode").  Two consequences:
+> (1) the authoritative wire-protocol decode target is the bootloader
+> itself — not the Phoenix DLLs (those were only reversed at the
+> service-name/auth level: docs/phoenix-service-map.md,
+> docs/research-findings-2026-03-22.md); (2) the controller IP is public
+> MUSBHDRC, so the "USB OTG +0x25Axx" block likely maps onto the mainline
+> `drivers/usb/musb` register layout — the Linux USB-console path is a
+> glue-driver job, not a from-scratch decode.
+>
+> **Decoded 2026-08-26 (task 108): see docs/bcm2727-usb-flashmode.md** —
+> MUSBHDRC core pinned at sys+0x8800 (NLoader 0x20038800 / kernel
+> 0xC6038800; the +0x25Axx block is OTG glue, not the core), NLoader’s
+> stack is polled, and the flash channel’s first framing level is
+> control-OUT vendor requests with a data stage.
 
 The Nokia E7 uses the RAPUYAMA (D1800 package) application processor. The ROM
 code implements a peripheral boot protocol over USB (originally assumed to be

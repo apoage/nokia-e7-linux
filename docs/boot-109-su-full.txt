@@ -1,0 +1,114 @@
+# Task-109 evidence: console=ttySU0-only chain boot to e7:~# (2026-08-28)
+#
+# Primary: plain chain-boot command with the su console and loglevel 7,
+#   -icount shift=auto:
+#     qemu-system-arm -M nokia-e7 -m 256M -nographic -icount shift=auto \
+#       -drive id=nloader -drive id=onenand -drive id=emmc -drive id=sd \
+#       -kernel kernel/linux/arch/arm/boot/zImage \
+#       -dtb bcm2727-nokia-e7.dtb \
+#       -append 'earlycon=bcm2727su console=ttySU0 loglevel=7 root=/dev/mmcblk0 rootwait rw'
+#   Decoded off the genio42 pin by the board-model tap (su42: lines).
+#   Every boot-invariant line is byte-identical to the ttyAMA0 boot text;
+#   differences are only the console-specific lines, per-boot random
+#   values (mmc1 address), the new build strings, and the icount lpj
+#   artifact (fewer delay-loop instructions per timer tick while
+#   bit-banging).  BogoMIPS 249.44 vs 996.14 on ttyAMA0 is expected.
+#
+# Canonical loglevel-5 variant (the task-107 command) decodes clean
+# through the full rcS output under '-icount shift=3'; the busybox
+# prompt has no trailing newline and loglevel 5 suppresses every later
+# kernel line, so the tap holds it in its line buffer â€” the SUUART_DEBUG
+# frame trace of that run ends: '...65536 mmcblk1 CR LF e7:~#' (1139
+# frames, all clean).  With shift=auto the poll quantum grows during the
+# pre-userspace console idle and framing collapses â€” emulator artifact,
+# see docs/bcm2727-softuart.md Â§4 item 10.
+#
+su42: Booting Linux on physical CPU 0x0
+su42: Linux version 6.12.0-00008-gd9ef03799f70-dirty (lukas@terminus) (arm-linux-gnueabihf-gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.46) #40 F
+su42: ri Aug 28 01:04:50 CEST 2026
+su42: CPU: ARMv6-compatible processor [410fb767] revision 7 (ARMv7), cr=00c5387d
+su42: CPU: VIPT aliasing data cache, unknown instruction cache
+su42: OF: fdt: Machine model: Nokia E7-00 (RM-626)
+su42: earlycon: bcm2727su0 at I/O port 0x0 (options '')
+su42: printk: legacy bootconsole [bcm2727su0] enabled
+su42: Memory policy: Data cache writeback
+su42: Zone ranges:
+su42:   Normal   [mem 0x0000000080000000-0x000000008fffffff]
+su42:   HighMem  empty
+su42: Movable zone start for each node
+su42: Early memory node ranges
+su42:   node   0: [mem 0x0000000080000000-0x000000008fffffff]
+su42: Initmem setup node 0 [mem 0x0000000080000000-0x000000008fffffff]
+su42: Kernel command line: earlycon=bcm2727su console=ttySU0 loglevel=7 root=/dev/mmcblk0 rootwait rw
+su42: Dentry cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+su42: Inode-cache hash table entries: 16384 (order: 4, 65536 bytes, linear)
+su42: Built 1 zonelists, mobility grouping on.  Total pages: 65536
+su42: mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+su42: SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+su42: NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+su42: bcm2727-icu: /soc/interrupt-controller@20400000: 421 irq ids
+su42: clocksource: bcm2727-frc: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 9556302233 ns
+su42: sched_clock: 32 bits at 200MHz, resolution 5ns, wraps every 10737418237ns
+su42: bcm2727-timer: /soc/timer@20203600 tick at 200000000 Hz, irq 16 (ICU id 0xf2)
+su42: Console: colour dummy device 80x30
+su42: Calibrating delay loop... 249.44 BogoMIPS (lpj=1247232)
+su42: CPU: Testing write buffer coherency: ok
+su42: pid_max: default: 32768 minimum: 301
+su42: Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+su42: Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+su42: Setting up static identity map for 0x80008220 - 0x8000827c
+su42: Memory: 254144K/262144K available (3344K kernel code, 495K rwdata, 828K rodata, 160K init, 225K bss, 7488K reserved, 0K cma-reserved, 0K highmem)
+su42: devtmpfs: initialized
+su42: VFP support v0.3: implementor 41 architecture 1 part 20 variant b rev 5
+su42: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+su42: futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+su42: pinctrl core: initialized pinctrl subsystem
+su42: DMA: preallocated 256 KiB pool for atomic coherent allocations
+su42: Serial: AMBA PL011 UART driver
+su42: platform soc: Fixed dependency cycle(s) with /soc/interrupt-controller@20400000
+su42: 40210000.serial: ttyAMA0 at MMIO 0x40210000 (irq = 17, base_baud = 0) is a PL011 rev1
+su42: clocksource: Switched to clocksource bcm2727-frc
+su42: workingset: timestamp_bits=30 max_order=16 bucket_order=0
+su42: io scheduler mq-deadline registered
+su42: io scheduler kyber registered
+su42: io scheduler bfq registered
+su42: bcm2727-pinctrl 20200000.pinctrl: BCM2727B1 GENIO: 176 pads, 160 gpios (banks 0-4), edge irqchip via ICU level-3; banks 5/6 wake-only
+su42: softuart: ttySU0 at MMIO 0x202019f0 (irq = 0, base_baud = 0) is a BCM2727SU
+su42: printk: legacy console [ttySU0] enabled
+su42: printk: legacy console [ttySU0] enabled
+su42: printk: legacy bootconsole [bcm2727su0] disabled
+su42: printk: legacy bootconsole [bcm2727su0] disabled
+su42: bcm2727-softuart softuart: TX bit-bang soft-UART on /softuart gpio spec (115200 Bd, frc 200000000 Hz)
+su42: mmc-bcm2727 20202800.mmc: BCM2727 Rapu_Memcard eMMC channel, IRQ-driven
+su42: mmc-bcm2727 20202900.mmc: BCM2727 Rapu_Memcard SD channel, IRQ-driven
+su42: clk: Disabling unused clocks
+su42: Waiting for root device /dev/mmcblk0...
+su42: mmc0: new MMC card at address 0001
+su42: mmcblk0: mmc0:0001 QEMU!! 64.0 MiB
+su42: mmc1: host does not support reading read-only switch, assuming write-enable
+su42: mmc1: new SD card at address f690
+su42: mmcblk1: mmc1:f690 QEMU! 64.0 MiB
+su42: EXT4-fs (mmcblk0): recovery complete
+su42: EXT4-fs (mmcblk0): mounted filesystem ffd63d83-29ad-46e2-920e-665997fb1c82 r/w with ordered data mode. Quota mode: disabled.
+su42: VFS: Mounted root (ext4 filesystem) on device 179:0.
+su42: devtmpfs: mounted
+su42: Freeing unused kernel image (initmem) memory: 160K
+su42: Kernel memory protection not selected by kernel config.
+su42: Run /sbin/init as init process
+su42: ============================================
+su42:   Nokia E7-00 â
+su42: €” Linux on BCM2727B1 (RAPU)
+su42:   kernel 6.12.0-00008-gd9ef03799f70-dirty @ armv6l
+su42:   root: /dev/mmcblk0 (buildroot ARMv6 musl)
+su42:   RAM: 254816 kB
+su42: ============================================
+su42: -- ROOT-UP: buildroot armv6/musl on the eMMC ext4 (task 103)
+su42: -- toolchain: musl.cc armv6-linux-musleabi (gcc 11.2)
+su42: -- block devices:
+su42: major minor  #blocks  name
+su42:  179        0      65536 mmcblk0
+su42:  179        8      65536 mmcblk1
+su42: e7:~# 
+su42: Î
+su42: Ì
+su42: tè

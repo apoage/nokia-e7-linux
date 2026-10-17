@@ -1,5 +1,13 @@
 # GPIO Register Discovery — BCM2727B1
 
+> **SUPERSEDED (2026-08-21):** The register map and offsets in this file are
+> wrong — they came from ASCII-space false positives (0x20202020) in the string
+> area at ROM 0x14C800-0x14E200, and from misreading kernel RAM addresses
+> (0xC8004xxx) as MMIO. The real GPIO register file, decoded statically from the
+> ROM driver, is documented in **docs/gpio-static-pinmux.md** (MMIO VA window is
+> 0xC603xxxx, not 0xC8004xxx; there are no BCM2835-style GPFSEL registers and
+> no byte-granularity pin registers). Kept for history only.
+
 ## Physical GPIO Base: 0x20200000
 Confirmed by 300+ references in ROM dump.
 
