@@ -1,0 +1,19 @@
+#!/bin/sh
+# Nokia E7-00 — buildroot ARMv6/musl root (task 103)
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+grep -q ' /dev devtmpfs' /proc/mounts || mount -t devtmpfs devtmpfs /dev
+[ -c /dev/null ] || mknod /dev/null c 1 3
+hostname -F /etc/hostname
+
+echo
+echo "============================================"
+echo "  Nokia E7-00 — Linux on BCM2727B1 (RAPU)"
+echo "  kernel $(uname -r) @ $(uname -m)"
+echo "  root: /dev/mmcblk0 (buildroot ARMv6 musl)"
+echo "  RAM: $(awk '/MemTotal/{print $2 " " $3}' /proc/meminfo)"
+echo "============================================"
+echo "-- ROOT-UP: buildroot armv6/musl on the eMMC ext4 (task 103)"
+echo "-- toolchain: musl.cc armv6-linux-musleabi (gcc 11.2)"
+echo "-- block devices:"
+cat /proc/partitions

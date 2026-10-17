@@ -1,0 +1,2 @@
+# device      mount  type     options  dump pass
+/dev/mmcblk0  /      ext4     rw       0    1

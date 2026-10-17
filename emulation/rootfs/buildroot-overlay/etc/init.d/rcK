@@ -1,0 +1,3 @@
+#!/bin/sh
+sync
+umount -a -r 2>/dev/null

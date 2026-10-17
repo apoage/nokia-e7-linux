@@ -1,0 +1,7 @@
+Nokia E7-00 buildroot root filesystem (task 103, 2026-08-23).
+ARMv6 soft-float musl userland, built with the musl.cc
+armv6-linux-musleabi cross through buildroot 2026.02.3.
+Boots with root=/dev/mmcblk0 rootwait through the NLoader chain,
+same as the task-098 busybox root it replaces (that one is still
+rebuildable via build-emmc-root.sh; build-initramfs.sh remains the
+rescue fallback).

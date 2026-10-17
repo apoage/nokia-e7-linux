@@ -1,0 +1,6 @@
+# Nokia E7-00 buildroot root (task 103) — busybox init
+# Same console-shell shape as the task-098 busybox root.
+::sysinit:/etc/init.d/rcS
+::respawn:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/etc/init.d/rcK
