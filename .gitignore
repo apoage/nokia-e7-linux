@@ -3,6 +3,7 @@ kernel/linux/
 emulation/qemu/
 
 # Large binary / archive dirs
+archive/
 archive-dump/
 firmware-re/
 firmware-stock/
@@ -13,6 +14,7 @@ sgx540-reversing/
 rootfs/
 networking/
 prompts/
+toolchain/
 
 # Rootfs images (large, rebuilt from script)
 emulation/rootfs/initramfs/rootfs.ext4
@@ -24,10 +26,24 @@ emulation/rootfs/initramfs.cpio.gz
 *.bin
 *.dtb
 *.pdf
+*.exe
+*.sis
+*.sisx
+*.dso
+*.ldd
+*.pyd
+
+# Vendored Symbian SDK / toolchain trees (Nokia/Symbian licensed, not redistributable)
+symbian-sdk/lib/
+symbian-sdk/GCC4Symbian/
+symbian-sdk/gnupoc-package/
+symbian-sdk/kernelhwsrv/
+symbian-sdk/include/
 
 # Editor/OS junk
 *.swp
 *~
 .DS_Store
 __pycache__/
+*.pem
 symbian-sdk/memread/pys60/noki_python/

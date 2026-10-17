@@ -20,29 +20,28 @@ Bringing Linux to the Nokia E7-00 (RM-626) — a 2011 Symbian^3 smartphone with 
 ## Status
 
 ### What Works
+- **Custom native exes run on the phone** (2026-08): unprotected-range UID + 4 platform deps recipe — see [tasks/090](tasks/090-O-fix-exe-build-armv6.md) and `symbian-sdk/memread/build_exe.sh`
+- **WiFi remote bridge** — remote Python exec, file push/pull, crash-isolated memory reads (`XPEEK`) from the PC; agent is PyS60 2.2.2 (Python 2.2 core!) and host-py3 compatible
 - **QEMU emulation** boots Linux to shell in ~1.4s (synthetic OMAP3630 model, not HW-accurate)
-- **Symbian toolchain** — Python scripts run on phone via PyS60 1.4.5
 - **ISI/Phonet USB** — IMEI read, resource scanning, protocol documented
-- **ROM dump analyzed** — 30MB Symbian ROM with 800+ lines of peripheral mapping
-- **BCM2835 cross-reference** — GPIO, INTC, UART, I2C, SPI, USB addresses match Raspberry Pi
-- **218 kernel SVCs cataloged** — full executive call interface mapped from ROM
-- **peek/poke memory access** — `_hack.pyd` reads/writes user-space virtual memory
+- **ROM dump analyzed** — 31MB Symbian ROM; user-readable live at 0x80000000 (same image as `firmware-re/dumps/romdumpplus.dmp`)
+- **GPIO controller decoded statically** — no GPFSEL exists; BCM2727 uses a custom RAPU 7-bank SET/CLR block; full register map in [gpio-static-pinmux.md](docs/gpio-static-pinmux.md)
 
-### Current Challenge
-Reading GPIO Function Select registers (GPFSEL0-6, 28 bytes at physical 0x20200000) from the running phone. These contain the pin mux configuration needed for a Linux device tree. The registers are in kernel virtual address space (0xC8004xxx), inaccessible from user mode.
+### The Kernel-Memory Wall (mapped, not mysterious)
+Every LDD on the device (file and ROM resident) carries All+TCB; TCB is
+ROM-only; opening a channel with lesser caps = kernel panic. Runtime
+kernel reads from Symbian user space are closed pending a real exploit.
+Safe probing (peek.exe child) covers all of user space.
 
-### Approaches Attempted
-1. Custom Symbian exe — blocked by TCB capability (ROM-only)
-2. FShell readmem — kernel panic (memoryAccess LDD needs TCB)
-3. ISI protocol modem routing — modem resources unreachable from USB
-4. RomPatcher+ patches — kernel LDDs installed but no programmatic control
-5. `_hack.pyd` peek/poke — user-space only, heap is NX (no code execution)
-6. ROP via Python function pointer redirect — in progress (218 SVCs cataloged)
+### Where the pinmux actually lives
+Symbian never programs pin functions (SetPinMode is a stub) — they're
+set pre-boot (NLoader / GENIO_INIT / TrustZone / VideoCore chain), the
+same territory as the boot path for Linux.
 
 ### Next Steps
-- **ROP exploit** — redirect Python function to ROM gadget that reads kernel memory
-- **UART capture** — hardware debug via J2060 test pad (NLoader prints GPIO config at boot)
-- **Real hardware DTS** — BCM2835-based device tree once GPIO config obtained
+- **VideoCore second-stage loader** — pinmux source + boot mechanism in one target
+- **Linux pinctrl driver + DTS** from the decoded RAPU GPIO map
+- **NLoader path** (`firmware-re/analysis/nloader-patched.bin`) for the actual Linux boot
 
 ## Repository Structure
 
@@ -67,7 +66,7 @@ e7/
 
 ## Key Findings
 
-- **BCM2727B1 peripheral map matches BCM2835** (Raspberry Pi) — GPIO, INTC, UART, I2C, SPI, USB all at same base addresses in 0x20xxxxxx space
+- **BCM2727B1 peripheral base addresses sit in the BCM2835 0x20xxxxxx space, but the blocks are NOT BCM2835-layout** — the GPIO is a custom RAPU design (7 banks, SET/CLR registers, no GPFSEL); see [gpio-static-pinmux.md](docs/gpio-static-pinmux.md)
 - **BCM2708 gpio.h** found on GitHub — confirms register layout with 7 GPFSEL registers (70 GPIO pins)
 - **Nokia platform**: RAPU (RapidoVariant), hw79, codename Gazoo
 - **34 clock domains**, 7 GPIO banks, MUSB OTG USB, Messi+CCP2 bus to VideoCore
