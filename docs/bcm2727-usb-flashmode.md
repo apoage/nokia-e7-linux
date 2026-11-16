@@ -544,6 +544,32 @@ session); it would be a control-OUT on EP0 per the OMAP analogy —
 decode candidates: NLoader's staged-callback framing §4 mapped at the
 0x100070xx block.
 
+### 9.5 Round 3 runbook (prepped 2026-10-17, awaiting hardware)
+
+Promoted from the session-only prompt: passive-first, **the 0106 vendor
+engage stays OFF**, read-only before anything gated. Rails = the proven
+§8/§9 setup: `sudo modprobe usbmon` + debugfs mount, usbmon `0u`
+capture, sysfs poll 200 ms, journal; pyusb 1.2.1 + `tools/isi_*.py`
+for 0335.
+
+**S1 — normal power-on** (reproduces §8 with a fuller harvest):
+baseline 0335 → power off → power on → in the **0333 window** (~38–64 s):
+full descriptor set (from usbmon control transfers) + **read-only SCSI
+only** (INQUIRY / READ CAPACITY / mode sense — no WRITE-class opcodes);
+imaging of the exposed LUN is GATED on the structure decode making
+sense and the user saying yes. In the **0335 window**: cdc_phonet ISI
+queries (nameservice, resource scan — March tooling, proven).
+
+**S2 — cold attach** (reproduces §9): cable into the unpowered phone →
+0106 (3.7 s) → standard enumeration + standard-only EP0 extras
+(GET_STATUS / string indices); **no vendor engage at any point** →
+observe the warm-reset loop rhythm; compare against §1's decoded
+Update-window shape.
+
+Deliverables: `docs/usb-obs-round3-<date>.txt` evidence file, §9.5
+results write-up, HANDOFF state-row update. Physical script for the
+user: S1 = one power cycle; S2 = one cold attach; hands-off after that.
+
 ---
 
 ## 10. USB interrupt decode — Symbian ROM PDD (task 117, 2026-08-31)
